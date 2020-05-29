@@ -1,0 +1,123 @@
+(** printing ⊢#    %\vdash_{\#}%    #&vdash;<sub>&#35;</sub>#     *)
+(** printing ⊢##   %\vdash_{\#\#}%  #&vdash;<sub>&#35&#35</sub>#  *)
+(** printing ⊢##v  %\vdash_{\#\#v}% #&vdash;<sub>&#35&#35v</sub># *)
+(** printing ⊢!    %\vdash_!%       #&vdash;<sub>!</sub>#         *)
+(** remove printing ~ *)
+
+Set Implicit Arguments.
+
+Require Import TLC.LibLN.
+Require Import Coq.Program.Equality.
+Require Import Definitions RecordAndInertTypes PreciseTyping TightTyping InvertibleTyping.
+
+(** * Sel-<: Premise
+    This lemma corresponds to Lemma 3.5 in the paper.
+
+    [inert G]                    #<br>#
+    [G ⊢## x: {A: S..U}]        #<br>#
+    [――――――――――――――――――――――――――――]   #<br>#
+    [exists T. G ⊢## x: {A: T..T}]   #<br>#
+    [G ⊢# T <: U]               #<br>#
+    [G ⊢# S <: T]                    *)
+Lemma sel_premise: forall G x A S U,
+  inert G ->
+  G ⊢## x : typ_rcd (dec_typ A S U) ->
+  exists T V,
+    G ⊢! x : V ⪼ typ_rcd (dec_typ A T T) /\
+    G ⊢# T <: U /\
+    G ⊢# S <: T.
+Proof.
+  introv HG Hinv.
+  dependent induction Hinv.
+  - lets Hp: (pf_dec_typ_inv HG H). subst.
+    exists U T. split*.
+  - specialize (IHHinv A T U0 HG eq_refl).
+    destruct IHHinv as [V [V' [Hx [Hs1 Hs2]]]].
+    exists V V'. split*.
+Qed.
+
+(** * Sel-<: Replacement
+    This lemma corresponds to Lemma 3.4 in the paper.
+
+    [inert G]              #<br>#
+    [G ⊢# x: {A: S..U}]   #<br>#
+    [――――――――――――――――――――――]   #<br>#
+    [G ⊢# x.A <: U]       #<br>#
+    [G ⊢# S <: x.A]            *)
+Lemma sel_replacement: forall G x A S U,
+    inert G ->
+    G ⊢# x : typ_rcd (dec_typ A S U) ->
+    (G ⊢# typ_sel (avar_f x) A <: U /\
+     G ⊢# S <: typ_sel (avar_f x) A).
+Proof.
+  introv HG Hty.
+  pose proof (tight_to_invertible HG Hty) as Hinv.
+  pose proof (sel_premise HG Hinv) as [T [V [Ht [Hs1 Hs2]]]].
+  split.
+  - apply subtyp_sel1_t in Ht. apply subtyp_trans_t with (T:=T); auto.
+  - apply subtyp_sel2_t in Ht. apply subtyp_trans_t with (T:=T); auto.
+Qed.
+
+(** * General to Tight [⊢ to ⊢#] *)
+(** The following lemma corresponds to Theorem 3.3 in the paper.
+    It says that in an inert environment, general typing ([ty_trm] [⊢]) can
+    be reduced to tight typing ([ty_trm_t] [⊢#]).
+    The proof is by mutual induction on the typing and subtyping judgements.
+
+    [inert G]           #<br>#
+    [G ⊢ t: T]          #<br>#
+    [――――――――――――――]    #<br>#
+    [G ⊢# t: T] #<br># #<br>#
+
+    and                 #<br># #<br>#
+    [inert G]           #<br>#
+    [G ⊢ S <: U]        #<br>#
+    [――――――――――――――――]  #<br>#
+    [G ⊢# S <: U]         *)
+Lemma general_to_tight: forall G0,
+  inert G0 ->
+  (forall G t T,
+     G ⊢ t : T ->
+     forall x,
+       t = trm_var (avar_f x) ->
+       G = G0 ->
+       G ⊢# x : T) /\
+  (forall G S U,
+     G ⊢ S <: U ->
+     G = G0 ->
+     G ⊢# S <: U).
+Proof.
+  intros G0 HG.
+  apply ts_mutind; intros; subst;
+    repeat match goal with
+    | [ H: _ = trm_var (avar_f _) |- _] => inversions H
+    end; try solve [eapply sel_replacement; auto]; eauto.
+Qed.
+
+(** The general-to-tight lemma, formulated for term typing. *)
+Lemma general_to_tight_typing: forall G x T,
+  inert G ->
+  G ⊢ trm_var (avar_f x) : T ->
+  G ⊢# x : T.
+Proof.
+  intros. apply* general_to_tight.
+Qed.
+
+Lemma general_to_tight_subtyping: forall G S U,
+  inert G ->
+  G ⊢ S <: U ->
+  G ⊢# S <: U.
+Proof.
+  intros. apply* general_to_tight.
+Qed.
+
+Lemma general_to_tight_val : forall G v T,
+    inert G ->
+    G ⊢ (trm_val v) : T ->
+    G ⊢#v v : T.
+Proof.
+  intros * Hin.
+  remember (trm_val v) as t eqn:Heq.
+  induction 1; inversions Heq;
+    eauto using general_to_tight_subtyping.
+Qed.

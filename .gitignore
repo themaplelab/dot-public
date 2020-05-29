@@ -1,0 +1,15 @@
+*.aux
+*.v.d
+*.vo
+*.vio
+*.vo.aux
+*.glob
+.depend
+*~
+*#
+*.swo
+*.cache
+.DS_Store
+*.iml
+_CoqProject
+*.bak

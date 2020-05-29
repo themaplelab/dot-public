@@ -29,3 +29,7 @@ The simplification occurs in three stages:
 - The
   [stage-3](https://github.com/themaplelab/dot-public/tree/master/dot-simpler/stage-3)
   folder contains the Stage 3 simplifications.
+- The
+  [pdot-stage-1](https://github.com/themaplelab/dot-public/tree/master/dot-simpler/pdot-stage-1)
+  folder contains the Stage 1 simplifications for the
+  [pDOT](https://plg.uwaterloo.ca/~olhotak/pubs/oopsla19.pdf) calculus.

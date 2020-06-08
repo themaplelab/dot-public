@@ -23,9 +23,10 @@ The simplification occurs in three stages:
 
 This folder contains the type safety proof for Field Mutable DOT.
 
-Field Mutable DOT can be thought of being a calculus somewhere in between
-[WadlerFest DOT](https://infoscience.epfl.ch/record/215280/files/paper_1.pdf)
-and [κDOT](https://plg.uwaterloo.ca/~olhotak/pubs/scala18.pdf). It has the same
+Field Mutable DOT can be thought of as being a calculus which is somewhere in
+between [WadlerFest
+DOT](https://infoscience.epfl.ch/record/215280/files/paper_1.pdf) and
+[κDOT](https://plg.uwaterloo.ca/~olhotak/pubs/scala18.pdf). It has the same
 values as WadlerFest DOT, but it also features the same sort of mutation and
 [bounded field
 typing](https://ifazk.com/blog/2018-11-26-Bounded-field-typing.html) as κDOT.

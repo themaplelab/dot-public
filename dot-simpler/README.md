@@ -33,3 +33,13 @@ The simplification occurs in three stages:
   [pdot-stage-1](https://github.com/themaplelab/dot-public/tree/master/dot-simpler/pdot-stage-1)
   folder contains the Stage 1 simplifications for the
   [pDOT](https://plg.uwaterloo.ca/~olhotak/pubs/oopsla19.pdf) calculus.
+- The
+  [dot-field-mut-stage-0](https://github.com/themaplelab/dot-public/tree/master/dot-simpler/dot-field-mut-stage-0)
+  folder contains the base safety proof a DOT calculus which allows field
+  mutation. The calculus is based on
+  [κDOT](https://plg.uwaterloo.ca/~olhotak/pubs/scala18.pdf), which already
+  features the Stage 2 and Stage 3 simplifications.
+- The
+  [dot-field-mut-stage-1](https://github.com/themaplelab/dot-public/tree/master/dot-simpler/dot-field-mut-stage-1)
+  folder contains the safety proof of Field Mutable DOT with Stage 1
+  simplifications.

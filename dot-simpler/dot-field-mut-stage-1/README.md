@@ -32,24 +32,24 @@ The changes from the [Field Mutable DOT safety
 proof](https://github.com/themaplelab/dot-public/tree/master/dot-simpler/dot-field-mut-stage-0)
 are as follows:
   - In
-    [TightTyping.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-1/TightTyping.v)
+    [TightTyping.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-1/CanonicalForms/TightTyping.v)
     we changed the type of the relation `ty_trm_t` from `ctx -> trm -> typ ->
     Prop` to `ctx -> var -> typ -> Prop` and removed non-variable terms from the
     relation. We also changed the lemma `tight_to_general` from being a lemma
     about `trm`s to a lemma about `var`s.
   - In
-    [InvertibleTyping.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-1/InvertibleTyping.v)
+    [InvertibleTyping.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-1/CanonicalForms/InvertibleTyping.v)
     we changed `tight_to_invertible` from being a lemma about terms that are
     variabes to be a lemma about variables.
   - In
-    [GeneralToTight.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-1/GeneralToTight.v)
+    [GeneralToTight.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-1/CanonicalForms/GeneralToTight.v)
     we made appropriate changes to `sel_replacement`, `general_to_tight`, and
     `general_to_tight_typing`.
 
 The original files can be found at:
-  - [TightTyping.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-0/TightTyping.v)
-  - [InvertibleTyping.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-0/InvertibleTyping.v)
-  - [GeneralToTight.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-0/GeneralToTight.v)
+  - [TightTyping.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-0/CanonicalForms/TightTyping.v)
+  - [InvertibleTyping.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-0/CanonicalForms/InvertibleTyping.v)
+  - [GeneralToTight.v](https://github.com/themaplelab/dot-public/blob/master/dot-simpler/dot-field-mut-stage-0/CanonicalForms/GeneralToTight.v)
 
 ## Compiling the Proof
 

@@ -23,7 +23,7 @@ The simplification occurs in three stages:
 
 This folder contains the type safety proof for Field Mutable DOT.
 
-Field Mutable DOT can be thought of as being a calculus which is somewhere in
+Field Mutable DOT can be thought of as being a calculus that is somewhere in
 between [WadlerFest
 DOT](https://infoscience.epfl.ch/record/215280/files/paper_1.pdf) and
 [κDOT](https://plg.uwaterloo.ca/~olhotak/pubs/scala18.pdf). It has the same

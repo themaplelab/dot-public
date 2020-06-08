@@ -1,0 +1,9 @@
+##########
+# Graphs #
+##########
+
+graph.dot: $(VFILES)
+	$(COQDEP) -dumpgraph graph.dot -f _CoqProject >/dev/null 2>/dev/null
+
+graphbox.dot: $(VFILES)
+	$(COQDEP) -dumpgraphbox graphbox.dot -f _CoqProject >/dev/null 2>/dev/null

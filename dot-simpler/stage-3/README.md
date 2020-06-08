@@ -66,7 +66,7 @@ To compile the proof, we require
 To compile the proof, run
 
     git clone https://github.com/themaplelab/dot-public
-    cd dot-public/dot-simpler/stage-1/
+    cd dot-public/dot-simpler/stage-3/
     make
 
 `make` will do the following:

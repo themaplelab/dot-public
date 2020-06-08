@@ -69,7 +69,7 @@ cleanall::
 # Documentation #
 #################
 
-EXTRA_DIR:=../doc-assets/assets
+EXTRA_DIR:=doc-assets/assets
 
 $(DOCDIR)/toc.html: $(PROOFMAKEFILE)
 	$(MAKE) -f $(PROOFMAKEFILE) html

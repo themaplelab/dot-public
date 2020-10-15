@@ -15,9 +15,9 @@ calculus and various extensions of the calculus in Coq.
 - the `dot` program from the Graphviz collection
 - an installation of [Coq 8.10.2](https://coq.inria.fr/opam-using.html), preferably installed using `opam`
 - the [TLC](https://gitlab.inria.fr/charguer/tlc) library (version 20181116) whach can be installed through
-    opam repo add coq-released https://coq.inria.fr/opam/released
-    opam pin add coq-tlc 20181116
-    opam install coq-tlc
+      opam repo add coq-released https://coq.inria.fr/opam/released
+      opam pin add coq-tlc 20181116
+      opam install coq-tlc
 
 ## Compiling the Proofs
 To compile the proof, clone the repository, open up a terminal, navigate to the

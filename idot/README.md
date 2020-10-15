@@ -8,7 +8,7 @@ null-safety and makes fields non-lazy.
 This repository contains a formalization of the type-safety proof of the
 calculus and various extensions of the calculus in Coq.
 
-[&#x03B9;DOT paper](https://doi.org/10.1145/3428276) | [Documentation](https://themaplelab.github.io/dot-public/idot/README.html)
+[&#x03B9;DOT paper](https://doi.org/10.1145/3428276) | [GitHub repo](https://git.io/dot-init) | [Documentation](https://themaplelab.github.io/dot-public/idot/README.html)
 
 ## System Requirements
 - `make`

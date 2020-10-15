@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.Lib.LibExtraVar</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">TLC</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">LibTactics</span> <span class="id" title="library">LibLogic</span> <span class="id" title="library">LibVar</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtraList.html#"><span class="id" title="library">LibExtraList</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Fixpoint</span> <a name="vars_zip_map"><span class="id" title="definition">vars_zip_map</span></a> {<span class="id" title="var">A</span>} <span class="id" title="var">f</span> (<span class="id" title="var">xs</span> : <span class="id" title="inductive">list</span> <span class="id" title="axiom">var</span>) (<span class="id" title="var">ys</span> : <span class="id" title="inductive">list</span> <span class="id" title="axiom">var</span>) (<span class="id" title="var">X</span> : <a class="idref" href="DOT.Lib.LibExtraVar.html#A"><span class="id" title="variable">A</span></a>) :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a>, <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" title="constructor">nil</span>, <span class="id" title="var">_</span> =&gt; <a class="idref" href="DOT.Lib.LibExtraVar.html#X"><span class="id" title="variable">X</span></a><br/>
+&nbsp;&nbsp;| <span class="id" title="var">_</span>, <span class="id" title="constructor">nil</span> =&gt; <a class="idref" href="DOT.Lib.LibExtraVar.html#X"><span class="id" title="variable">X</span></a><br/>
+&nbsp;&nbsp;| <span class="id" title="constructor">cons</span> <span class="id" title="var">x</span> <span class="id" title="var">xs</span>, <span class="id" title="constructor">cons</span> <span class="id" title="var">y</span> <span class="id" title="var">ys</span> =&gt; <a class="idref" href="DOT.Lib.LibExtraVar.html#f"><span class="id" title="variable">f</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#vars_zip_map"><span class="id" title="definition">vars_zip_map</span></a> <a class="idref" href="DOT.Lib.LibExtraVar.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <a class="idref" href="DOT.Lib.LibExtraVar.html#X"><span class="id" title="variable">X</span></a>)<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="var_decide"><span class="id" title="lemma">var_decide</span></a> : <span class="id" title="keyword">forall</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <span class="id" title="axiom">var</span>), <span class="id" title="notation">{</span><a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#y"><span class="id" title="variable">y</span></a><span class="id" title="notation">}</span> <span class="id" title="notation">+</span> <span class="id" title="notation">{</span><a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">&lt;&gt;</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#y"><span class="id" title="variable">y</span></a><span class="id" title="notation">}</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<span class="id" title="axiom">var_compare_eq</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">LibReflect.isTrue_eq_if</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">cases_if</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fv_decide"><span class="id" title="lemma">fv_decide</span></a> : <span class="id" title="keyword">forall</span> (<span class="id" title="var">x</span> : <span class="id" title="axiom">var</span>) <span class="id" title="var">s</span>, <span class="id" title="notation">{</span><a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#s"><span class="id" title="variable">s</span></a><span class="id" title="notation">}</span> <span class="id" title="notation">+</span> <span class="id" title="notation">{</span><a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#s"><span class="id" title="variable">s</span></a><span class="id" title="notation">}</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">apply</span> <span class="id" title="lemma">classicT</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_cons"><span class="id" title="lemma">fresh_cons</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">L</span> <span class="id" title="var">n</span> <span class="id" title="var">x</span> <span class="id" title="var">ys</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="constructor">S</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#n"><span class="id" title="variable">n</span></a>) (<a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> <span class="id" title="notation">/\</span> <span class="id" title="definition">fresh</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <span class="id" title="notation">\{</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a><span class="id" title="notation">}</span>) <a class="idref" href="DOT.Lib.LibExtraVar.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="definition">fresh</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_single_in"><span class="id" title="lemma">fresh_single_in</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">l</span> <span class="id" title="var">ys</span> <span class="id" title="var">x</span> <span class="id" title="var">F</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#F"><span class="id" title="variable">F</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#F"><span class="id" title="variable">F</span></a> <a class="idref" href="DOT.Lib.LibExtraVar.html#l"><span class="id" title="variable">l</span></a> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <span class="id" title="notation">\{</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a><span class="id" title="notation">}</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#l"><span class="id" title="variable">l</span></a> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">l</span>; <span class="id" title="tactic">induction</span> <span class="id" title="var">ys</span>; <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">simpl</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H0</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">H0</span>. <span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> ?<span class="id" title="var">H</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_singleton</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H2</span>; <span class="id" title="tactic">subst</span> <span class="id" title="var">a</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="lemma">fresh_union_l</span>; <span class="id" title="tactic">auto</span>. <span class="id" title="tactic">eapply</span> <span class="id" title="var">IHl</span>; <span class="id" title="tactic">eauto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_from_list"><span class="id" title="lemma">fresh_from_list</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">ys</span> <span class="id" title="var">x</span> <span class="id" title="var">L</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <span class="id" title="definition">from_list</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="definition">length</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>) <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <span class="id" title="notation">\{</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a><span class="id" title="notation">}</span> (<span class="id" title="definition">length</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>) <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">ys</span>; <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">simpl</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">from_list_cons</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">notin_solve</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H0</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">H0</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">fresh_solve</span>. <span class="id" title="tactic">eapply</span> <span class="id" title="var">IHys</span>; <span class="id" title="tactic">eauto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="from_list_fresh"><span class="id" title="lemma">from_list_fresh</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">ys</span> <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <span class="id" title="notation">\{</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a><span class="id" title="notation">}</span> (<span class="id" title="definition">length</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>) <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <span class="id" title="definition">from_list</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">ys</span>; <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">simpl</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">from_list_nil</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">from_list_cons</span>, <span class="id" title="lemma">notin_union</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_cons_app"><span class="id" title="lemma">fresh_cons_app</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">x</span> <span class="id" title="var">ys</span> <span class="id" title="var">L</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="definition">length</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>)) (<a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="definition">length</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">++</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <span class="id" title="constructor">nil</span>)) (<a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">++</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <span class="id" title="constructor">nil</span>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">x</span>. <span class="id" title="tactic">induction</span> <span class="id" title="var">ys</span>; <span class="id" title="var">simpls</span>; <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">H0</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">split</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_app"><span class="id" title="lemma">fresh_app</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">xs</span> <span class="id" title="var">ys</span> <span class="id" title="var">L</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="definition">length</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a> <span class="id" title="notation">++</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>)) (<a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a> <span class="id" title="notation">++</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="definition">length</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">++</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a>)) (<a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">++</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">xs</span>; <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">simpls</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">List.app_nil_r</span>. <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">assert</span> ((<span class="id" title="var">a</span> <span class="id" title="notation">::</span> <span class="id" title="var">xs</span>)%<span class="id" title="var">list</span> <span class="id" title="notation">=</span> (<span class="id" title="notation">(</span><span class="id" title="var">a</span> <span class="id" title="notation">::</span> <span class="id" title="constructor">nil</span><span class="id" title="notation">)</span> <span class="id" title="notation">++</span> <span class="id" title="var">xs</span>)%<span class="id" title="var">list</span>) <span class="id" title="tactic">by</span> <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> ? <span class="id" title="var">H0</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">rewrite</span> &lt;- ? <span class="id" title="lemma">List.app_assoc</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">clear</span> <span class="id" title="var">H0</span>. <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#fresh_cons_app"><span class="id" title="lemma">fresh_cons_app</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="lemma">List.app_assoc</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">IHxs</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="lemma">List.app_assoc</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_app_l"><span class="id" title="lemma">fresh_app_l</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">xs</span> <span class="id" title="var">ys</span> <span class="id" title="var">L</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="definition">length</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a> <span class="id" title="notation">++</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>)) (<a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a> <span class="id" title="notation">++</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="definition">length</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a>) <a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">ys</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="lemma">List.app_nil_end</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">L</span> <span class="id" title="var">Hfr</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#fresh_app"><span class="id" title="lemma">fresh_app</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">Hfr</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">Hfr</span> <span class="id" title="keyword">as</span> [? <span class="id" title="var">Hfr</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#fresh_app"><span class="id" title="lemma">fresh_app</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">Hfr</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">IHys</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_rev"><span class="id" title="lemma">fresh_rev</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">L</span> <span class="id" title="var">xs</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="definition">length</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a>) <a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="definition">length</span> (<span class="id" title="definition">List.rev</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a>)) (<span class="id" title="definition">List.rev</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#xs"><span class="id" title="variable">xs</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">L</span> <span class="id" title="var">xs</span>. <span class="id" title="var">gen</span> <span class="id" title="var">L</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">xs</span> <span class="id" title="keyword">using</span> <span class="id" title="lemma">List.rev_ind</span>; <span class="id" title="var">simpls</span>; <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">List.rev_app_distr</span>. <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#fresh_app"><span class="id" title="lemma">fresh_app</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#fresh_app"><span class="id" title="lemma">fresh_app</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#fresh_cons_app"><span class="id" title="lemma">fresh_cons_app</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">simpls</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">split</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">Hint Extern</span> 2 (<span class="id" title="definition">fresh</span> ?<span class="id" title="var">L</span> (<span class="id" title="definition">length</span> (<span class="id" title="definition">List.rev</span> ?<span class="id" title="var">xs</span>)) (<span class="id" title="definition">List.rev</span> ?<span class="id" title="var">xs</span>)) =&gt;<br/>
+<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#fresh_rev"><span class="id" title="lemma">fresh_rev</span></a>; <span class="id" title="tactic">auto</span> 1 : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_S_split"><span class="id" title="lemma">fresh_S_split</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">L</span> <span class="id" title="var">n</span> <span class="id" title="var">ys'</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="constructor">S</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#n"><span class="id" title="variable">n</span></a>) <a class="idref" href="DOT.Lib.LibExtraVar.html#ys'"><span class="id" title="variable">ys'</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">exists</span> <span class="id" title="var">x</span> <span class="id" title="var">ys</span><span class="id" title="notation">,</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys'"><span class="id" title="variable">ys'</span></a> <span class="id" title="notation">=</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>)%<span class="id" title="var">list</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">unfold</span> <span class="id" title="definition">fresh</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">destruct</span> <span class="id" title="var">ys'</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">destruct</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">exists</span> <span class="id" title="var">v</span> <span class="id" title="var">ys'</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_length"><span class="id" title="lemma">fresh_length</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">ys</span> <span class="id" title="var">L</span> <span class="id" title="var">n</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> <a class="idref" href="DOT.Lib.LibExtraVar.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">length</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#n"><span class="id" title="variable">n</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">apply</span> <span class="id" title="lemma">fresh_length</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">rewrite</span> <a class="idref" href="DOT.Lib.LibExtraList.html#liblist_length"><span class="id" title="lemma">liblist_length</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">congruence</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">Hint Resolve</span> <span class="id" title="var">fresh_length</span> : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_length_rev"><span class="id" title="lemma">fresh_length_rev</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">ys</span> <span class="id" title="var">L</span> <span class="id" title="var">n</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> <a class="idref" href="DOT.Lib.LibExtraVar.html#n"><span class="id" title="variable">n</span></a> (<span class="id" title="definition">List.rev</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">length</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#n"><span class="id" title="variable">n</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="lemma">List.rev_length</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">eauto</span> 2.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">Hint Resolve</span> <span class="id" title="var">fresh_length_rev</span> : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_length_S"><span class="id" title="lemma">fresh_length_S</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">x</span> <span class="id" title="var">ys</span> <span class="id" title="var">L</span> <span class="id" title="var">n</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="constructor">S</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#n"><span class="id" title="variable">n</span></a>) (<a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">length</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#n"><span class="id" title="variable">n</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>; <span class="id" title="tactic">apply</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#fresh_length"><span class="id" title="lemma">fresh_length</span></a> <span class="id" title="var">_</span> <span class="id" title="var">L</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#fresh_cons"><span class="id" title="lemma">fresh_cons</span></a> <span class="id" title="var">H</span>); <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">Hint Resolve</span> <span class="id" title="var">fresh_length_S</span> : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fresh_length_rev_S"><span class="id" title="lemma">fresh_length_rev_S</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">x</span> <span class="id" title="var">ys</span> <span class="id" title="var">L</span> <span class="id" title="var">n</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="constructor">S</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#n"><span class="id" title="variable">n</span></a>) (<a class="idref" href="DOT.Lib.LibExtraVar.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <span class="id" title="notation">(</span><span class="id" title="definition">List.rev</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a><span class="id" title="notation">)</span>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">length</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.LibExtraVar.html#n"><span class="id" title="variable">n</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="lemma">List.rev_length</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">eauto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">Hint Resolve</span> <span class="id" title="var">fresh_length_rev_S</span> : <span class="id" title="var">core</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.Definitions.Syntax.Items</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">Coq.Bool.Bool</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a> <a class="idref" href="DOT.Lib.DotTactics.html#"><span class="id" title="library">DotTactics</span></a> <a class="idref" href="DOT.Lib.SyntaxClasses.html#"><span class="id" title="library">SyntaxClasses</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.Syntax.Vars.html#"><span class="id" title="library">Vars</span></a> <a class="idref" href="DOT.Lib.TransformCollect.html#"><span class="id" title="library">TransformCollect</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#"><span class="id" title="library">Types</span></a> <a class="idref" href="DOT.Definitions.Syntax.Terms.html#"><span class="id" title="library">Terms</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;**************************************************************************&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+<a name="lab107"></a><h1 class="section">Heap Definitions</h1>
+
+Heap definitions (<span class="inlinecode"><span class="id" title="var">heap_def</span></span>, <span class="inlinecode"><span class="id" title="var">hd</span></span> and <span class="inlinecode"><span class="id" title="var">heap_defs</span></span>, <span class="inlinecode"><span class="id" title="var">hds</span></span>):
+<ul class="doclist">
+<li> <span class="inlinecode"><span class="id" title="var">def_typ</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode"><span class="id" title="var">T</span></span> represents a type-member definition <span class="inlinecode">{<span class="id" title="var">A</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">def_trm</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span> represents a field definition <span class="inlinecode">{<span class="id" title="var">a</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">null</span>}</span>; 
+</li>
+</ul>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="heap_def"><span class="id" title="inductive">heap_def</span></a> : <span class="id" title="keyword">Set</span> :=<br/>
+&nbsp;&nbsp;| <a name="heap_def_typ"><span class="id" title="constructor">heap_def_typ</span></a>  : <a class="idref" href="DOT.Lib.SyntaxClasses.html#typ_label"><span class="id" title="axiom">typ_label</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ"><span class="id" title="inductive">typ</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a><br/>
+&nbsp;&nbsp;| <a name="heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a>  : <a class="idref" href="DOT.Lib.SyntaxClasses.html#trm_label"><span class="id" title="axiom">trm_label</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="inductive">option</span> <span class="id" title="axiom">var</span> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+  <span class="inlinecode"><span class="id" title="var">heap_defs</span></span> represents a list of heap definitions that are part of an intersection
+<ul class="doclist">
+<li> <span class="inlinecode"><span class="id" title="var">nil</span></span> represents the empty list;
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">cons</span></span> <span class="inlinecode"><span class="id" title="var">hd</span></span> <span class="inlinecode"><span class="id" title="var">hds</span></span> represents a concatenation of the definition <span class="inlinecode"><span class="id" title="var">hd</span></span> to the definitions <span class="inlinecode"><span class="id" title="var">hds</span></span>. 
+</li>
+</ul>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Notation</span> <a name="heap_defs"><span class="id" title="abbreviation">heap_defs</span></a> := (<span class="id" title="inductive">list</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a>).<br/>
+
+<br/>
+<span class="comment">(*&nbsp;**************************************************************************&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+<a name="lab108"></a><h1 class="section">Heap Items</h1>
+
+Heap Items (<span class="inlinecode"><span class="id" title="var">items</span></span> <span class="inlinecode"><span class="id" title="var">h</span></span>):
+<ul class="doclist">
+<li> <span class="inlinecode"><span class="id" title="var">item_obj</span></span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode"><span class="id" title="var">hds</span></span> represents the object <span class="inlinecode"><span class="id" title="var">nu</span>(<span class="id" title="var">x</span>:<span class="id" title="var">T</span>)<span class="id" title="var">hds</span></span>; the variable <span class="inlinecode"><span class="id" title="var">x</span></span> is free
+    in <span class="inlinecode"><span class="id" title="var">T</span></span> and <span class="inlinecode"><span class="id" title="var">ds</span></span> and is interpreted as a pointer to the object itself;
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">item_lit</span></span> <span class="inlinecode"><span class="id" title="var">l</span></span> represents a literal allocated on the heap. 
+</li>
+</ul>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Inductive</span> <a name="item"><span class="id" title="inductive">item</span></a> : <span class="id" title="keyword">Set</span> :=<br/>
+&nbsp;&nbsp;| <a name="item_obj"><span class="id" title="constructor">item_obj</span></a> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ"><span class="id" title="inductive">typ</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs"><span class="id" title="abbreviation">heap_defs</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a><br/>
+&nbsp;&nbsp;| <a name="item_lit"><span class="id" title="constructor">item_lit</span></a> : <a class="idref" href="DOT.Definitions.Syntax.Terms.html#lit"><span class="id" title="inductive">lit</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;**************************************************************************&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+<a name="lab109"></a><h2 class="section">Converting Definitions To HeapDefinitions</h2>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="heap_def_of_def"><span class="id" title="definition">heap_def_of_def</span></a> (<span class="id" title="var">d</span> : <a class="idref" href="DOT.Definitions.Syntax.Terms.html#def"><span class="id" title="inductive">def</span></a>) : <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#d"><span class="id" title="variable">d</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Terms.html#def_typ"><span class="id" title="constructor">def_typ</span></a> <span class="id" title="var">A</span> <span class="id" title="var">T</span> =&gt; <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_typ"><span class="id" title="constructor">heap_def_typ</span></a> <span class="id" title="var">A</span> <span class="id" title="var">T</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Terms.html#def_trm"><span class="id" title="constructor">def_trm</span></a> <span class="id" title="var">a</span>   =&gt; <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <span class="id" title="var">a</span> <span class="id" title="constructor">None</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="heap_defs_of_defs"><span class="id" title="definition">heap_defs_of_defs</span></a> (<span class="id" title="var">ds</span> : <a class="idref" href="DOT.Definitions.Syntax.Terms.html#defs"><span class="id" title="abbreviation">defs</span></a>) : <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs"><span class="id" title="abbreviation">heap_defs</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="definition">List.map</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_of_def"><span class="id" title="definition">heap_def_of_def</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#ds"><span class="id" title="variable">ds</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;**************************************************************************&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+<a name="lab110"></a><h2 class="section">Heap Items are Abstract Syntax</h2>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Instance</span> <a name="HeapDefLabelOf"><span class="id" title="instance">HeapDefLabelOf</span></a> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#LabelOf"><span class="id" title="class">LabelOf</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a> | 1 :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <span class="id" title="var">hd</span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#hd"><span class="id" title="variable">hd</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_typ"><span class="id" title="constructor">heap_def_typ</span></a> <span class="id" title="var">L</span> <span class="id" title="var">_</span> =&gt; <a class="idref" href="DOT.Lib.SyntaxClasses.html#label_typ"><span class="id" title="constructor">label_typ</span></a> <span class="id" title="var">L</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <span class="id" title="var">m</span> <span class="id" title="var">_</span> =&gt; <a class="idref" href="DOT.Lib.SyntaxClasses.html#label_trm"><span class="id" title="constructor">label_trm</span></a> <span class="id" title="var">m</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab111"></a><h3 class="section">Heap Definitions are Abstract Syntax</h3>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="fv_heap_def"><span class="id" title="definition">fv_heap_def</span></a> (<span class="id" title="var">hd</span>: <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a>) : <span class="id" title="definition">vars</span> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#hd"><span class="id" title="variable">hd</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_typ"><span class="id" title="constructor">heap_def_typ</span></a> <span class="id" title="var">_</span> <span class="id" title="var">T</span>        =&gt; (<a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <span class="id" title="var">T</span>)<br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <span class="id" title="var">_</span> <span class="id" title="constructor">None</span>     =&gt; <span class="id" title="notation">\{}</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <span class="id" title="var">_</span> (<span class="id" title="constructor">Some</span> <span class="id" title="var">x</span>) =&gt; <span class="id" title="notation">\{</span> <span class="id" title="var">x</span><span class="id" title="notation">}</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+<span class="id" title="keyword">Instance</span> <a name="HeapDefFreeVar"><span class="id" title="instance">HeapDefFreeVar</span></a> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#FreeVar"><span class="id" title="class">FreeVar</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a> := <a class="idref" href="DOT.Definitions.Syntax.Items.html#fv_heap_def"><span class="id" title="definition">fv_heap_def</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Fixpoint</span> <a name="open_rec_heap_def"><span class="id" title="definition">open_rec_heap_def</span></a> (<span class="id" title="var">k</span>: <span class="id" title="inductive">nat</span>) (<span class="id" title="var">u</span>: <span class="id" title="axiom">var</span>) (<span class="id" title="var">hd</span>: <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<span class="id" title="keyword">struct</span> <span class="id" title="var">hd</span>} : <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#hd"><span class="id" title="variable">hd</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_typ"><span class="id" title="constructor">heap_def_typ</span></a> <span class="id" title="var">L</span> <span class="id" title="var">T</span>     =&gt; <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_typ"><span class="id" title="constructor">heap_def_typ</span></a> <span class="id" title="var">L</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#k"><span class="id" title="variable">k</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#u"><span class="id" title="variable">u</span></a> <span class="id" title="var">T</span>)<br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <span class="id" title="var">m</span> <span class="id" title="var">opt_x</span> =&gt; <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <span class="id" title="var">m</span> <span class="id" title="var">opt_x</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+<span class="id" title="keyword">Instance</span> <a name="HeapDefOpenable"><span class="id" title="instance">HeapDefOpenable</span></a> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#Openable"><span class="id" title="class">Openable</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a> := <a class="idref" href="DOT.Definitions.Syntax.Items.html#open_rec_heap_def"><span class="id" title="definition">open_rec_heap_def</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="fv_item"><span class="id" title="definition">fv_item</span></a> (<span class="id" title="var">v</span>: <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a>) : <span class="id" title="definition">vars</span> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#v"><span class="id" title="variable">v</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <span class="id" title="var">T</span> <span class="id" title="var">hds</span>    =&gt; <span class="id" title="notation">(</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <span class="id" title="var">T</span><span class="id" title="notation">)</span> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <span class="id" title="var">hds</span><span class="id" title="notation">)</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#item_lit"><span class="id" title="constructor">item_lit</span></a> <span class="id" title="var">l</span> =&gt; (<a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <span class="id" title="var">l</span>)<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+<span class="id" title="keyword">Instance</span> <a name="ItemFreeVar"><span class="id" title="instance">ItemFreeVar</span></a> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#FreeVar"><span class="id" title="class">FreeVar</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a> := <a class="idref" href="DOT.Definitions.Syntax.Items.html#fv_item"><span class="id" title="definition">fv_item</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="subst_heap_def"><span class="id" title="definition">subst_heap_def</span></a> (<span class="id" title="var">z</span>: <span class="id" title="axiom">var</span>) (<span class="id" title="var">u</span>: <span class="id" title="axiom">var</span>) (<span class="id" title="var">hd</span>: <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a>)<br/>
+&nbsp;&nbsp;: <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#hd"><span class="id" title="variable">hd</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_typ"><span class="id" title="constructor">heap_def_typ</span></a> <span class="id" title="var">l</span> <span class="id" title="var">t</span>        =&gt; <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_typ"><span class="id" title="constructor">heap_def_typ</span></a> <span class="id" title="var">l</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#subst_var"><span class="id" title="definition">subst_var</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#u"><span class="id" title="variable">u</span></a> <span class="id" title="var">t</span>)<br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <span class="id" title="var">l</span> <span class="id" title="constructor">None</span>     =&gt; <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <span class="id" title="var">l</span> <span class="id" title="constructor">None</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <span class="id" title="var">l</span> (<span class="id" title="constructor">Some</span> <span class="id" title="var">x</span>) =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <span class="id" title="var">l</span> (<span class="id" title="constructor">Some</span> (<a class="idref" href="DOT.Lib.LibExtraSubstFvar.html#subst_fvar"><span class="id" title="definition">subst_fvar</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#u"><span class="id" title="variable">u</span></a> <span class="id" title="var">x</span>))<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+<span class="id" title="keyword">Instance</span> <a name="HeapDefSubstVar"><span class="id" title="instance">HeapDefSubstVar</span></a> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#SubstVar"><span class="id" title="class">SubstVar</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a> := <a class="idref" href="DOT.Definitions.Syntax.Items.html#subst_heap_def"><span class="id" title="definition">subst_heap_def</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="HeapDefAbstractSyntax"><span class="id" title="instance">HeapDefAbstractSyntax</span></a> :<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#AbstractSyntax"><span class="id" title="class">AbstractSyntax</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#HeapDefOpenable"><span class="id" title="instance">HeapDefOpenable</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#HeapDefFreeVar"><span class="id" title="instance">HeapDefFreeVar</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#HeapDefSubstVar"><span class="id" title="instance">HeapDefSubstVar</span></a> := {}.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;TODO&nbsp;:&nbsp;is&nbsp;transform&nbsp;collect&nbsp;for&nbsp;heap_def&nbsp;worth&nbsp;it?&nbsp;*)</span><br/>
+<span class="id" title="keyword">Instance</span> <a name="HeapDefSubstLabel"><span class="id" title="instance">HeapDefSubstLabel</span></a> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#SubstLabel"><span class="id" title="class">SubstLabel</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#HeapDefSubstVar"><span class="id" title="instance">HeapDefSubstVar</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#HeapDefLabelOf"><span class="id" title="instance">HeapDefLabelOf</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>; <span class="id" title="tactic">intros</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">d</span>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">o</span>; <span class="id" title="tactic">simpl</span>; <span class="id" title="tactic">reflexivity</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="HeapDefSubstIntro"><span class="id" title="instance">HeapDefSubstIntro</span></a> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#SubstIntro"><span class="id" title="class">SubstIntro</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#HeapDefAbstractSyntax"><span class="id" title="instance">HeapDefAbstractSyntax</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">X</span>; <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> *. <span class="id" title="tactic">f_equal</span>. <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#subst_intro"><span class="id" title="definition">subst_intro</span></a>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">destruct</span> <span class="id" title="var">o</span>; <span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> *; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">f_equal</span>. <span class="id" title="tactic">f_equal</span>. <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.Lib.LibExtraSubstFvar.html#subst_fvar"><span class="id" title="definition">subst_fvar</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">cases_if</span>; <span class="id" title="tactic">auto</span>. <span class="id" title="var">exfalso</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_singleton</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="HeapDefsSubstIntro"><span class="id" title="instance">HeapDefsSubstIntro</span></a> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#SubstIntro"><span class="id" title="class">SubstIntro</span></a> (<span class="id" title="var">A</span>:=<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs"><span class="id" title="abbreviation">heap_defs</span></a>) <a class="idref" href="DOT.Lib.SyntaxClasses.html#ListAbstractSyntax"><span class="id" title="instance">ListAbstractSyntax</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>. <span class="id" title="tactic">induction</span> <span class="id" title="var">X</span>; <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">apply</span> <span class="id" title="lemma">notin_union</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">change</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#fv_list"><span class="id" title="definition">fv_list</span></a> <span class="id" title="var">X</span>) <span class="id" title="keyword">with</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <span class="id" title="var">X</span>) <span class="id" title="tactic">in</span> <span class="id" title="var">H0</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">specialize</span> (<span class="id" title="var">IHX</span> <span class="id" title="var">H0</span>); <span class="id" title="tactic">clear</span> <span class="id" title="var">H0</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">change</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <span class="id" title="var">n</span> <span class="id" title="var">y</span> (<span class="id" title="var">a</span> <span class="id" title="notation">::</span> <span class="id" title="var">X</span>)%<span class="id" title="var">list</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">with</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <span class="id" title="var">n</span> <span class="id" title="var">y</span> <span class="id" title="var">a</span> <span class="id" title="notation">::</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <span class="id" title="var">n</span> <span class="id" title="var">y</span> <span class="id" title="var">X</span>)%<span class="id" title="var">list</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">change</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <span class="id" title="var">n</span> <span class="id" title="var">x</span> (<span class="id" title="var">a</span> <span class="id" title="notation">::</span> <span class="id" title="var">X</span>)%<span class="id" title="var">list</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#96b633d5169de23740e8856c1f4462cf"><span class="id" title="notation">/[</span></a> <span class="id" title="var">x</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#96b633d5169de23740e8856c1f4462cf"><span class="id" title="notation">-&gt;</span></a> <span class="id" title="var">y</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#96b633d5169de23740e8856c1f4462cf"><span class="id" title="notation">]</span></a>) <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="notation">(</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <span class="id" title="var">n</span> <span class="id" title="var">x</span> <span class="id" title="var">a</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#96b633d5169de23740e8856c1f4462cf"><span class="id" title="notation">/[</span></a> <span class="id" title="var">x</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#96b633d5169de23740e8856c1f4462cf"><span class="id" title="notation">-&gt;</span></a> <span class="id" title="var">y</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#96b633d5169de23740e8856c1f4462cf"><span class="id" title="notation">]</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">::</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#96b633d5169de23740e8856c1f4462cf"><span class="id" title="notation">(</span></a><a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <span class="id" title="var">n</span> <span class="id" title="var">x</span> <span class="id" title="var">X</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#96b633d5169de23740e8856c1f4462cf"><span class="id" title="notation">)</span></a> <a class="idref" href="DOT.Lib.SyntaxClasses.html#96b633d5169de23740e8856c1f4462cf"><span class="id" title="notation">/[</span></a> <span class="id" title="var">x</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#96b633d5169de23740e8856c1f4462cf"><span class="id" title="notation">-&gt;</span></a> <span class="id" title="var">y</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#96b633d5169de23740e8856c1f4462cf"><span class="id" title="notation">]</span></a><span class="id" title="notation">)</span>)%<span class="id" title="var">list</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="var">IHX</span>; <span class="id" title="tactic">f_equal</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">auto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#subst_intro"><span class="id" title="definition">subst_intro</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="open_rec_item"><span class="id" title="definition">open_rec_item</span></a> (<span class="id" title="var">n</span>: <span class="id" title="inductive">nat</span>) (<span class="id" title="var">x</span>: <span class="id" title="axiom">var</span>) (<span class="id" title="var">v</span>: <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a>) : <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#v"><span class="id" title="variable">v</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <span class="id" title="var">T</span> <span class="id" title="var">ds</span>    =&gt; <a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="var">T</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> (<span class="id" title="constructor">S</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#n"><span class="id" title="variable">n</span></a>) <a class="idref" href="DOT.Definitions.Syntax.Items.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="var">ds</span>)<br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#item_lit"><span class="id" title="constructor">item_lit</span></a> <span class="id" title="var">l</span> =&gt; <a class="idref" href="DOT.Definitions.Syntax.Items.html#item_lit"><span class="id" title="constructor">item_lit</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="var">l</span>)<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+<span class="id" title="keyword">Instance</span> <a name="ItemOpenable"><span class="id" title="instance">ItemOpenable</span></a> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#Openable"><span class="id" title="class">Openable</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a> := <a class="idref" href="DOT.Definitions.Syntax.Items.html#open_rec_item"><span class="id" title="definition">open_rec_item</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="subst_item"><span class="id" title="definition">subst_item</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span> (<span class="id" title="var">v</span>: <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a>) : <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#v"><span class="id" title="variable">v</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <span class="id" title="var">T</span> <span class="id" title="var">ds</span>    =&gt; <a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#subst_var"><span class="id" title="definition">subst_var</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="var">T</span>) (<a class="idref" href="DOT.Lib.SyntaxClasses.html#subst_var"><span class="id" title="definition">subst_var</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="var">ds</span>)<br/>
+&nbsp;&nbsp;| <a class="idref" href="DOT.Definitions.Syntax.Items.html#item_lit"><span class="id" title="constructor">item_lit</span></a> <span class="id" title="var">l</span> =&gt; <a class="idref" href="DOT.Definitions.Syntax.Items.html#item_lit"><span class="id" title="constructor">item_lit</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#subst_var"><span class="id" title="definition">subst_var</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="var">l</span>)<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+<span class="id" title="keyword">Instance</span> <a name="ItemSubstVar"><span class="id" title="instance">ItemSubstVar</span></a> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#SubstVar"><span class="id" title="class">SubstVar</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a> := <a class="idref" href="DOT.Definitions.Syntax.Items.html#subst_item"><span class="id" title="definition">subst_item</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="ItemAbstractSyntax"><span class="id" title="instance">ItemAbstractSyntax</span></a> :<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#AbstractSyntax"><span class="id" title="class">AbstractSyntax</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#ItemOpenable"><span class="id" title="instance">ItemOpenable</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#ItemFreeVar"><span class="id" title="instance">ItemFreeVar</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#ItemSubstVar"><span class="id" title="instance">ItemSubstVar</span></a> := {}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+heap_def_of_def commutes with opening 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="heap_def_of_def_open_commut"><span class="id" title="lemma">heap_def_of_def_open_commut</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">n</span> <span class="id" title="var">x</span> <span class="id" title="var">d</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#x"><span class="id" title="variable">x</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_of_def"><span class="id" title="definition">heap_def_of_def</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#d"><span class="id" title="variable">d</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">=</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_of_def"><span class="id" title="definition">heap_def_of_def</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#d"><span class="id" title="variable">d</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">d</span>; <span class="id" title="tactic">simpl</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="heap_defs_of_defs_open_commut"><span class="id" title="lemma">heap_defs_of_defs_open_commut</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">n</span> <span class="id" title="var">x</span> <span class="id" title="var">ds</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#x"><span class="id" title="variable">x</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs_of_defs"><span class="id" title="definition">heap_defs_of_defs</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#ds"><span class="id" title="variable">ds</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">=</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs_of_defs"><span class="id" title="definition">heap_defs_of_defs</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#ds"><span class="id" title="variable">ds</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">n</span> <span class="id" title="var">x</span> <span class="id" title="var">ds</span>; <span class="id" title="var">gen</span> <span class="id" title="var">n</span> <span class="id" title="var">x</span>; <span class="id" title="tactic">induction</span> <span class="id" title="var">ds</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>; <span class="id" title="tactic">simpl</span>; <span class="id" title="var">fold_trm_abs</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="var">IHds</span>, <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_of_def_open_commut"><span class="id" title="lemma">heap_def_of_def_open_commut</span></a>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="heap_def_of_def_open_vars_commut"><span class="id" title="lemma">heap_def_of_def_open_vars_commut</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">n</span> <span class="id" title="var">xs</span> <span class="id" title="var">d</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec_vars"><span class="id" title="definition">open_rec_vars</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#xs"><span class="id" title="variable">xs</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_of_def"><span class="id" title="definition">heap_def_of_def</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#d"><span class="id" title="variable">d</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">=</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_of_def"><span class="id" title="definition">heap_def_of_def</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec_vars"><span class="id" title="definition">open_rec_vars</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#xs"><span class="id" title="variable">xs</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#d"><span class="id" title="variable">d</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">n</span> <span class="id" title="var">xs</span>; <span class="id" title="var">gen</span> <span class="id" title="var">n</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">xs</span> <span class="id" title="keyword">as</span> [| <span class="id" title="var">x</span> <span class="id" title="var">xs</span> <span class="id" title="var">IHxs</span>]; <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="var">IHxs</span>, <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_of_def_open_commut"><span class="id" title="lemma">heap_def_of_def_open_commut</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="heap_defs_of_defs_open_vars_commut"><span class="id" title="lemma">heap_defs_of_defs_open_vars_commut</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">n</span> <span class="id" title="var">xs</span> <span class="id" title="var">d</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec_vars"><span class="id" title="definition">open_rec_vars</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#xs"><span class="id" title="variable">xs</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs_of_defs"><span class="id" title="definition">heap_defs_of_defs</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#d"><span class="id" title="variable">d</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">=</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs_of_defs"><span class="id" title="definition">heap_defs_of_defs</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec_vars"><span class="id" title="definition">open_rec_vars</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#xs"><span class="id" title="variable">xs</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#d"><span class="id" title="variable">d</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">n</span> <span class="id" title="var">xs</span>; <span class="id" title="var">gen</span> <span class="id" title="var">n</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">xs</span> <span class="id" title="keyword">as</span> [| <span class="id" title="var">x</span> <span class="id" title="var">xs</span> <span class="id" title="var">IHxs</span>]; <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="var">IHxs</span>, <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs_of_defs_open_commut"><span class="id" title="lemma">heap_defs_of_defs_open_commut</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="label_neq_hds_label_neq"><span class="id" title="lemma">label_neq_hds_label_neq</span></a> : <span class="id" title="keyword">forall</span> (<span class="id" title="var">lb</span> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#label"><span class="id" title="inductive">label</span></a>) (<span class="id" title="var">a</span> : <a class="idref" href="DOT.Definitions.Syntax.Terms.html#def"><span class="id" title="inductive">def</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Syntax.Items.html#lb"><span class="id" title="variable">lb</span></a> <span class="id" title="notation">&lt;&gt;</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#a"><span class="id" title="variable">a</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_of_def"><span class="id" title="definition">heap_def_of_def</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#a"><span class="id" title="variable">a</span></a>) <span class="id" title="notation">&lt;&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#lb"><span class="id" title="variable">lb</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="definition">not</span>. <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">a</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H0</span>. <span class="id" title="tactic">congruence</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H0</span>. <span class="id" title="tactic">congruence</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="ds_labels_hasnt_hds_labels_hasnt"><span class="id" title="lemma">ds_labels_hasnt_hds_labels_hasnt</span></a> : <span class="id" title="keyword">forall</span> (<span class="id" title="var">ds</span> : <a class="idref" href="DOT.Definitions.Syntax.Terms.html#defs"><span class="id" title="abbreviation">defs</span></a>) (<span class="id" title="var">lb</span> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#label"><span class="id" title="inductive">label</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#ds"><span class="id" title="variable">ds</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#lb"><span class="id" title="variable">lb</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs_of_defs"><span class="id" title="definition">heap_defs_of_defs</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#ds"><span class="id" title="variable">ds</span></a>) <a class="idref" href="DOT.Definitions.Syntax.Items.html#lb"><span class="id" title="variable">lb</span></a>.<br/>
+<span class="id" title="keyword">Proof</span> <span class="id" title="keyword">with</span> <span class="id" title="tactic">eauto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">ds</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">intros</span>. <span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">hnf</span>. <span class="id" title="tactic">simpl</span>...<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">intros</span>. <span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> *.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt_cons_inv"><span class="id" title="lemma">labels_hasnt_cons_inv</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="var">destruct_all</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">specialize</span> (<span class="id" title="var">IHds</span> <span class="id" title="var">lb</span> <span class="id" title="var">H0</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>. <span class="id" title="tactic">hnf</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H0</span>. <span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">hnf</span> <span class="id" title="tactic">in</span> <span class="id" title="var">IHds</span>. <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#get_labeld"><span class="id" title="definition">get_labeld</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">IHds</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#label_neq_hds_label_neq"><span class="id" title="lemma">label_neq_hds_label_neq</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">case_if</span>...<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="HeapDefOpenCommut"><span class="id" title="instance">HeapDefOpenCommut</span></a> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#OpenCommut"><span class="id" title="class">OpenCommut</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#HeapDefOpenable"><span class="id" title="instance">HeapDefOpenable</span></a>.<br/>
+<span class="id" title="keyword">Proof</span> <span class="id" title="keyword">with</span> <span class="id" title="tactic">eauto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>. <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="axiom">fun_ext_dep</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">hd</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">hd</span> <span class="id" title="keyword">as</span> [ <span class="id" title="var">l</span> <span class="id" title="var">T</span>| <span class="id" title="var">l</span> <span class="id" title="var">t</span>].<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">unfold</span> "∘"; <span class="id" title="tactic">simpl</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">change</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <span class="id" title="var">m</span> <span class="id" title="var">x</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <span class="id" title="var">n</span> <span class="id" title="var">y</span> <span class="id" title="var">T</span>)) <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;((<span class="id" title="notation">(</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <span class="id" title="var">m</span> <span class="id" title="var">x</span><span class="id" title="notation">)</span> <span class="id" title="notation">∘</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <span class="id" title="var">n</span> <span class="id" title="var">y</span><span class="id" title="notation">)</span>) <span class="id" title="var">T</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open_commut"><span class="id" title="definition">open_commut</span></a> <span class="id" title="tactic">by</span> <span class="id" title="tactic">auto</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">unfold</span> "∘". <span class="id" title="tactic">simpl</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

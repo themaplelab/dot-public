@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.Definitions.OperationalSemantics.HeapUpdate</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a> <a class="idref" href="DOT.Lib.DotTactics.html#"><span class="id" title="library">DotTactics</span></a> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#"><span class="id" title="library">AbstractSyntax</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;**************************************************************************&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+<a name="lab43"></a><h1 class="section">Updating the Heap</h1>
+ <span class="inlinecode"><span class="id" title="var">defs_update</span></span> <span class="inlinecode"><span class="id" title="var">hds</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">hds'</span></span> represents updating a field of label <span class="inlinecode"><span class="id" title="var">a</span></span> in the
+heap definitions <span class="inlinecode"><span class="id" title="var">hds</span></span> with the reference <span class="inlinecode"><span class="id" title="var">x</span></span> with the resulting heap
+definitions being <span class="inlinecode"><span class="id" title="var">hds'</span></span> 
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="defs_update"><span class="id" title="inductive">defs_update</span></a> : <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs"><span class="id" title="abbreviation">heap_defs</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#trm_label"><span class="id" title="axiom">trm_label</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="axiom">var</span> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs"><span class="id" title="abbreviation">heap_defs</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="comment">(*&nbsp;Field&nbsp;a&nbsp;is&nbsp;updated&nbsp;to&nbsp;store&nbsp;s&nbsp;*)</span><br/>
+| <a name="defs_update_var"><span class="id" title="constructor">defs_update_var</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">hds</span> <span class="id" title="var">a</span> <span class="id" title="var">o</span> <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#defs_update"><span class="id" title="inductive">defs_update</span></a> (<span class="id" title="constructor">cons</span> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#o"><span class="id" title="variable">o</span></a>) <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#x"><span class="id" title="variable">x</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="constructor">cons</span> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#a"><span class="id" title="variable">a</span></a> (<span class="id" title="constructor">Some</span> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#x"><span class="id" title="variable">x</span></a>)) <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a>)<br/>
+| <a name="defs_update_push"><span class="id" title="constructor">defs_update_push</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">hds</span> <span class="id" title="var">d</span> <span class="id" title="var">a</span> <span class="id" title="var">x</span> <span class="id" title="var">hds'</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#defs_update"><span class="id" title="inductive">defs_update</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds'"><span class="id" title="variable">hds'</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#defs_update"><span class="id" title="inductive">defs_update</span></a> (<span class="id" title="constructor">cons</span> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#d"><span class="id" title="variable">d</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a>) <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#x"><span class="id" title="variable">x</span></a> (<span class="id" title="constructor">cons</span> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#d"><span class="id" title="variable">d</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds'"><span class="id" title="variable">hds'</span></a>).<br/>
+
+<br/>
+<span class="comment">(*&nbsp;In&nbsp;heap&nbsp;s,&nbsp;the&nbsp;field&nbsp;a&nbsp;of&nbsp;x&nbsp;is&nbsp;updated&nbsp;by&nbsp;y&nbsp;to&nbsp;give&nbsp;new&nbsp;heap&nbsp;s'&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">heap_update</span></span> <span class="inlinecode"><span class="id" title="var">Sigma</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span> <span class="inlinecode"><span class="id" title="var">y</span></span> <span class="inlinecode"><span class="id" title="var">Sigma'</span></span> represets what happens when a write <span class="inlinecode"><span class="id" title="var">x.a</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="var">y</span></span> succeeds.
+The field <span class="inlinecode"><span class="id" title="var">a</span></span> of the object represented by <span class="inlinecode"><span class="id" title="var">x</span></span> is updated with the reference <span class="inlinecode"><span class="id" title="var">y</span></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="heap_update"><span class="id" title="definition">heap_update</span></a> (<span class="id" title="var">Sigma</span> : <a class="idref" href="DOT.Definitions.Syntax.AbstractMachine.html#heap"><span class="id" title="abbreviation">heap</span></a>) (<span class="id" title="var">x</span> : <span class="id" title="axiom">var</span>) (<span class="id" title="var">a</span> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#trm_label"><span class="id" title="axiom">trm_label</span></a>) (<span class="id" title="var">y</span> : <span class="id" title="axiom">var</span>) (<span class="id" title="var">Sigma'</span> : <a class="idref" href="DOT.Definitions.Syntax.AbstractMachine.html#heap"><span class="id" title="abbreviation">heap</span></a>) :=<br/>
+&nbsp;&nbsp;<span class="id" title="notation">exists</span> <span class="id" title="var">T</span> <span class="id" title="var">hds</span> <span class="id" title="var">hds'</span> <span class="id" title="var">Sigma1</span> <span class="id" title="var">Sigma2</span><span class="id" title="notation">,</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#Sigma"><span class="id" title="variable">Sigma</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#Sigma1"><span class="id" title="variable">Sigma1</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">~</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#Sigma2"><span class="id" title="variable">Sigma2</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">#</span> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#Sigma2"><span class="id" title="variable">Sigma2</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#defs_update"><span class="id" title="inductive">defs_update</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds'"><span class="id" title="variable">hds'</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#Sigma'"><span class="id" title="variable">Sigma'</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#Sigma1"><span class="id" title="variable">Sigma1</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">~</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds'"><span class="id" title="variable">hds'</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#Sigma2"><span class="id" title="variable">Sigma2</span></a><span class="id" title="notation">)</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab44"></a><h2 class="section">Simple Lemmas about updating heap defs</h2>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="defs_update_open"><span class="id" title="lemma">defs_update_open</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">x</span> <span class="id" title="var">hds</span> <span class="id" title="var">a</span> <span class="id" title="var">y</span> <span class="id" title="var">hds'</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#defs_update"><span class="id" title="inductive">defs_update</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds'"><span class="id" title="variable">hds'</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">forall</span> <span class="id" title="var">hds1</span>, <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a> <span class="id" title="notation">=</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds1"><span class="id" title="variable">hds1</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">exists</span> <span class="id" title="var">hds1'</span><span class="id" title="notation">,</span> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds'"><span class="id" title="variable">hds'</span></a> <span class="id" title="notation">=</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds1'"><span class="id" title="variable">hds1'</span></a><span class="id" title="notation">)</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">induction</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">destruct</span> <span class="id" title="var">hds1</span>; <span class="id" title="var">inversions</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exists</span> (<span class="id" title="constructor">cons</span> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <span class="id" title="var">a</span> (<span class="id" title="constructor">Some</span> <span class="id" title="var">x0</span>)) <span class="id" title="var">hds1</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">destruct</span> <span class="id" title="var">hds1</span>; <span class="id" title="tactic">inversion</span> <span class="id" title="var">H0</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<span class="id" title="var">IHdefs_update</span> <span class="id" title="var">_</span> <span class="id" title="var">H3</span>) <span class="id" title="keyword">as</span> [?<span class="id" title="var">hds</span> ?].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">subst</span>. <span class="id" title="tactic">exists</span> (<span class="id" title="var">h</span> <span class="id" title="notation">::</span> <span class="id" title="var">hds0</span>)%<span class="id" title="var">list</span>; <span class="id" title="tactic">reflexivity</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="defs_update_hasnt"><span class="id" title="lemma">defs_update_hasnt</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">hds</span> <span class="id" title="var">a</span> <span class="id" title="var">x</span> <span class="id" title="var">hds'</span> <span class="id" title="var">l</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#defs_update"><span class="id" title="inductive">defs_update</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds'"><span class="id" title="variable">hds'</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#l"><span class="id" title="variable">l</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds'"><span class="id" title="variable">hds'</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#l"><span class="id" title="variable">l</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">H</span>; <span class="id" title="var">gen</span> <span class="id" title="var">l</span>; <span class="id" title="tactic">induction</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a>; <span class="id" title="tactic">simpl</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">inversion</span> <span class="id" title="var">H</span>; <span class="id" title="var">cases_if</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a>; <span class="id" title="tactic">simpl</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">assert</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> <span class="id" title="var">d</span> <span class="id" title="notation">&lt;&gt;</span> <span class="id" title="var">l</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">inversion</span> <span class="id" title="var">H0</span>. <span class="id" title="var">cases_if</span>. <span class="id" title="tactic">auto</span>. }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">cases_if</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">assert</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a> <span class="id" title="var">hds</span> <span class="id" title="var">l</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">inversion</span> <span class="id" title="var">H0</span>. <span class="id" title="var">cases_if</span>. <span class="id" title="tactic">auto</span>. }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">IHdefs_update</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="defs_update_hasnt_inv"><span class="id" title="lemma">defs_update_hasnt_inv</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">hds</span> <span class="id" title="var">a</span> <span class="id" title="var">x</span> <span class="id" title="var">hds'</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#defs_update"><span class="id" title="inductive">defs_update</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds'"><span class="id" title="variable">hds'</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#hds"><span class="id" title="variable">hds</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#label_trm"><span class="id" title="constructor">label_trm</span></a> <a class="idref" href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#a"><span class="id" title="variable">a</span></a>) <span class="id" title="notation">-&gt;</span> <span class="id" title="inductive">False</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">induction</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">inversion</span> <span class="id" title="var">H</span>; <span class="id" title="var">cases_if</span>; <span class="id" title="tactic">congruence</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">assert</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a> <span class="id" title="var">hds</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#label_trm"><span class="id" title="constructor">label_trm</span></a> <span class="id" title="var">a</span>)).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">inversion</span> <span class="id" title="var">H0</span>; <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a>, <a class="idref" href="DOT.Lib.SyntaxClasses.html#get_labeld"><span class="id" title="definition">get_labeld</span></a>; <span class="id" title="var">cases_if</span>; <span class="id" title="tactic">auto</span>. }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

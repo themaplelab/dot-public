@@ -1,0 +1,835 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<div id="toc">
+<a href="DOT.Definitions.Syntax.Vars.html"><h2>DOT.Definitions.Syntax.Vars</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Syntax.Vars.html#lab1">Locally Nameless Variables</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Syntax.Vars.html#lab2">Locally Nameless Variables are Abstract Syntax</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Vars.html#lab3">Tactics for Locally Nameless Variables</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Vars.html#lab4">Locally Nameless Variables Satisfies Syntax Lemmas</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Vars.html#lab5">Named Variables Corresponding to Locally Nameless Variables</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Vars.html#lab6">Lemmas about Variable Correspondence</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Syntax.Types.html"><h2>DOT.Definitions.Syntax.Types</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Syntax.Types.html#lab7">Initialization Types</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Types.html#lab8">Types</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Syntax.Types.html#lab10">Type Lists are List Like</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Types.html#lab12">Types, Type Lists and Declarations are Abstract Syntax</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Types.html#lab14">Declarations are labeled</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Types.html#lab15">Types, Type Lists and Declarations Satisfy Syntax Lemmas</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Syntax.Terms.html"><h2>DOT.Definitions.Syntax.Terms</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Syntax.Terms.html#lab24">Definitions</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Terms.html#lab25">Terms</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Syntax.Terms.html#lab27">Terms are Abstract Syntax</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Terms.html#lab28">Definitions are labeled</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Terms.html#lab29">Terms Satisfy Syntax Lemmas</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Syntax.Items.html"><h2>DOT.Definitions.Syntax.Items</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Syntax.Items.html#lab35">Heap Definitions</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Items.html#lab36">Heap Items</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Syntax.Items.html#lab37">Converting Definitions To HeapDefinitions</a>
+
+</li>
+<li><a href="DOT.Definitions.Syntax.Items.html#lab38">Heap Items are Abstract Syntax</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Syntax.AbstractSyntax.html"><h2>DOT.Definitions.Syntax.AbstractSyntax</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Syntax.AbstractSyntax.html#lab40">Abstract Syntax</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Syntax.AbstractSyntax.html#lab41">Tactics</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Syntax.AbstractMachine.html"><h2>DOT.Definitions.Syntax.AbstractMachine</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Syntax.AbstractMachine.html#lab42">Abstract Machine</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.OperationalSemantics.HeapUpdate.html"><h2>DOT.Definitions.OperationalSemantics.HeapUpdate</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#lab43">Updating the Heap</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.OperationalSemantics.HeapUpdate.html#lab44">Simple Lemmas about updating heap defs</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.OperationalSemantics.OperationalSemantics.html"><h2>DOT.Definitions.OperationalSemantics.OperationalSemantics</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.OperationalSemantics.OperationalSemantics.html#lab45">Operational Semantics</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.OperationalSemantics.OperationalSemantics.html#lab46">Normal forms</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Typing.GeneralTyping.html"><h2>DOT.Definitions.Typing.GeneralTyping</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Typing.GeneralTyping.html#lab47">Typing Rules</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Typing.GeneralTyping.html#lab48">Single-definition typing <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">d</span>:</span> <span class="inlinecode"><span class="id" title="var">D</span></span></a>
+
+</li>
+<li><a href="DOT.Definitions.Typing.GeneralTyping.html#lab49">Term typing <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">t</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span></a>
+
+</li>
+<li><a href="DOT.Definitions.Typing.GeneralTyping.html#lab50">Subtyping <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">&lt;:</span> <span class="inlinecode"><span class="id" title="var">U</span></span></a>
+
+</li>
+<li><a href="DOT.Definitions.Typing.GeneralTyping.html#lab51">Typing list of variables <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">xs</span></span> <span class="inlinecode">::</span> <span class="inlinecode"><span class="id" title="var">Ts</span></span></a>
+
+</li>
+<li><a href="DOT.Definitions.Typing.GeneralTyping.html#lab52">Mutual Induction Principles</a>
+
+</li>
+<li><a href="DOT.Definitions.Typing.GeneralTyping.html#lab53">Tactics</a>
+
+</li>
+<li><a href="DOT.Definitions.Typing.GeneralTyping.html#lab54">Simple Class Instances</a>
+
+</li>
+</ul>
+
+</li>
+<li><a href="DOT.Definitions.Typing.GeneralTyping.html#lab55">Simple Lemmas</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Typing.InertTypes.html"><h2>DOT.Definitions.Typing.InertTypes</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Typing.InertTypes.html#lab56">Inert types</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Typing.RecordTypes.html"><h2>DOT.Definitions.Typing.RecordTypes</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Typing.RecordTypes.html#lab57">Record Types</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Typing.RecordTypes.html#lab58">Lemmas About Records and Record Types</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Typing.PreciseTyping.html"><h2>DOT.Definitions.Typing.PreciseTyping</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Typing.PreciseTyping.html#lab59">Precise Typing</a>
+
+</li>
+<li><a href="DOT.Definitions.Typing.PreciseTyping.html#lab60">Precise Flow</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Typing.InvertibleTyping.html"><h2>DOT.Definitions.Typing.InvertibleTyping</h2></a>
+<ul class="doclist">
+<li><ul class="doclist">
+<li><a href="DOT.Definitions.Typing.InvertibleTyping.html#lab61">Invertible typing</a>
+
+</li>
+<li><a href="DOT.Definitions.Typing.InvertibleTyping.html#lab62">Invertible typing of variables <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢##</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span></a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Typing.TightTyping.html"><h2>DOT.Definitions.Typing.TightTyping</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Typing.TightTyping.html#lab63">Tight typing <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">|-#</span> <span class="inlinecode"><span class="id" title="var">t</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span></a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Typing.Subenvironments.html"><h2>DOT.Definitions.Typing.Subenvironments</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Typing.Subenvironments.html#lab66">Subenvironments <span class="inlinecode"><span class="id" title="var">G1</span></span> <span class="inlinecode">⪯</span> <span class="inlinecode"><span class="id" title="var">G2</span></span></a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Effects.Effects.html"><h2>DOT.Definitions.Effects.Effects</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Effects.Effects.html#lab67">Effects</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Effects.Effects.html#lab68">Simple Lemmas about Effects</a>
+
+</li>
+</ul>
+
+</li>
+<li><a href="DOT.Definitions.Effects.Effects.html#lab69">Effect System</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Effects.HeapEffects.html"><h2>DOT.Definitions.Effects.HeapEffects</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Effects.HeapEffects.html#lab70">Heap Effects</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Effects.HeapEffects.html#lab71">Simple Lemmas about Heap Effects</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Effects.EffectUpdate.html"><h2>DOT.Definitions.Effects.EffectUpdate</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Effects.EffectUpdate.html#lab72">Effect Context Update</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Effects.EffectUpdate.html#lab73">Effect Context Updates exists</a>
+
+</li>
+</ul>
+
+</li>
+<li><a href="DOT.Definitions.Effects.EffectUpdate.html#lab74">Effect Set Updates</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Effects.EffectCorrespondence.html"><h2>DOT.Definitions.Effects.EffectCorrespondence</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Effects.EffectCorrespondence.html#lab75">Effect Correspondence</a>
+
+</li>
+<li><a href="DOT.Definitions.Effects.EffectCorrespondence.html#lab76">Effects correspondence for Effect Context Stacks</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Initialization.InitLookup.html"><h2>DOT.Definitions.Initialization.InitLookup</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Initialization.InitLookup.html#lab77">Initialization Subtyping</a>
+
+</li>
+<li><a href="DOT.Definitions.Initialization.InitLookup.html#lab78">Initialization Lookup</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Initialization.InitTyping.html"><h2>DOT.Definitions.Initialization.InitTyping</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Initialization.InitTyping.html#lab79">Initialization System</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Initialization.InitTyping.html#lab80">Committed Terms <span class="inlinecode"><span class="id" title="var">Gamma</span>;</span> <span class="inlinecode"><span class="id" title="var">Delta</span></span> <span class="inlinecode">⊢<span class="id" title="var">c</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span></a>
+
+</li>
+<li><a href="DOT.Definitions.Initialization.InitTyping.html#lab82">Committed Literals <span class="inlinecode"><span class="id" title="var">Gamma</span>;</span> <span class="inlinecode"><span class="id" title="var">Delta</span></span> <span class="inlinecode">⊢<span class="id" title="var">c</span></span> <span class="inlinecode"><span class="id" title="var">l</span></span></a>
+
+</li>
+<li><a href="DOT.Definitions.Initialization.InitTyping.html#lab83">Well-initialized Terms <span class="inlinecode"><span class="id" title="var">Gamma</span>;</span> <span class="inlinecode">(<span class="id" title="var">Delta</span></span> <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" title="var">vs</span></span> <span class="inlinecode">^</span> <span class="inlinecode"><span class="id" title="var">free</span>)</span> <span class="inlinecode">⊢<span class="id" title="var">i</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">i</span></span></a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Initialization.InertInitContexts.html"><h2>DOT.Definitions.Initialization.InertInitContexts</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Initialization.InertInitContexts.html#lab86">Inertness for Initialization</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.PointsTo.HeapDefsPointsTo.html"><h2>DOT.Definitions.PointsTo.HeapDefsPointsTo</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.PointsTo.HeapDefsPointsTo.html#lab88">Heap Definitions Points To</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.PointsTo.WellPointed.html"><h2>DOT.Definitions.PointsTo.WellPointed</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.PointsTo.WellPointed.html#lab89">Well-pointed</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.SubHeaps.CommittedSubHeap.html"><h2>DOT.Definitions.SubHeaps.CommittedSubHeap</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#lab91">Commited part of the heap</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#lab92">Heap Definitions in the Committed Subheap</a>
+
+</li>
+<li><a href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#lab93">Committed Heap Items</a>
+
+</li>
+<li><a href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#lab94">Committed Subheap</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.SubHeaps.FreeItems.html"><h2>DOT.Definitions.SubHeaps.FreeItems</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.SubHeaps.FreeItems.html#lab95">Free Subheap items</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.SubHeaps.FreeItems.html#lab96">Heap Definitions in Free Subheaps</a>
+
+</li>
+<li><a href="DOT.Definitions.SubHeaps.FreeItems.html#lab97">Heap Items in Free Subheaps</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.SubHeaps.FreeSubHeapSingle.html"><h2>DOT.Definitions.SubHeaps.FreeSubHeapSingle</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.SubHeaps.FreeSubHeapSingle.html#lab98">Free Subheaps</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.SubHeaps.FreeSubHeapStack.html"><h2>DOT.Definitions.SubHeaps.FreeSubHeapStack</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.SubHeaps.FreeSubHeapStack.html#lab99">Unions of Domains of Map Stacks</a>
+
+</li>
+<li><a href="DOT.Definitions.SubHeaps.FreeSubHeapStack.html#lab101">Stacks of Free Subheaps</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Safety.StackTyping.html"><h2>DOT.Definitions.Safety.StackTyping</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Safety.StackTyping.html#lab102">Stack Typing</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.Safety.ConfigTyping.html"><h2>DOT.Definitions.Safety.ConfigTyping</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.Safety.ConfigTyping.html#lab103">Configuration Typing</a>
+
+</li>
+</ul>
+<a href="DOT.GeneralTyping.BndIntro.html"><h2>DOT.GeneralTyping.BndIntro</h2></a>
+<ul class="doclist">
+<li><a href="DOT.GeneralTyping.BndIntro.html#lab104">Context Recursion Introduction (<span class="inlinecode"><span class="id" title="var">BndIntro</span></span>)</a>
+
+</li>
+</ul>
+<a href="DOT.GeneralTyping.Narrowing.html"><h2>DOT.GeneralTyping.Narrowing</h2></a>
+<ul class="doclist">
+<li><a href="DOT.GeneralTyping.Narrowing.html#lab105">Narrowing Lemma</a>
+
+</li>
+</ul>
+<a href="DOT.GeneralTyping.RenameConstructors.html"><h2>DOT.GeneralTyping.RenameConstructors</h2></a>
+<ul class="doclist">
+<li><a href="DOT.GeneralTyping.RenameConstructors.html#lab106">Renaming For Constructors</a>
+
+</li>
+</ul>
+<a href="DOT.GeneralTyping.Substitution.html"><h2>DOT.GeneralTyping.Substitution</h2></a>
+<ul class="doclist">
+<li><a href="DOT.GeneralTyping.Substitution.html#lab107">Tactics for Subsitution Lemma</a>
+
+</li>
+<li><a href="DOT.GeneralTyping.Substitution.html#lab108">Substitution Lemmas</a>
+
+</li>
+</ul>
+<a href="DOT.GeneralTyping.Weakening.html"><h2>DOT.GeneralTyping.Weakening</h2></a>
+<ul class="doclist">
+<li><a href="DOT.GeneralTyping.Weakening.html#lab109">Weakening Lemma</a>
+
+</li>
+</ul>
+<a href="DOT.CanonicalForms.HeapCorrespondence.html"><h2>DOT.CanonicalForms.HeapCorrespondence</h2></a>
+<ul class="doclist">
+<li><a href="DOT.CanonicalForms.HeapCorrespondence.html#lab110">Heap Correspondence</a>
+<ul class="doclist">
+<li><a href="DOT.CanonicalForms.HeapCorrespondence.html#lab111">Typing for heap definitions</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.HeapCorrespondence.html#lab113">Strong Bindings for Locations</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.HeapCorrespondence.html#lab114">Heap Correspondence</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.HeapCorrespondence.html#lab115">Simple lemmas for Heap Correspondence</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.HeapCorrespondence.html#lab116">Inductive lemmas for Heap Correspondence</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.HeapCorrespondence.html#lab117">Inversion lemmas for <span class="inlinecode"><span class="id" title="var">Gamma</span></span> <span class="inlinecode">∼</span> <span class="inlinecode"><span class="id" title="var">Sigma</span></span></a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.CanonicalForms.HeapUpdateCorrespondence.html"><h2>DOT.CanonicalForms.HeapUpdateCorrespondence</h2></a>
+<ul class="doclist">
+<li><a href="DOT.CanonicalForms.HeapUpdateCorrespondence.html#lab118">Heap Correspondence is Preserved Under Updates</a>
+
+</li>
+</ul>
+<a href="DOT.CanonicalForms.DefRecordInertTyping.html"><h2>DOT.CanonicalForms.DefRecordInertTyping</h2></a>
+<a href="DOT.CanonicalForms.SelReplacement.html"><h2>DOT.CanonicalForms.SelReplacement</h2></a>
+<ul class="doclist">
+<li><a href="DOT.CanonicalForms.SelReplacement.html#lab119">Sel-&lt;: Premise</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.SelReplacement.html#lab120">Sel-&lt;: Replacement</a>
+
+</li>
+</ul>
+<a href="DOT.CanonicalForms.InertGeneralTyping.html"><h2>DOT.CanonicalForms.InertGeneralTyping</h2></a>
+<a href="DOT.CanonicalForms.InertTightSubtyping.html"><h2>DOT.CanonicalForms.InertTightSubtyping</h2></a>
+<ul class="doclist">
+<li><a href="DOT.CanonicalForms.InertTightSubtyping.html#lab121">Super Types of Objects</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.InertTightSubtyping.html#lab122">Super Types of Functions</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.InertTightSubtyping.html#lab123">Super Types of Constructors</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.InertTightSubtyping.html#lab124">Tight SubTyping Contradictions</a>
+
+</li>
+</ul>
+<a href="DOT.CanonicalForms.InvertibleToPrecise.html"><h2>DOT.CanonicalForms.InvertibleToPrecise</h2></a>
+<ul class="doclist">
+<li><ul class="doclist">
+<li><a href="DOT.CanonicalForms.InvertibleToPrecise.html#lab125">Invertible to Precise Typing <span class="inlinecode">|-##</span> <span class="inlinecode"><span class="id" title="var">to</span></span> <span class="inlinecode">|-!</span></a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.CanonicalForms.PreciseTypingLemmas.html"><h2>DOT.CanonicalForms.PreciseTypingLemmas</h2></a>
+<ul class="doclist">
+<li><ul class="doclist">
+<li><a href="DOT.CanonicalForms.PreciseTypingLemmas.html#lab126">Precise Flow Lemmas</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.CanonicalForms.TypingToGeneral.html"><h2>DOT.CanonicalForms.TypingToGeneral</h2></a>
+<a href="DOT.CanonicalForms.GeneralToTight.html"><h2>DOT.CanonicalForms.GeneralToTight</h2></a>
+<ul class="doclist">
+<li><a href="DOT.CanonicalForms.GeneralToTight.html#lab127">General to Tight <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">to</span></span> <span class="inlinecode">⊢#</span></a>
+
+</li>
+</ul>
+<a href="DOT.CanonicalForms.TightToInvertible.html"><h2>DOT.CanonicalForms.TightToInvertible</h2></a>
+<ul class="doclist">
+<li><ul class="doclist">
+<li><a href="DOT.CanonicalForms.TightToInvertible.html#lab128">Invertible Subtyping Closure</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.TightToInvertible.html#lab129">Tight-to-Invertible Lemma for Variables <span class="inlinecode">|-#</span> <span class="inlinecode"><span class="id" title="var">to</span></span> <span class="inlinecode">|-##</span></a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.CanonicalForms.CanonicalForms.html"><h2>DOT.CanonicalForms.CanonicalForms</h2></a>
+<ul class="doclist">
+<li><a href="DOT.CanonicalForms.CanonicalForms.html#lab130">Functions under Inert Contexts</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.CanonicalForms.html#lab131">Objects under Inert Contexts</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.CanonicalForms.html#lab132">Assignments under Inert Contexts</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.CanonicalForms.html#lab133">Constructors under Inert Contexts</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.CanonicalForms.html#lab134">Canonical Forms for Functions</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.CanonicalForms.html#lab135">Canonical Forms for Constructors</a>
+
+</li>
+<li><a href="DOT.CanonicalForms.CanonicalForms.html#lab136">Canonical Forms for Objects</a>
+
+</li>
+</ul>
+<a href="DOT.Effects.EffectSubstitution.html"><h2>DOT.Effects.EffectSubstitution</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Effects.EffectSubstitution.html#lab137">Substitution and Renaming Lemmas for Effects</a>
+
+</li>
+<li><a href="DOT.Effects.EffectSubstitution.html#lab138">Has effects</a>
+
+</li>
+</ul>
+<a href="DOT.Initialization.VarsSubst.html"><h2>DOT.Initialization.VarsSubst</h2></a>
+<a href="DOT.Initialization.InitLookupBinds.html"><h2>DOT.Initialization.InitLookupBinds</h2></a>
+<a href="DOT.Initialization.InitLookupNarrowing.html"><h2>DOT.Initialization.InitLookupNarrowing</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Initialization.InitLookupNarrowing.html#lab139">Narrowing Lemmas for Initialization Lookup</a>
+
+</li>
+</ul>
+<a href="DOT.Initialization.InitLookupRestrict.html"><h2>DOT.Initialization.InitLookupRestrict</h2></a>
+<a href="DOT.Initialization.InitLookupStrengthen.html"><h2>DOT.Initialization.InitLookupStrengthen</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Initialization.InitLookupStrengthen.html#lab140">Strengthening Lemmas for Initialization Lookup</a>
+
+</li>
+</ul>
+<a href="DOT.Initialization.InitLookupSubst.html"><h2>DOT.Initialization.InitLookupSubst</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Initialization.InitLookupSubst.html#lab141">Substitution Lemmas for Initialization Lookup</a>
+
+</li>
+</ul>
+<a href="DOT.Initialization.InitLookupWeaken.html"><h2>DOT.Initialization.InitLookupWeaken</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Initialization.InitLookupWeaken.html#lab142">Weakening Lemmas for Initialization Lookup</a>
+
+</li>
+</ul>
+<a href="DOT.Initialization.InitLookupLemmas.html"><h2>DOT.Initialization.InitLookupLemmas</h2></a>
+<a href="DOT.Initialization.InitWeakening.html"><h2>DOT.Initialization.InitWeakening</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Initialization.InitWeakening.html#lab143">Weakening Lemma for Initialization</a>
+
+</li>
+</ul>
+<a href="DOT.Initialization.InitNarrowing.html"><h2>DOT.Initialization.InitNarrowing</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Initialization.InitNarrowing.html#lab144">Narrowing Lemmas for Initialization</a>
+
+</li>
+</ul>
+<a href="DOT.Initialization.InitVarSubtyping.html"><h2>DOT.Initialization.InitVarSubtyping</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Initialization.InitVarSubtyping.html#lab145">Initialization Subtype Bindings</a>
+<ul class="doclist">
+<li><a href="DOT.Initialization.InitVarSubtyping.html#lab146">Lemmas about Initialization Subtype Bindings</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Initialization.InitSubstitution.html"><h2>DOT.Initialization.InitSubstitution</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Initialization.InitSubstitution.html#lab147">Infrastructure for Substitution Lemma for Initialization System</a>
+
+</li>
+<li><a href="DOT.Initialization.InitSubstitution.html#lab148">Substitution Lemma for Initialization System</a>
+
+</li>
+</ul>
+<a href="DOT.Initialization.InitRenaming.html"><h2>DOT.Initialization.InitRenaming</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Initialization.InitRenaming.html#lab149">Renaming Lemmas for Initialization</a>
+
+</li>
+</ul>
+<a href="DOT.Initialization.InitTypingLemmas.html"><h2>DOT.Initialization.InitTypingLemmas</h2></a>
+<a href="DOT.SubHeaps.CommittedSubHeapLemmas.html"><h2>DOT.SubHeaps.CommittedSubHeapLemmas</h2></a>
+<ul class="doclist">
+<li><ul class="doclist">
+<li><a href="DOT.SubHeaps.CommittedSubHeapLemmas.html#lab150">Lemmas for committed heaps</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.SubHeaps.FreeItemLemmas.html"><h2>DOT.SubHeaps.FreeItemLemmas</h2></a>
+<ul class="doclist">
+<li><ul class="doclist">
+<li><a href="DOT.SubHeaps.FreeItemLemmas.html#lab151">Lemmas about Free Heap Items</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.SubHeaps.FreeSubHeapSingleLemmas.html"><h2>DOT.SubHeaps.FreeSubHeapSingleLemmas</h2></a>
+<ul class="doclist">
+<li><ul class="doclist">
+<li><a href="DOT.SubHeaps.FreeSubHeapSingleLemmas.html#lab154">Lemmas about Singlular Free Subheaps</a>
+
+</li>
+<li><a href="DOT.SubHeaps.FreeSubHeapSingleLemmas.html#lab155">Weakening Lemmas for <span class="inlinecode"><span class="id" title="var">free_sub_heap</span></span></a>
+
+</li>
+<li><a href="DOT.SubHeaps.FreeSubHeapSingleLemmas.html#lab156">Pushing Lemmas for <span class="inlinecode"><span class="id" title="var">free_sub_heap</span></span></a>
+
+</li>
+</ul>
+
+</li>
+<li><a href="DOT.SubHeaps.FreeSubHeapSingleLemmas.html#lab157">Update Lemmas</a>
+
+</li>
+</ul>
+<a href="DOT.SubHeaps.FreeSubHeapStackLemmas.html"><h2>DOT.SubHeaps.FreeSubHeapStackLemmas</h2></a>
+<ul class="doclist">
+<li><a href="DOT.SubHeaps.FreeSubHeapStackLemmas.html#lab158">Lemmas about Stacks of Free Subheaps</a>
+
+</li>
+<li><a href="DOT.SubHeaps.FreeSubHeapStackLemmas.html#lab162">Init Correspondence for Heap Updates</a>
+
+</li>
+</ul>
+<a href="DOT.SubHeaps.HeapItemUpdateLemmas.html"><h2>DOT.SubHeaps.HeapItemUpdateLemmas</h2></a>
+<ul class="doclist">
+<li><a href="DOT.SubHeaps.HeapItemUpdateLemmas.html#lab166">Update Lemmas</a>
+
+</li>
+</ul>
+<a href="DOT.Safety.StackTypingLemmas.html"><h2>DOT.Safety.StackTypingLemmas</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Safety.StackTypingLemmas.html#lab167">Stack Typing Lemmas</a>
+
+</li>
+</ul>
+<a href="DOT.Safety.Progress.html"><h2>DOT.Safety.Progress</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Safety.Progress.html#lab168">Progress Lemma Cases</a>
+<ul class="doclist">
+<li><a href="DOT.Safety.Progress.html#lab175">Progress Lemma</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Safety.Preservation.html"><h2>DOT.Safety.Preservation</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Safety.Preservation.html#lab176">Preservation Lemma Cases</a>
+<ul class="doclist">
+<li><a href="DOT.Safety.Preservation.html#lab184">Preservation Lemma</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Safety.Deterministic.html"><h2>DOT.Safety.Deterministic</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Safety.Deterministic.html#lab185">Updates are deterministic</a>
+
+</li>
+</ul>
+<a href="DOT.Safety.Safety.html"><h2>DOT.Safety.Safety</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Safety.Safety.html#lab186">Initial Configuration is well-typed</a>
+
+</li>
+<li><a href="DOT.Safety.Safety.html#lab187">Preservation Theorem</a>
+
+</li>
+<li><a href="DOT.Safety.Safety.html#lab188">Progress Theorem</a>
+
+</li>
+</ul>
+<a href="DOT.Lib.SyntaxClasses.html"><h2>DOT.Lib.SyntaxClasses</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Lib.SyntaxClasses.html#lab189">Type Classes for Syntax</a>
+<ul class="doclist">
+<li><a href="DOT.Lib.SyntaxClasses.html#lab190">Decide Free Variables</a>
+
+</li>
+<li><a href="DOT.Lib.SyntaxClasses.html#lab191">Closing</a>
+
+</li>
+<li><a href="DOT.Lib.SyntaxClasses.html#lab192">Labels</a>
+
+</li>
+<li><a href="DOT.Lib.SyntaxClasses.html#lab194">Syntax Lemmas</a>
+
+</li>
+<li><a href="DOT.Lib.SyntaxClasses.html#lab196">List-Like Syntax</a>
+
+</li>
+<li><a href="DOT.Lib.SyntaxClasses.html#lab197">Syntax Environments</a>
+
+</li>
+<li><a href="DOT.Lib.SyntaxClasses.html#lab198">Sets of free variables</a>
+
+</li>
+<li><a href="DOT.Lib.SyntaxClasses.html#lab199">Extra Definitions and Simple Lemmas</a>
+
+</li>
+<li><a href="DOT.Lib.SyntaxClasses.html#lab200">Typeclass Implications</a>
+
+</li>
+<li><a href="DOT.Lib.SyntaxClasses.html#lab202">Tactics</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Lib.LibExtra.html"><h2>DOT.Lib.LibExtra</h2></a>
+<a href="DOT.Lib.LibExtraSubstFvar.html"><h2>DOT.Lib.LibExtraSubstFvar</h2></a>
+<a href="DOT.Lib.LibExtraList.html"><h2>DOT.Lib.LibExtraList</h2></a>
+<a href="DOT.Lib.LibExtraVar.html"><h2>DOT.Lib.LibExtraVar</h2></a>
+<a href="DOT.Lib.LibExtraEnv.html"><h2>DOT.Lib.LibExtraEnv</h2></a>
+<a href="DOT.Lib.LibExtraFset.html"><h2>DOT.Lib.LibExtraFset</h2></a>
+<a href="DOT.Lib.LibExtraProgram.html"><h2>DOT.Lib.LibExtraProgram</h2></a>
+<a href="DOT.Lib.DotTactics.html"><h2>DOT.Lib.DotTactics</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Lib.DotTactics.html#lab203">Tactics</a>
+
+</li>
+</ul>
+<a href="DOT.Lib.LibExtraBool.html"><h2>DOT.Lib.LibExtraBool</h2></a>
+<a href="DOT.Lib.TransformCollect.html"><h2>DOT.Lib.TransformCollect</h2></a>
+<ul class="doclist">
+<li><ul class="doclist">
+<li><a href="DOT.Lib.TransformCollect.html#lab204">Collecting</a>
+
+</li>
+<li><a href="DOT.Lib.TransformCollect.html#lab205">Transforming</a>
+
+</li>
+<li><a href="DOT.Lib.TransformCollect.html#lab206">Links Between Syntax, Collect and Transform</a>
+
+</li>
+<li><a href="DOT.Lib.TransformCollect.html#lab207">Transformed Syntax Lemmas</a>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<a href="DOT.Definitions.TypingClasses.PreTyping.html"><h2>DOT.Definitions.TypingClasses.PreTyping</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.TypingClasses.PreTyping.html#lab208">PreTyping</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.TypingClasses.Typing.html"><h2>DOT.Definitions.TypingClasses.Typing</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.TypingClasses.Typing.html#lab209">Typeclasses for Typing</a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.TypingClasses.Typing.html#lab210">Labels for Definition Typing</a>
+
+</li>
+<li><a href="DOT.Definitions.TypingClasses.Typing.html#lab211">Typing and Subtyping imply Pretyping</a>
+
+</li>
+</ul>
+
+</li>
+<li><a href="DOT.Definitions.TypingClasses.Typing.html#lab212">Lemmas about contexts</a>
+
+</li>
+<li><a href="DOT.Definitions.TypingClasses.Typing.html#lab213">Lemmas about typing</a>
+
+</li>
+<li><a href="DOT.Definitions.TypingClasses.Typing.html#lab214">DecTyping to Defs</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.TypingClasses.SubstitutionClass.html"><h2>DOT.Definitions.TypingClasses.SubstitutionClass</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.TypingClasses.SubstitutionClass.html#lab215">Substitution Classes</a>
+
+</li>
+</ul>
+<a href="DOT.Definitions.InitializationClasses.Initialization.html"><h2>DOT.Definitions.InitializationClasses.Initialization</h2></a>
+<ul class="doclist">
+<li><a href="DOT.Definitions.InitializationClasses.Initialization.html#lab216">Typeclasses for Initialization</a>
+
+</li>
+</ul>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.Definitions.SubHeaps.CommittedSubHeap</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a> <a class="idref" href="DOT.Lib.DotTactics.html#"><span class="id" title="library">DotTactics</span></a> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#"><span class="id" title="library">AbstractSyntax</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#"><span class="id" title="library">Typing</span></a> <a class="idref" href="DOT.Definitions.InitializationClasses.Initialization.html#"><span class="id" title="library">Initialization</span></a> <a class="idref" href="DOT.Initialization.InitLookupLemmas.html#"><span class="id" title="library">InitLookupLemmas</span></a> <a class="idref" href="DOT.Definitions.Initialization.InitTyping.html#"><span class="id" title="library">InitTyping</span></a> <a class="idref" href="DOT.Initialization.InitWeakening.html#"><span class="id" title="library">InitWeakening</span></a> <a class="idref" href="DOT.Definitions.Typing.GeneralTyping.html#"><span class="id" title="library">GeneralTyping</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab91"></a><h1 class="section">Commited part of the heap</h1>
+<a name="lab92"></a><h2 class="section">Heap Definitions in the Committed Subheap</h2>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="committed_heap_def"><span class="id" title="inductive">committed_heap_def</span></a> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#init_ctx"><span class="id" title="abbreviation">init_ctx</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="comment">(*&nbsp;Type&nbsp;definitions&nbsp;can&nbsp;be&nbsp;part&nbsp;of&nbsp;the&nbsp;committed&nbsp;subheap&nbsp;*)</span><br/>
+| <a name="committed_heap_def_typ"><span class="id" title="constructor">committed_heap_def_typ</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">A</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_def"><span class="id" title="inductive">committed_heap_def</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_typ"><span class="id" title="constructor">heap_def_typ</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#T"><span class="id" title="variable">T</span></a>)<br/>
+<br/>
+</div>
+
+<div class="doc">
+Initialized definitions pointing to committed parts of the subheap can be
+    part of the committed subheap 
+</div>
+<div class="code">
+| <a name="committed_heap_def_trm"><span class="id" title="constructor">committed_heap_def_trm</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">a</span> <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_def"><span class="id" title="inductive">committed_heap_def</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#a"><span class="id" title="variable">a</span></a> (<span class="id" title="constructor">Some</span> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#x"><span class="id" title="variable">x</span></a>)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+List of definitons in the Committed Subheap 
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="committed_heap_defs"><span class="id" title="inductive">committed_heap_defs</span></a> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#init_ctx"><span class="id" title="abbreviation">init_ctx</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs"><span class="id" title="abbreviation">heap_defs</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+| <a name="committed_heap_defs_nil"><span class="id" title="constructor">committed_heap_defs_nil</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_defs"><span class="id" title="inductive">committed_heap_defs</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="constructor">nil</span><br/>
+<br/>
+| <a name="committed_heap_defs_cons"><span class="id" title="constructor">committed_heap_defs_cons</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">hd</span> <span class="id" title="var">hds</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_defs"><span class="id" title="inductive">committed_heap_defs</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#hds"><span class="id" title="variable">hds</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_def"><span class="id" title="inductive">committed_heap_def</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#hd"><span class="id" title="variable">hd</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_defs"><span class="id" title="inductive">committed_heap_defs</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> (<span class="id" title="constructor">cons</span> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#hd"><span class="id" title="variable">hd</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#hds"><span class="id" title="variable">hds</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab93"></a><h2 class="section">Committed Heap Items</h2>
+ Only literals and objects with committed definitions can be part of the
+    committed subheap. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="committed_heap_item"><span class="id" title="inductive">committed_heap_item</span></a> :<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#ctx"><span class="id" title="abbreviation">ctx</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#init_ctx"><span class="id" title="abbreviation">init_ctx</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+</div>
+
+<div class="doc">
+Literals are committed if they're committed according to Gamma and Delta 
+</div>
+<div class="code">
+| <a name="committed_heap_lit"><span class="id" title="constructor">committed_heap_lit</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">Delta</span> <span class="id" title="var">l</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.InitializationClasses.Initialization.html#d417686deb0be68240eed0edb433ed87"><span class="id" title="notation">⸴</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Definitions.InitializationClasses.Initialization.html#d417686deb0be68240eed0edb433ed87"><span class="id" title="notation">⊢</span></a><a class="idref" href="DOT.Definitions.InitializationClasses.Initialization.html#d417686deb0be68240eed0edb433ed87"><span class="id" title="notation">c</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#l"><span class="id" title="variable">l</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_item"><span class="id" title="inductive">committed_heap_item</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#item_lit"><span class="id" title="constructor">item_lit</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#l"><span class="id" title="variable">l</span></a>)<br/>
+</div>
+
+<div class="doc">
+An object is committed when all its definitions are committed 
+</div>
+<div class="code">
+| <a name="committed_heap_obj"><span class="id" title="constructor">committed_heap_obj</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">Delta</span> <span class="id" title="var">T</span> <span class="id" title="var">hds</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_defs"><span class="id" title="inductive">committed_heap_defs</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#hds"><span class="id" title="variable">hds</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_item"><span class="id" title="inductive">committed_heap_item</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#hds"><span class="id" title="variable">hds</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab94"></a><h2 class="section">Committed Subheap</h2>
+ A heap Sigma is well committed with respect to a typing context Gamma and an initialisation context
+    Delta provided that the domains match up and all items in Sigma that are marked as committed by
+    Delta are indeed committed heap items.
+    The objects marked as committed by Delta form the committed subheap. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="well_committed_heap"><span class="id" title="definition">well_committed_heap</span></a> (<span class="id" title="var">Gamma</span> : <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#ctx"><span class="id" title="abbreviation">ctx</span></a>) (<span class="id" title="var">Delta</span> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#init_ctx"><span class="id" title="abbreviation">init_ctx</span></a>) (<span class="id" title="var">Sigma</span> : <a class="idref" href="DOT.Definitions.Syntax.AbstractMachine.html#heap"><span class="id" title="abbreviation">heap</span></a>) :=<br/>
+&nbsp;&nbsp;<span class="id" title="axiom">dom</span> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Gamma"><span class="id" title="variable">Gamma</span></a> <span class="id" title="notation">=</span> <span class="id" title="axiom">dom</span> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;<span class="id" title="axiom">dom</span> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="notation">=</span> <span class="id" title="axiom">dom</span> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Sigma"><span class="id" title="variable">Sigma</span></a> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">forall</span> <span class="id" title="var">x</span> <span class="id" title="var">itm</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#itm"><span class="id" title="variable">itm</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Sigma"><span class="id" title="variable">Sigma</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_item"><span class="id" title="inductive">committed_heap_item</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#itm"><span class="id" title="variable">itm</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+More Committed Initialization Contexts  When an free subheap is becomes part of the committed subheap, the initialization context becomes more committed. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="more_committed"><span class="id" title="definition">more_committed</span></a> <span class="id" title="var">Delta</span> <span class="id" title="var">Delta'</span> :=<br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">forall</span> <span class="id" title="var">x</span>, <span class="id" title="definition">binds</span> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="definition">binds</span> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.CommittedSubHeap.html#Delta'"><span class="id" title="variable">Delta'</span></a>).<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

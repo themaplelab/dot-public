@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.Initialization.InitLookupBinds</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a> <a class="idref" href="DOT.Lib.DotTactics.html#"><span class="id" title="library">DotTactics</span></a> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#"><span class="id" title="library">AbstractSyntax</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.Effects.Effects.html#"><span class="id" title="library">Effects</span></a> <a class="idref" href="DOT.Definitions.InitializationClasses.Initialization.html#"><span class="id" title="library">Initialization</span></a> <a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#"><span class="id" title="library">InitLookup</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This module collects some inversion lemmas for looking up the initialization
+    of a variable. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Implicit</span> <span class="id" title="keyword">Type</span> (<span class="id" title="var">i</span> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#init_typ"><span class="id" title="inductive">init_typ</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">Local Hint Constructors</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#init_var"><span class="id" title="inductive">init_var</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#init_sub"><span class="id" title="inductive">init_sub</span></a> : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_var_typing_implies_bound"><span class="id" title="lemma">init_var_typing_implies_bound</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">vs</span> <span class="id" title="var">x</span> <span class="id" title="var">i</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_var"><span class="id" title="inductive">init_var</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">exists</span> <span class="id" title="var">i'</span><span class="id" title="notation">,</span> <span class="id" title="definition">binds</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i'"><span class="id" title="variable">i'</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">induction</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">eauto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_var_typing_implies_bound_sub"><span class="id" title="lemma">init_var_typing_implies_bound_sub</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">vs</span> <span class="id" title="var">x</span> <span class="id" title="var">i</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_var"><span class="id" title="inductive">init_var</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">exists</span> <span class="id" title="var">i'</span><span class="id" title="notation">,</span> <a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_sub"><span class="id" title="inductive">init_sub</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i'"><span class="id" title="variable">i'</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">/\</span> <span class="id" title="definition">binds</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i'"><span class="id" title="variable">i'</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> * <span class="id" title="var">Hiv</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">Hiv</span>; <span class="id" title="tactic">eauto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">IHHiv</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">i1</span> [?<span class="id" title="var">H</span> ?<span class="id" title="var">H</span>]]; <span class="id" title="tactic">exists</span> <span class="id" title="var">i1</span>; <span class="id" title="tactic">split</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_sub_trans"><span class="id" title="lemma">init_sub_trans</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_var_binds_sub"><span class="id" title="lemma">init_var_binds_sub</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">vs</span> <span class="id" title="var">x</span> <span class="id" title="var">i</span> <span class="id" title="var">i'</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_var"><span class="id" title="inductive">init_var</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i'"><span class="id" title="variable">i'</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_sub"><span class="id" title="inductive">init_sub</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i'"><span class="id" title="variable">i'</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> 1; <span class="id" title="tactic">intro</span>; <span class="id" title="tactic">try</span> <span class="id" title="var">binds_eq</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">specialize</span> (<span class="id" title="var">IHinit_var</span> <span class="id" title="var">H1</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">H0</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">remember</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">i</span>; <span class="id" title="tactic">induction</span> <span class="id" title="var">IHinit_var</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">remember</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#free"><span class="id" title="constructor">free</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">i</span>; <span class="id" title="tactic">induction</span> <span class="id" title="var">IHinit_var</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_var_empty_cases"><span class="id" title="lemma">init_var_empty_cases</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">x</span> <span class="id" title="var">i</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_var"><span class="id" title="inductive">init_var</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="notation">\{}</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <span class="id" title="notation">\/</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#unspecified"><span class="id" title="constructor">unspecified</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">remember</span> <span class="id" title="notation">\{}</span> <span class="id" title="keyword">as</span> <span class="id" title="var">vs</span> <span class="id" title="var">eqn</span>:<span class="id" title="var">HeqV</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> 1; <span class="id" title="tactic">subst</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">try</span> <span class="id" title="tactic">solve</span> [<span class="id" title="var">exfalso</span>; <span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <span class="id" title="lemma">in_empty_inv</span>].<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">induction</span> <span class="id" title="var">H0</span>; <span class="id" title="tactic">firstorder</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_var_binds_committed_or_in_vs"><span class="id" title="lemma">init_var_binds_committed_or_in_vs</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">x</span> <span class="id" title="var">vs</span> <span class="id" title="var">i</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_var"><span class="id" title="inductive">init_var</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="notation">\/</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> 1; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_var_binds_committed_or_in_vs_bound"><span class="id" title="lemma">init_var_binds_committed_or_in_vs_bound</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">x</span> <span class="id" title="var">vs</span> <span class="id" title="var">i</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_var"><span class="id" title="inductive">init_var</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="notation">\/</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a> <span class="id" title="notation">/\</span> <span class="id" title="notation">exists</span> <span class="id" title="var">i</span><span class="id" title="notation">,</span> <span class="id" title="definition">binds</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> 1; <span class="id" title="tactic">eauto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_var_empty_binds"><span class="id" title="lemma">init_var_empty_binds</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">x</span> <span class="id" title="var">i</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_var"><span class="id" title="inductive">init_var</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="notation">\{}</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">remember</span> <span class="id" title="notation">\{}</span> <span class="id" title="keyword">as</span> <span class="id" title="var">vs</span> <span class="id" title="var">eqn</span>:<span class="id" title="var">HeqV</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> 1; <span class="id" title="tactic">subst</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">auto</span>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">solve</span> [<span class="id" title="var">exfalso</span>; <span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <span class="id" title="lemma">in_empty_inv</span>].<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_sub_committed"><span class="id" title="lemma">init_sub_committed</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">i</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_sub"><span class="id" title="inductive">init_sub</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">remember</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">i</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> 1; <span class="id" title="tactic">congruence</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_var_committed_binds"><span class="id" title="lemma">init_var_committed_binds</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">vs</span> <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_var"><span class="id" title="inductive">init_var</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">remember</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#committed"><span class="id" title="constructor">committed</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">i</span>; <span class="id" title="tactic">induction</span> 1; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#init_sub_committed"><span class="id" title="lemma">init_sub_committed</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H0</span>. <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_sub_free"><span class="id" title="lemma">init_sub_free</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">i</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_sub"><span class="id" title="inductive">init_sub</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#free"><span class="id" title="constructor">free</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#free"><span class="id" title="constructor">free</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">remember</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#free"><span class="id" title="constructor">free</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">i</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> 1; <span class="id" title="tactic">congruence</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_var_free_inv"><span class="id" title="lemma">init_var_free_inv</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">vs</span> <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_var"><span class="id" title="inductive">init_var</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#free"><span class="id" title="constructor">free</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a> <span class="id" title="notation">/\</span> <span class="id" title="definition">binds</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#free"><span class="id" title="constructor">free</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta"><span class="id" title="variable">Delta</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> * <span class="id" title="var">Hi</span>. <span class="id" title="var">remember</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#free"><span class="id" title="constructor">free</span></a> <span class="id" title="keyword">as</span> <span class="id" title="var">i</span> <span class="id" title="var">eqn</span>:<span class="id" title="var">HeqI</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">Hi</span>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">congruence</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#init_sub_free"><span class="id" title="lemma">init_sub_free</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="init_var_unspec_middle"><span class="id" title="lemma">init_var_unspec_middle</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta1</span> <span class="id" title="var">Delta2</span> <span class="id" title="var">vs</span> <span class="id" title="var">x</span> <span class="id" title="var">i</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">#</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta2"><span class="id" title="variable">Delta2</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Initialization.InitLookup.html#init_var"><span class="id" title="inductive">init_var</span></a> (<a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta1"><span class="id" title="variable">Delta1</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#unspecified"><span class="id" title="constructor">unspecified</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#Delta2"><span class="id" title="variable">Delta2</span></a>) <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#i"><span class="id" title="variable">i</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Initialization.InitLookupBinds.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Initialization.InitLookupBinds.html#vs"><span class="id" title="variable">vs</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> * <span class="id" title="var">Hfr</span> <span class="id" title="var">Hlkup</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">remember</span> (<span class="id" title="var">Delta1</span> <span class="id" title="notation">&amp;</span> <span class="id" title="var">x</span> <span class="id" title="notation">~</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#unspecified"><span class="id" title="constructor">unspecified</span></a> <span class="id" title="notation">&amp;</span> <span class="id" title="var">Delta2</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">Delta'</span> <span class="id" title="var">eqn</span>:<span class="id" title="var">HeqD</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">Hlkup</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.Lib.LibExtraEnv.html#binds_middle_eq_fresh_inv"><span class="id" title="lemma">binds_middle_eq_fresh_inv</span></a> <span class="id" title="var">H</span> <span class="id" title="var">Hfr</span>); <span class="id" title="tactic">congruence</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

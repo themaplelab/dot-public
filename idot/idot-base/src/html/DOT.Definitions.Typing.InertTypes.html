@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.Definitions.Typing.InertTypes</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a> <a class="idref" href="DOT.Lib.DotTactics.html#"><span class="id" title="library">DotTactics</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">Coq.Program.Equality</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#"><span class="id" title="library">AbstractSyntax</span></a> <a class="idref" href="DOT.Definitions.Typing.RecordTypes.html#"><span class="id" title="library">RecordTypes</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Implicit</span> <span class="id" title="keyword">Type</span> (<span class="id" title="var">ds</span> : <a class="idref" href="DOT.Definitions.Syntax.Terms.html#defs"><span class="id" title="abbreviation">defs</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab56"></a><h1 class="section">Inert types</h1>
+
+       A type is inert if it is either a dependent function type, a dependent
+       constructor type whose output type's declarations have equal bounds, or a
+       recursive type whose type declarations have equal bounds (enforced
+       through <span class="inlinecode"><span class="id" title="var">record_type</span></span>). <br>
+       For example, the following types are inert:
+<ul class="doclist">
+<li> <span class="inlinecode"><span class="id" title="var">lambda</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>)<span class="id" title="var">T</span></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">K</span>(){<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>..<span class="id" title="var">T</span>}</span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>..<span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">U</span>..<span class="id" title="var">U</span>})</span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">C</span>:</span> <span class="inlinecode">{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>..<span class="id" title="var">U</span>}..{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>..<span class="id" title="var">U</span>}})</span>
+
+</li>
+</ul>
+       And the following types are not inert:
+<ul class="doclist">
+<li> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span>
+
+</li>
+<li> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">U</span>..<span class="id" title="var">U</span>}</span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">top</span></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">x.A</span></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">T</span>})</span>, where <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode">&lt;&gt;</span> <span class="inlinecode"><span class="id" title="var">T</span></span>. 
+</li>
+</ul>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="inert_typ"><span class="id" title="inductive">inert_typ</span></a> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ"><span class="id" title="inductive">typ</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+&nbsp;&nbsp;| <a name="inert_typ_all"><span class="id" title="constructor">inert_typ_all</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">S</span> <span class="id" title="var">T</span>, <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#inert_typ"><span class="id" title="inductive">inert_typ</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_all"><span class="id" title="constructor">typ_all</span></a> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#S"><span class="id" title="variable">S</span></a> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#T"><span class="id" title="variable">T</span></a>)<br/>
+&nbsp;&nbsp;| <a name="inert_typ_con"><span class="id" title="constructor">inert_typ_con</span></a> :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">forall</span> <span class="id" title="var">Ts</span> <span class="id" title="var">is'</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.RecordTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.InertTypes.html#inert_typ"><span class="id" title="inductive">inert_typ</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_con"><span class="id" title="constructor">typ_con</span></a> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#Ts"><span class="id" title="variable">Ts</span></a> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#is'"><span class="id" title="variable">is'</span></a> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#T"><span class="id" title="variable">T</span></a>)<br/>
+&nbsp;&nbsp;| <a name="inert_typ_bnd"><span class="id" title="constructor">inert_typ_bnd</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.RecordTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.InertTypes.html#inert_typ"><span class="id" title="inductive">inert_typ</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_bnd"><span class="id" title="constructor">typ_bnd</span></a> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#T"><span class="id" title="variable">T</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+An inert context is a typing context whose range consists only of inert types. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="inert"><span class="id" title="inductive">inert</span></a> : <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#ctx"><span class="id" title="abbreviation">ctx</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+&nbsp;&nbsp;| <a name="inert_empty"><span class="id" title="constructor">inert_empty</span></a> : <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#inert"><span class="id" title="inductive">inert</span></a> <span class="id" title="axiom">empty</span><br/>
+&nbsp;&nbsp;| <a name="inert_all"><span class="id" title="constructor">inert_all</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">x</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.InertTypes.html#inert"><span class="id" title="inductive">inert</span></a> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.InertTypes.html#inert_typ"><span class="id" title="inductive">inert_typ</span></a> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.InertTypes.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">#</span> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.InertTypes.html#inert"><span class="id" title="inductive">inert</span></a> (<a class="idref" href="DOT.Definitions.Typing.InertTypes.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#T"><span class="id" title="variable">T</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In the proof, it is useful to be able to distinguish record types from
+    other types. A record type is a concatenation of type declarations with equal
+    bounds <span class="inlinecode">{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>..<span class="id" title="var">T</span>}</span> and field declarations <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Hint Constructors</span> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#inert_typ"><span class="id" title="inductive">inert_typ</span></a> <a class="idref" href="DOT.Definitions.Typing.InertTypes.html#inert"><span class="id" title="inductive">inert</span></a> : <span class="id" title="var">core</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

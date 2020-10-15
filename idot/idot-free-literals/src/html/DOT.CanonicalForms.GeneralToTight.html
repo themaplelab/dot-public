@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.CanonicalForms.GeneralToTight</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">Coq.Program.Equality</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#"><span class="id" title="library">AbstractSyntax</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#"><span class="id" title="library">Typing</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.Typing.GeneralTyping.html#"><span class="id" title="library">GeneralTyping</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#"><span class="id" title="library">RecordAndInertTypes</span></a> <a class="idref" href="DOT.CanonicalForms.PreciseTyping.html#"><span class="id" title="library">PreciseTyping</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#"><span class="id" title="library">TightTyping</span></a> <a class="idref" href="DOT.CanonicalForms.InvertibleTyping.html#"><span class="id" title="library">InvertibleTyping</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab132"></a><h1 class="section">Sel-&lt;: Premise</h1>
+
+
+<div class="paragraph"> </div>
+
+    <span class="inlinecode"><span class="id" title="var">inert</span></span> <span class="inlinecode"><span class="id" title="var">G</span></span>                    <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢##</span> <span class="inlinecode"><span class="id" title="var">x</span>∶</span> <span class="inlinecode">{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>}</span>        <br>
+    <span class="inlinecode">――――――――――――――――――――――――――――</span>   <br>
+    <span class="inlinecode"><span class="id" title="tactic">exists</span></span> <span class="inlinecode"><span class="id" title="var">T</span>.</span> <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢##</span> <span class="inlinecode"><span class="id" title="var">x</span>∶</span> <span class="inlinecode">{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>..<span class="id" title="var">T</span>}</span>   <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢#</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">&lt;:</span> <span class="inlinecode"><span class="id" title="var">U</span></span>               <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢#</span> <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode">&lt;:</span> <span class="inlinecode"><span class="id" title="var">T</span></span>                    
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="sel_premise"><span class="id" title="lemma">sel_premise</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">x</span> <span class="id" title="var">A</span> <span class="id" title="var">S</span> <span class="id" title="var">U</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert"><span class="id" title="inductive">inert</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.InvertibleTyping.html#94ce08f24261f13b09eec57fcaed3791"><span class="id" title="notation">⊢##</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.InvertibleTyping.html#94ce08f24261f13b09eec57fcaed3791"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_rcd"><span class="id" title="constructor">typ_rcd</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_typ"><span class="id" title="constructor">dec_typ</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#S"><span class="id" title="variable">S</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#U"><span class="id" title="variable">U</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<span class="id" title="notation">exists</span> <span class="id" title="var">T</span> <span class="id" title="var">V</span><span class="id" title="notation">,</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⊢!</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#V"><span class="id" title="variable">V</span></a> <a class="idref" href="DOT.CanonicalForms.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⪼</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_rcd"><span class="id" title="constructor">typ_rcd</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_typ"><span class="id" title="constructor">dec_typ</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#T"><span class="id" title="variable">T</span></a>) <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#3350a03272d49af9ea81ab2b6cc8bf1f"><span class="id" title="notation">⊢#</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#3350a03272d49af9ea81ab2b6cc8bf1f"><span class="id" title="notation">&lt;:</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#U"><span class="id" title="variable">U</span></a> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#3350a03272d49af9ea81ab2b6cc8bf1f"><span class="id" title="notation">⊢#</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#S"><span class="id" title="variable">S</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#3350a03272d49af9ea81ab2b6cc8bf1f"><span class="id" title="notation">&lt;:</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">HG</span> <span class="id" title="var">Hinv</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">dependent</span> <span class="id" title="tactic">induction</span> <span class="id" title="var">Hinv</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">lets</span> <span class="id" title="var">Hp</span>: (<a class="idref" href="DOT.CanonicalForms.PreciseTyping.html#pf_dec_typ_inv"><span class="id" title="lemma">pf_dec_typ_inv</span></a> <span class="id" title="var">HG</span> <span class="id" title="var">H</span>). <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exists</span> <span class="id" title="var">U</span> <span class="id" title="var">T</span>. <span class="id" title="tactic">split</span>*.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">specialize</span> (<span class="id" title="var">IHHinv</span> <span class="id" title="var">A</span> <span class="id" title="var">T</span> <span class="id" title="var">U0</span> <span class="id" title="var">HG</span> <span class="id" title="constructor">eq_refl</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">IHHinv</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">V</span> [<span class="id" title="var">V'</span> [<span class="id" title="var">Hx</span> [<span class="id" title="var">Hs1</span> <span class="id" title="var">Hs2</span>]]]].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exists</span> <span class="id" title="var">V</span> <span class="id" title="var">V'</span>. <span class="id" title="tactic">split</span>*.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab133"></a><h1 class="section">Sel-&lt;: Replacement</h1>
+
+
+<div class="paragraph"> </div>
+
+    <span class="inlinecode"><span class="id" title="var">inert</span></span> <span class="inlinecode"><span class="id" title="var">G</span></span>              <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢#</span> <span class="inlinecode"><span class="id" title="var">x</span>∶</span> <span class="inlinecode">{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>}</span>   <br>
+    <span class="inlinecode">――――――――――――――――――――――</span>   <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢#</span> <span class="inlinecode"><span class="id" title="var">x.A</span></span> <span class="inlinecode">&lt;:</span> <span class="inlinecode"><span class="id" title="var">U</span></span>       <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢#</span> <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode">&lt;:</span> <span class="inlinecode"><span class="id" title="var">x.A</span></span>            
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="sel_replacement"><span class="id" title="lemma">sel_replacement</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">x</span> <span class="id" title="var">A</span> <span class="id" title="var">S</span> <span class="id" title="var">U</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert"><span class="id" title="inductive">inert</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#ceafd746ea64a5e6c98f8c6f374b73b7"><span class="id" title="notation">⊢#</span></a> <a class="idref" href="DOT.Definitions.Syntax.Terms.html#trm_var"><span class="id" title="constructor">trm_var</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Vars.html#avar_f"><span class="id" title="constructor">avar_f</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#x"><span class="id" title="variable">x</span></a>) <a class="idref" href="DOT.CanonicalForms.TightTyping.html#ceafd746ea64a5e6c98f8c6f374b73b7"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_rcd"><span class="id" title="constructor">typ_rcd</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_typ"><span class="id" title="constructor">dec_typ</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#S"><span class="id" title="variable">S</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#U"><span class="id" title="variable">U</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">(</span><a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#3350a03272d49af9ea81ab2b6cc8bf1f"><span class="id" title="notation">⊢#</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_sel"><span class="id" title="constructor">typ_sel</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Vars.html#avar_f"><span class="id" title="constructor">avar_f</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#x"><span class="id" title="variable">x</span></a>) <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#3350a03272d49af9ea81ab2b6cc8bf1f"><span class="id" title="notation">&lt;:</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#U"><span class="id" title="variable">U</span></a> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#3350a03272d49af9ea81ab2b6cc8bf1f"><span class="id" title="notation">⊢#</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#S"><span class="id" title="variable">S</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#3350a03272d49af9ea81ab2b6cc8bf1f"><span class="id" title="notation">&lt;:</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_sel"><span class="id" title="constructor">typ_sel</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Vars.html#avar_f"><span class="id" title="constructor">avar_f</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#x"><span class="id" title="variable">x</span></a>) <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#A"><span class="id" title="variable">A</span></a><span class="id" title="notation">)</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">HG</span> <span class="id" title="var">Hty</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.CanonicalForms.InvertibleTyping.html#tight_to_invertible"><span class="id" title="lemma">tight_to_invertible</span></a> <span class="id" title="var">HG</span> <span class="id" title="var">Hty</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">Hinv</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#sel_premise"><span class="id" title="lemma">sel_premise</span></a> <span class="id" title="var">HG</span> <span class="id" title="var">Hinv</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">T</span> [<span class="id" title="var">V</span> [<span class="id" title="var">Ht</span> [<span class="id" title="var">Hs1</span> <span class="id" title="var">Hs2</span>]]]].<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#subtyp_sel1_t"><span class="id" title="constructor">subtyp_sel1_t</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">Ht</span>. <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#subtyp_trans_t"><span class="id" title="constructor">subtyp_trans_t</span></a> <span class="id" title="keyword">with</span> (<span class="id" title="var">T</span>:=<span class="id" title="var">T</span>); <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#subtyp_sel2_t"><span class="id" title="constructor">subtyp_sel2_t</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">Ht</span>. <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#subtyp_trans_t"><span class="id" title="constructor">subtyp_trans_t</span></a> <span class="id" title="keyword">with</span> (<span class="id" title="var">T</span>:=<span class="id" title="var">T</span>); <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab134"></a><h1 class="section">General to Tight <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">to</span></span> <span class="inlinecode">⊢#</span></h1>
+ The following lemma says that in an inert environment, general typing
+    (<span class="inlinecode"><span class="id" title="var">ty_trm</span></span> <span class="inlinecode">⊢</span>) can be reduced to tight typing (<span class="inlinecode"><span class="id" title="var">ty_trm_t</span></span> <span class="inlinecode">⊢#</span>).
+    The proof is by mutual induction on the typing and subtyping judgements.
+
+<div class="paragraph"> </div>
+
+    <span class="inlinecode"><span class="id" title="var">inert</span></span> <span class="inlinecode"><span class="id" title="var">G</span></span>           <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">t</span>∶</span> <span class="inlinecode"><span class="id" title="var">T</span></span>          <br>
+    <span class="inlinecode">――――――――――――――</span>    <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢#</span> <span class="inlinecode"><span class="id" title="var">t</span>∶</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <br> <br>
+
+<div class="paragraph"> </div>
+
+    and                 <br> <br>
+    <span class="inlinecode"><span class="id" title="var">inert</span></span> <span class="inlinecode"><span class="id" title="var">G</span></span>           <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode">&lt;:</span> <span class="inlinecode"><span class="id" title="var">U</span></span>        <br>
+    <span class="inlinecode">――――――――――――――――</span>  <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢#</span> <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode">&lt;:</span> <span class="inlinecode"><span class="id" title="var">U</span></span>         
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="general_to_tight"><span class="id" title="lemma">general_to_tight</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">G0</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert"><span class="id" title="inductive">inert</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G0"><span class="id" title="variable">G0</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">t</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#t"><span class="id" title="variable">t</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G0"><span class="id" title="variable">G0</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#ceafd746ea64a5e6c98f8c6f374b73b7"><span class="id" title="notation">⊢#</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#t"><span class="id" title="variable">t</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#ceafd746ea64a5e6c98f8c6f374b73b7"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#T"><span class="id" title="variable">T</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">S</span> <span class="id" title="var">U</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d77433d9a5f06bee50380b6ca9a3f271"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#S"><span class="id" title="variable">S</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d77433d9a5f06bee50380b6ca9a3f271"><span class="id" title="notation">&lt;:</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#U"><span class="id" title="variable">U</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G0"><span class="id" title="variable">G0</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#3350a03272d49af9ea81ab2b6cc8bf1f"><span class="id" title="notation">⊢#</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#S"><span class="id" title="variable">S</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#3350a03272d49af9ea81ab2b6cc8bf1f"><span class="id" title="notation">&lt;:</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#U"><span class="id" title="variable">U</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">avs</span> <span class="id" title="var">Ts</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#18e6d19815cc1c2f71d9cd6c6234b36b"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#avs"><span class="id" title="variable">avs</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#18e6d19815cc1c2f71d9cd6c6234b36b"><span class="id" title="notation">::</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#Ts"><span class="id" title="variable">Ts</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G0"><span class="id" title="variable">G0</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#beb37a5772009f8a749dc5892a2c9dd1"><span class="id" title="notation">⊢#</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#avs"><span class="id" title="variable">avs</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#beb37a5772009f8a749dc5892a2c9dd1"><span class="id" title="notation">::</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#Ts"><span class="id" title="variable">Ts</span></a><span class="id" title="notation">)</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">G0</span> <span class="id" title="var">HG</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Definitions.Typing.GeneralTyping.html#ts_mutind"><span class="id" title="definition">ts_mutind</span></a>; <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">subst</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">try</span> <span class="id" title="tactic">solve</span> [<span class="id" title="tactic">eapply</span> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#sel_replacement"><span class="id" title="lemma">sel_replacement</span></a>; <span class="id" title="tactic">auto</span>]; <span class="id" title="tactic">eauto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The general-to-tight lemma, formulated for term typing. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="general_to_tight_typing"><span class="id" title="lemma">general_to_tight_typing</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">t</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert"><span class="id" title="inductive">inert</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#t"><span class="id" title="variable">t</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#ceafd746ea64a5e6c98f8c6f374b73b7"><span class="id" title="notation">⊢#</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#t"><span class="id" title="variable">t</span></a> <a class="idref" href="DOT.CanonicalForms.TightTyping.html#ceafd746ea64a5e6c98f8c6f374b73b7"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">apply</span>* <a class="idref" href="DOT.CanonicalForms.GeneralToTight.html#general_to_tight"><span class="id" title="lemma">general_to_tight</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

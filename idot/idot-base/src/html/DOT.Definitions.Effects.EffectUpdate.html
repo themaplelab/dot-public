@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.Definitions.Effects.EffectUpdate</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a> <a class="idref" href="DOT.Lib.DotTactics.html#"><span class="id" title="library">DotTactics</span></a> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#"><span class="id" title="library">AbstractSyntax</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.Effects.Effects.html#"><span class="id" title="library">Effects</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Implicit</span> <span class="id" title="keyword">Type</span> (<span class="id" title="var">ℰ</span> : <a class="idref" href="DOT.Definitions.Effects.Effects.html#eff_ctx"><span class="id" title="abbreviation">eff_ctx</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab72"></a><h1 class="section">Effect Context Update</h1>
+ <span class="inlinecode"><span class="id" title="var">eff_update</span></span> <span class="inlinecode"><span class="id" title="var">ℰ</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">E</span></span> <span class="inlinecode"><span class="id" title="var">ℰ'</span></span> represents the relation <span class="inlinecode"><span class="id" title="var">ℰ'</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">ℰ</span>[<span class="id" title="var">x</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="var">E</span>]</span>, where <span class="inlinecode"><span class="id" title="var">ℰ</span></span> us
+    updated so that <span class="inlinecode"><span class="id" title="var">x</span></span> now maps to <span class="inlinecode"><span class="id" title="var">E</span></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="eff_update"><span class="id" title="definition">eff_update</span></a> <span class="id" title="var">ℰ</span> <span class="id" title="var">x</span> <span class="id" title="var">effs'</span> <span class="id" title="var">ℰ'</span> :=<br/>
+&nbsp;&nbsp;<span class="id" title="axiom">dom</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <span class="id" title="notation">=</span> <span class="id" title="axiom">dom</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#302f2f6e222c2d6676cbe448f64a4a41"><span class="id" title="variable">ℰ'</span></a> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#effs'"><span class="id" title="variable">effs'</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#302f2f6e222c2d6676cbe448f64a4a41"><span class="id" title="variable">ℰ'</span></a> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">forall</span> <span class="id" title="var">y</span> <span class="id" title="var">effs</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">&lt;&gt;</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#effs"><span class="id" title="variable">effs</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#effs"><span class="id" title="variable">effs</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#302f2f6e222c2d6676cbe448f64a4a41"><span class="id" title="variable">ℰ'</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab73"></a><h2 class="section">Effect Context Updates exists</h2>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a name="EffUpdateExists"><span class="id" title="section">EffUpdateExists</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Lemma</span> <a name="eff_update_exists"><span class="id" title="lemma">eff_update_exists</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">ℰ</span> <span class="id" title="var">x</span> <span class="id" title="var">effs'</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <span class="id" title="axiom">dom</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="notation">exists</span> <span class="id" title="var">ℰ'</span><span class="id" title="notation">,</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#eff_update"><span class="id" title="definition">eff_update</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#effs'"><span class="id" title="variable">effs'</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#302f2f6e222c2d6676cbe448f64a4a41"><span class="id" title="variable">ℰ'</span></a><span class="id" title="notation">)</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">exists</span> (<span class="id" title="var">ℰ</span> <span class="id" title="notation">&amp;</span> <span class="id" title="var">x</span> <span class="id" title="notation">~</span> <span class="id" title="var">effs'</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#eff_update"><span class="id" title="definition">eff_update</span></a>; <span class="id" title="var">repeat_split_right</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">ℰ</span> <span class="id" title="keyword">using</span> <span class="id" title="lemma">env_ind</span>; <span class="id" title="var">simpl_dom</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="var">exfalso</span>; <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_empty</span> <span class="id" title="tactic">in</span> *; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_union</span>, <span class="id" title="axiom">in_singleton</span> <span class="id" title="tactic">in</span> *.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">union_assoc</span>, <span class="id" title="lemma">union_same</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> <span class="id" title="var">IHℰ</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">auto</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="var">H</span> <span class="id" title="tactic">at</span> 1.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">union_comm_assoc</span> <span class="id" title="tactic">at</span> 1; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Lemma</span> <a name="eff_update_ok_exists"><span class="id" title="lemma">eff_update_ok_exists</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">ℰ</span> <span class="id" title="var">x</span> <span class="id" title="var">effs'</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="inductive">ok</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <span class="id" title="axiom">dom</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="notation">exists</span> <span class="id" title="var">ℰ'</span><span class="id" title="notation">,</span> <span class="id" title="inductive">ok</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <span class="id" title="notation">/\</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#eff_update"><span class="id" title="definition">eff_update</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#effs'"><span class="id" title="variable">effs'</span></a> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#302f2f6e222c2d6676cbe448f64a4a41"><span class="id" title="variable">ℰ'</span></a><span class="id" title="notation">)</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">ℰ</span> <span class="id" title="keyword">using</span> <span class="id" title="lemma">env_ind</span>; <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">dom_empty</span>, <span class="id" title="axiom">in_empty</span> <span class="id" title="tactic">in</span> *; <span class="id" title="var">exfalso</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">dom_push</span>, <span class="id" title="axiom">in_union</span>, <span class="id" title="axiom">in_singleton</span> <span class="id" title="tactic">in</span> *.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">destruct_ors</span>; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exists</span> (<span class="id" title="var">ℰ</span> <span class="id" title="notation">&amp;</span> <span class="id" title="var">x</span> <span class="id" title="notation">~</span> <span class="id" title="var">effs'</span>); <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#eff_update"><span class="id" title="definition">eff_update</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">repeat_split_right</span>; <span class="id" title="var">simpl_dom</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">Hneq</span> <span class="id" title="var">Hbi</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="lemma">binds_push_neq_inv</span> <span class="id" title="tactic">in</span> <span class="id" title="var">Hbi</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <span class="id" title="lemma">binds_push_neq</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> <span class="id" title="lemma">ok_push_inv</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="var">destruct_ands</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">specialize</span> (<span class="id" title="var">IHℰ</span> <span class="id" title="var">_</span> <span class="id" title="var">effs'</span> <span class="id" title="var">H</span> <span class="id" title="var">H0</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">ℰ'</span> [<span class="id" title="var">Hok</span> <span class="id" title="var">Heu</span>]].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exists</span> (<span class="id" title="var">ℰ'</span> <span class="id" title="notation">&amp;</span> <span class="id" title="var">x</span> <span class="id" title="notation">~</span> <span class="id" title="var">v</span>). <span class="id" title="tactic">split</span>; <span class="id" title="tactic">auto</span>. <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#eff_update"><span class="id" title="definition">eff_update</span></a> <span class="id" title="tactic">in</span> *.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">destruct_ands</span>; <span class="id" title="var">repeat_split_right</span>; <span class="id" title="var">simpl_dom</span>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">congruence</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* <span class="id" title="tactic">assert</span> (<span class="id" title="var">x</span> <span class="id" title="notation">&lt;&gt;</span> <span class="id" title="var">x0</span>) <span class="id" title="tactic">by</span> <span class="id" title="tactic">congruence</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="lemma">binds_push_neq</span>; <span class="id" title="tactic">eauto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="lemma">binds_push_inv</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H6</span>; <span class="id" title="var">destruct_ors</span>; <span class="id" title="var">destruct_ands</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#EffUpdateExists"><span class="id" title="section">EffUpdateExists</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab74"></a><h1 class="section">Effect Set Updates</h1>
+ <span class="inlinecode"><span class="id" title="var">eff_remove</span></span> <span class="inlinecode"><span class="id" title="var">E</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span> <span class="inlinecode"><span class="id" title="var">E'</span></span> represets the relation <span class="inlinecode"><span class="id" title="var">E'</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">E</span></span> <span class="inlinecode">∖</span> <span class="inlinecode">(<span class="id" title="var">x</span>,<span class="id" title="var">a</span>)</span>, i.e. E' is
+    the effect set <span class="inlinecode"><span class="id" title="var">E</span></span>, but with <span class="inlinecode">(<span class="id" title="var">x</span>,<span class="id" title="var">a</span>)</span> removed. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="eff_remove"><span class="id" title="definition">eff_remove</span></a> (<span class="id" title="var">effs</span> : <a class="idref" href="DOT.Definitions.Effects.Effects.html#effects"><span class="id" title="abbreviation">effects</span></a>) <span class="id" title="var">x</span> <span class="id" title="var">a</span> <span class="id" title="var">effs'</span> :=<br/>
+&nbsp;&nbsp;<span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#x"><span class="id" title="variable">x</span></a><span class="id" title="notation">,</span><a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#a"><span class="id" title="variable">a</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <span class="id" title="notation">(</span><span class="id" title="definition">from_list</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#effs'"><span class="id" title="variable">effs'</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="keyword">forall</span> <span class="id" title="var">eff</span>, <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#eff"><span class="id" title="variable">eff</span></a> <span class="id" title="notation">&lt;&gt;</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#x"><span class="id" title="variable">x</span></a><span class="id" title="notation">,</span><a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#a"><span class="id" title="variable">a</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#eff"><span class="id" title="variable">eff</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <span class="id" title="notation">(</span><span class="id" title="definition">from_list</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#effs"><span class="id" title="variable">effs</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#eff"><span class="id" title="variable">eff</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <span class="id" title="notation">(</span><span class="id" title="definition">from_list</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#effs'"><span class="id" title="variable">effs'</span></a><span class="id" title="notation">)</span><span class="id" title="notation">)</span> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="definition">from_list</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#effs'"><span class="id" title="variable">effs'</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">\</span><span class="id" title="notation">c</span> <span class="id" title="notation">(</span><span class="id" title="definition">from_list</span> <a class="idref" href="DOT.Definitions.Effects.EffectUpdate.html#effs"><span class="id" title="variable">effs</span></a><span class="id" title="notation">)</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

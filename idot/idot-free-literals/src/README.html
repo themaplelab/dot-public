@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="html/assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="html/assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<style>
+  .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;width:100%;}
+  .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;border-top-width:1px;border-bottom-width:1px;}
+  .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;border-top-width:1px;border-bottom-width:1px;}
+  .tg .tg-bq60{font-weight:bold;font-size:100%;font-family:Arial, Helvetica, sans-serif !important;;vertical-align:top}
+  .tg .tg-rkwu{font-family:"Courier New", Courier, monospace !important;;vertical-align:top}
+  .tg .tg-8fc1{font-weight:bold;font-family:Arial, Helvetica, sans-serif !important;;vertical-align:top}
+  .tg .tg-yw4l{vertical-align:top}
+</style>
+<script type="text/javascript" src="html/assets/resources/config.js"></script>
+<script type="text/javascript" src="html/assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="README.html">README</a>
+      <a href="html/indexpage.html"> Index </a>
+      <a href="html/toc.html"> Table of Contents </a>
+    </span>
+</div>
+<div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+        <h1>Extension of &#x03B9;DOT with Free Literals</h1>
+        <p>
+          This directory contains an extension of &#x03B9;DOT which allows
+          literals to be allocated on free subheap.
+          Details of the extension can be found in our paper.
+        </p>
+
+        <h2>Documentation</h2>
+        <p>
+          The documentation for the repository can be accessed form
+          the <a href="html/toc.html">table of contents</a>, which lists links
+          to pretty printed Coq files, but the raw ".v" source files are also
+          available in this directory.
+          In the pretty-printed versions, the proof scripts are hidden by
+          default, but you may click on "Show Proofs" at the top of the page to
+          display all the proofs, or click under the Lemma, Corollary, or
+          Theorem statements to display their proofs.
+        </p>
+
+        <h2>Differences from the Base Calculs</h2>
+        <p>
+          The main difference from the base calclus is in
+          the <a href="html/DOT.Definitions.Initialization.InitTyping.html#well_init">Initalization
+          System</a>. The extension features a new rule for giving
+          initialization types to literal
+          bindings <a href="html/DOT.Definitions.Initialization.InitTyping.html#init_lit_free">init_lit_free</a>,
+          which allocates non-committed variables to show up unbound in literals.
+        </p>
+
+        <p>
+          Additionally, we inline the subtyping relation into the initialization
+          lookup relation
+          (<a href="html/DOT.Initialization.InitVar.html#init_var">init_var</a>).
+          However, this is a superficial difference and the lookup rules in the
+          base calculus are equilavent to the ones used here.
+        </p>
+
+        <p>
+          Even with the new initialization rules, the type safety lemmas still hold.
+        </p>
+
+        <table class="tg">
+          <tr>
+            <th class="tg-bq60">Theorem or Lemma</th>
+            <th class="tg-bq60">File</th>
+            <th class="tg-bq60">Name in Proof</th>
+          </tr>
+          <tr>
+            <td>Lemma 5.2 (Progress)</td>
+            <td><a href="html/DOT.Safety.Safety.html#progress">Safety/Safety.v</a></td>
+            <td><a href="html/DOT.Safety.Safety.html#progress">progress</a></td>
+          </tr>
+          <tr>
+            <td>Lemma 5.3 (Progress)</td>
+            <td><a href="html/DOT.Safety.Safety.html#preservation">Safety/Safety.v</a></td>
+            <td><a href="html/DOT.Safety.Safety.html#preservation">preservation</a></td>
+          </tr>
+          <tr>
+            <td>Lemma 5.4 (Initial Configuration Well-typed)</td>
+            <td><a href="html/DOT.Safety.Safety.html#initial_config_typed">Safety/Safety.v</a></td>
+            <td><a href="html/DOT.Safety.Safety.html#initial_config_typed">initial_config_typed</a></td>
+          </tr>
+        </table>
+
+        <h3>Proof Dependency</h3>
+        <p>
+        <p>
+          You may find a dependency diagram of all the modules below.
+          Click on the image get a larger view.
+        </p>
+
+        <p>
+          <center>
+            <a href="graph.png">
+              <img src="graph.png" style="width: 100%;" alt="Please run 'make graph' in the proof directory to generate this graph.">
+            </a>
+          </center>
+        </p>
+    </div>
+    <div id="footer">
+    Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.Definitions.Typing.PreciseTyping</h1>
+
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+This module reasons about the precise types of variables in inert contexts. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a> <a class="idref" href="DOT.Lib.DotTactics.html#"><span class="id" title="library">DotTactics</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">Coq.Program.Equality</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#"><span class="id" title="library">AbstractSyntax</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab59"></a><h1 class="section">Precise Typing</h1>
+
+
+<div class="paragraph"> </div>
+
+    Precise typing is used to reason about the types of variables.
+    Precise typing does not "modify" a variable's type through subtyping.
+    We start out with a type <span class="inlinecode"><span class="id" title="var">T</span>=<span class="id" title="var">G</span>(<span class="id" title="var">x</span>)</span> (the type to which the variable is
+    bound in <span class="inlinecode"><span class="id" title="var">G</span></span>). Then we use precise typing to additionally deconstruct <span class="inlinecode"><span class="id" title="var">T</span></span>
+    by using recursion elimination and intersection elimination. <br>
+    For example, if <span class="inlinecode"><span class="id" title="var">G</span>(<span class="id" title="var">x</span>)=<span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>})</span>, then we can derive the following
+    precise types for <span class="inlinecode"><span class="id" title="var">x</span></span>:               <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>})</span> <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>}</span>        <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span>                    <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>}</span>.                
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Opaque</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab60"></a><h1 class="section">Precise Flow</h1>
+ We use the precise flow relation to reason about the relations between
+    the precise type of a variable <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span> and the type that the variable
+    is bound to in the context <span class="inlinecode"><span class="id" title="var">G</span>(<span class="id" title="var">x</span>)=<span class="id" title="var">T'</span></span>.<br>
+    If <span class="inlinecode"><span class="id" title="var">G</span>(<span class="id" title="var">x</span>)</span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">T</span></span>, the <span class="inlinecode"><span class="id" title="var">precise_flow</span></span> relation describes all the types <span class="inlinecode"><span class="id" title="var">U</span></span> that <span class="inlinecode"><span class="id" title="var">x</span></span> can
+    derive through precise typing (<span class="inlinecode">⊢!</span>).
+    If <span class="inlinecode"><span class="id" title="var">precise_flow</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode"><span class="id" title="var">U</span></span>, denoted as <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">⪼</span> <span class="inlinecode"><span class="id" title="var">U</span></span>,
+    then <span class="inlinecode"><span class="id" title="var">G</span>(<span class="id" title="var">x</span>)</span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">T</span></span> and <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">U</span></span>.   <br>
+    For example, if <span class="inlinecode"><span class="id" title="var">G</span>(<span class="id" title="var">x</span>)</span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>})</span>, then we can derive the following
+    precise flows for <span class="inlinecode"><span class="id" title="var">x</span></span>:                                                  <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>})</span> <span class="inlinecode">⪼</span> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>}</span>         <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>})</span> <span class="inlinecode">⪼</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>}</span>               <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>})</span> <span class="inlinecode">⪼</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span>                           <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>})</span> <span class="inlinecode">⪼</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">U</span>}</span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Reserved Notation</span> &quot;G '⊢!' x '∶' T '⪼' U" (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 59).<br/>
+
+<br/>
+<span class="id" title="keyword">Inductive</span> <a name="precise_flow"><span class="id" title="inductive">precise_flow</span></a> : <span class="id" title="axiom">var</span> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#ctx"><span class="id" title="abbreviation">ctx</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ"><span class="id" title="inductive">typ</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ"><span class="id" title="inductive">typ</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">G</span>(<span class="id" title="var">x</span>)</span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">T</span></span>       <br>
+    <span class="inlinecode">――――――――――――――</span> <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">⪼</span> <span class="inlinecode"><span class="id" title="var">T</span></span> 
+</div>
+<div class="code">
+&nbsp;&nbsp;| <a name="pf_bind"><span class="id" title="constructor">pf_bind</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">x</span> <span class="id" title="var">G</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⊢!</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⪼</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#T"><span class="id" title="variable">T</span></a><br/>
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">⪼</span> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">U</span>)</span> <br>
+    <span class="inlinecode">――――――――――――――――――</span> <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">⪼</span> <span class="inlinecode"><span class="id" title="var">U</span>^<span class="id" title="var">x</span></span>       
+</div>
+<div class="code">
+&nbsp;&nbsp;| <a name="pf_open"><span class="id" title="constructor">pf_open</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">x</span> <span class="id" title="var">G</span> <span class="id" title="var">T</span> <span class="id" title="var">U</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⊢!</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⪼</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_bnd"><span class="id" title="constructor">typ_bnd</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#U"><span class="id" title="variable">U</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⊢!</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⪼</span></a> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#U"><span class="id" title="variable">U</span></a><br/>
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">⪼</span> <span class="inlinecode"><span class="id" title="var">U1</span></span> <span class="inlinecode">/\</span> <span class="inlinecode"><span class="id" title="var">U2</span></span>   <br>
+    <span class="inlinecode">――――――――――――――――――――</span>   <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">⪼</span> <span class="inlinecode"><span class="id" title="var">U1</span></span>        
+</div>
+<div class="code">
+&nbsp;&nbsp;| <a name="pf_and1"><span class="id" title="constructor">pf_and1</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">x</span> <span class="id" title="var">G</span> <span class="id" title="var">T</span> <span class="id" title="var">U1</span> <span class="id" title="var">U2</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⊢!</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⪼</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_and"><span class="id" title="constructor">typ_and</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#U1"><span class="id" title="variable">U1</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#U2"><span class="id" title="variable">U2</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⊢!</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⪼</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#U1"><span class="id" title="variable">U1</span></a><br/>
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">⪼</span> <span class="inlinecode"><span class="id" title="var">U1</span></span> <span class="inlinecode">/\</span> <span class="inlinecode"><span class="id" title="var">U2</span></span>   <br>
+    <span class="inlinecode">――――――――――――――――――――</span>   <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢!</span> <span class="inlinecode"><span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">⪼</span> <span class="inlinecode"><span class="id" title="var">U2</span></span>        
+</div>
+<div class="code">
+&nbsp;&nbsp;| <a name="pf_and2"><span class="id" title="constructor">pf_and2</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">x</span> <span class="id" title="var">G</span> <span class="id" title="var">T</span> <span class="id" title="var">U1</span> <span class="id" title="var">U2</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⊢!</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⪼</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_and"><span class="id" title="constructor">typ_and</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#U1"><span class="id" title="variable">U1</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#U2"><span class="id" title="variable">U2</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⊢!</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">⪼</span></a> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#U2"><span class="id" title="variable">U2</span></a><br/>
+<br/>
+<span class="id" title="keyword">where</span> <a name="5672a19843f7cc5777c1cb56b49a2309"><span class="id" title="notation">&quot;</span></a>G '⊢!' x '∶' T '⪼' U" := (<a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#precise_flow"><span class="id" title="inductive">precise_flow</span></a> <span class="id" title="var">x</span> <span class="id" title="var">G</span> <span class="id" title="var">T</span> <span class="id" title="var">U</span>).<br/>
+
+<br/>
+<span class="id" title="keyword">Hint Constructors</span> <a class="idref" href="DOT.Definitions.Typing.PreciseTyping.html#precise_flow"><span class="id" title="inductive">precise_flow</span></a> : <span class="id" title="var">core</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

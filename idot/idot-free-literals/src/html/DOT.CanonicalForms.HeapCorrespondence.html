@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.CanonicalForms.HeapCorrespondence</h1>
+
+<div class="code">
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.DotTactics.html#"><span class="id" title="library">DotTactics</span></a> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#"><span class="id" title="library">AbstractSyntax</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#"><span class="id" title="library">Typing</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#"><span class="id" title="library">PreTyping</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.Typing.GeneralTyping.html#"><span class="id" title="library">GeneralTyping</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#"><span class="id" title="library">RecordAndInertTypes</span></a> <a class="idref" href="DOT.CanonicalForms.PreciseTyping.html#"><span class="id" title="library">PreciseTyping</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.TypingClasses.SubstitutionClass.html#"><span class="id" title="library">SubstitutionClass</span></a> <a class="idref" href="DOT.GeneralTyping.Substitution.html#"><span class="id" title="library">Substitution</span></a> <a class="idref" href="DOT.GeneralTyping.Weakening.html#"><span class="id" title="library">Weakening</span></a> <a class="idref" href="DOT.GeneralTyping.Narrowing.html#"><span class="id" title="library">Narrowing</span></a> <a class="idref" href="DOT.GeneralTyping.BndIntro.html#"><span class="id" title="library">BndIntro</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab146"></a><h1 class="section">Heap Correspondence</h1>
+
+<div class="paragraph"> </div>
+
+ The operational semantics will be defined in terms of configurations
+    consisting of a term <span class="inlinecode"><span class="id" title="var">t</span></span>, a stack <span class="inlinecode"><span class="id" title="var">s</span></span>, and a heap <span class="inlinecode"><span class="id" title="var">Sigma</span></span>.
+    For typing a configuration, <span class="inlinecode"><span class="id" title="var">heap_correspond</span></span> establishes a correspondence
+    between the context <span class="inlinecode"><span class="id" title="var">Gamma</span></span> and the heap <span class="inlinecode"><span class="id" title="var">Sigma</span></span>.
+
+<div class="paragraph"> </div>
+
+    We say that a context <span class="inlinecode"><span class="id" title="var">Gamma</span></span> corresponds to a heap <span class="inlinecode"><span class="id" title="var">Sigma</span></span> if
+<ul class="doclist">
+<li> <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">=</span> <span class="inlinecode">{(<span class="id" title="var">xi</span></span> <span class="inlinecode"><span class="id" title="var">mapsto</span></span> <span class="inlinecode"><span class="id" title="var">Ti</span>)</span> <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" title="var">i</span></span> <span class="inlinecode">=</span> <span class="inlinecode">1,</span> <span class="inlinecode">...,</span> <span class="inlinecode"><span class="id" title="var">n</span>}</span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">s</span></span> <span class="inlinecode">=</span> <span class="inlinecode">{(<span class="id" title="var">xi</span></span> <span class="inlinecode"><span class="id" title="var">mapsto</span></span> <span class="inlinecode"><span class="id" title="var">vi</span>)</span> <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" title="var">i</span></span> <span class="inlinecode">=</span> <span class="inlinecode">1,</span> <span class="inlinecode">...,</span> <span class="inlinecode"><span class="id" title="var">n</span>}</span>
+
+</li>
+<li> If <span class="inlinecode"><span class="id" title="var">vi</span></span> is a function then <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">vi</span>∶</span> <span class="inlinecode"><span class="id" title="var">Ti</span></span>
+
+</li>
+<li> If <span class="inlinecode"><span class="id" title="var">vi</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">nu</span>(<span class="id" title="var">T</span>)<span class="id" title="var">ds</span></span> is an object then <span class="inlinecode"><span class="id" title="var">Ti</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">mu</span>(...</span> <span class="inlinecode">/\</span> <span class="inlinecode"><span class="id" title="var">D</span></span> <span class="inlinecode">/\</span> <span class="inlinecode">...)</span> and
+      <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">ds</span>^<span class="id" title="var">xi</span></span> <span class="inlinecode">::</span> <span class="inlinecode">(...</span> <span class="inlinecode">/\</span> <span class="inlinecode"><span class="id" title="var">D</span></span> <span class="inlinecode">/\</span> <span class="inlinecode">...)^<span class="id" title="var">xi</span></span>.
+
+</li>
+</ul>
+ 
+<div class="paragraph"> </div>
+
+<a name="lab147"></a><h2 class="section">Typing for heap definitions</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Inductive</span> <a name="ty_heap_def"><span class="id" title="inductive">ty_heap_def</span></a> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTyping"><span class="id" title="class">DecTyping</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def"><span class="id" title="inductive">heap_def</span></a> :=<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode">{<span class="id" title="var">A</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">T</span>}:</span> <span class="inlinecode">{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>..<span class="id" title="var">T</span>}</span>   
+</div>
+<div class="code">
+| <a name="ty_heap_def_typ"><span class="id" title="constructor">ty_heap_def_typ</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">A</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_typ"><span class="id" title="constructor">heap_def_typ</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">∶</span></a><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">d</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_typ"><span class="id" title="constructor">dec_typ</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a><br/>
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">t</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span></span>            <br>
+    <span class="inlinecode">―――――――――――――――――――</span> <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode">{<span class="id" title="var">a</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">t</span>}:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> 
+</div>
+<div class="code">
+<br/>
+<span class="comment">(*&nbsp;A&nbsp;null&nbsp;def&nbsp;in&nbsp;a&nbsp;heap&nbsp;has&nbsp;any&nbsp;type&nbsp;*)</span><br/>
+| <a name="ty_heap_def_trm_none"><span class="id" title="constructor">ty_heap_def_trm_none</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">a</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#a"><span class="id" title="variable">a</span></a> <span class="id" title="constructor">None</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">∶</span></a><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">d</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_trm"><span class="id" title="constructor">dec_trm</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a><br/>
+<br/>
+| <a name="ty_heap_def_trm_some"><span class="id" title="constructor">ty_heap_def_trm_some</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">a</span> <span class="id" title="var">x</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">(</span></a><a class="idref" href="DOT.Definitions.Syntax.Terms.html#trm_var"><span class="id" title="constructor">trm_var</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Vars.html#avar_f"><span class="id" title="constructor">avar_f</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a>)<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">)</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#a"><span class="id" title="variable">a</span></a> (<span class="id" title="constructor">Some</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a>) <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">∶</span></a><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">d</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_trm"><span class="id" title="constructor">dec_trm</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="var">Existing</span> <span class="id" title="keyword">Instance</span> <span class="id" title="var">ty_heap_def</span>.<br/>
+<span class="id" title="keyword">Hint Constructors</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_heap_def"><span class="id" title="inductive">ty_heap_def</span></a> : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="TyHeapDefDecTypingLabels"><span class="id" title="instance">TyHeapDefDecTypingLabels</span></a> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTypingLabels"><span class="id" title="class">DecTypingLabels</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_heap_def"><span class="id" title="inductive">ty_heap_def</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>; <span class="id" title="tactic">induction</span> 1; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="TyHeapDefDecTypingRecord"><span class="id" title="instance">TyHeapDefDecTypingRecord</span></a> : <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#DecTypingRecord"><span class="id" title="class">DecTypingRecord</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_heap_def"><span class="id" title="inductive">ty_heap_def</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>; <span class="id" title="tactic">induction</span> 1; <span class="id" title="tactic">constructor</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="HeapDefDecTypingBndIntroMiddle"><span class="id" title="instance">HeapDefDecTypingBndIntroMiddle</span></a> : <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#PreTypingBndIntroMiddle"><span class="id" title="class">PreTypingBndIntroMiddle</span></a> (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecPreTyping"><span class="id" title="instance">DecPreTyping</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_heap_def"><span class="id" title="inductive">ty_heap_def</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>. <span class="id" title="tactic">inversion</span> 1; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#bnd_intro_middle"><span class="id" title="definition">bnd_intro_middle</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Local Hint Extern</span> 2 =&gt; <span class="id" title="tactic">simple</span> <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#weaken_middle"><span class="id" title="definition">weaken_middle</span></a> : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="HeapDefDecTypingWeakenMiddle"><span class="id" title="instance">HeapDefDecTypingWeakenMiddle</span></a> :<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#PreTypingWeakenMiddle"><span class="id" title="class">PreTypingWeakenMiddle</span></a> (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecPreTyping"><span class="id" title="instance">DecPreTyping</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_heap_def"><span class="id" title="inductive">ty_heap_def</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>; <span class="id" title="var">introv</span> <span class="id" title="var">H</span>. <span class="id" title="var">inversions</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="HeapDefTySubstMiddle"><span class="id" title="instance">HeapDefTySubstMiddle</span></a> : <a class="idref" href="DOT.Definitions.TypingClasses.SubstitutionClass.html#DecTySubstMiddle"><span class="id" title="class">DecTySubstMiddle</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_heap_def"><span class="id" title="inductive">ty_heap_def</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>; <span class="id" title="var">introv</span> <span class="id" title="var">Hok</span> <span class="id" title="var">Htyd</span>; <span class="id" title="var">inversions</span> <span class="id" title="var">Htyd</span>; <span class="id" title="var">sympl</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>; <span class="id" title="tactic">eapply</span> <a class="idref" href="DOT.Definitions.TypingClasses.SubstitutionClass.html#ty_subst_middle"><span class="id" title="definition">ty_subst_middle</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">eauto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab148"></a><h2 class="section">Strong Bindings for Locations</h2>
+
+<div class="paragraph"> </div>
+
+ We first define a correspondence relation for a single location. This
+    definition will later be lifted to entire contexts and heaps. 
+<div class="paragraph"> </div>
+
+ We say that a location <span class="inlinecode"><span class="id" title="var">l</span></span> is strongly bound in the context <span class="inlinecode"><span class="id" title="var">G</span></span> and heap
+    <span class="inlinecode"><span class="id" title="var">Sigma</span></span>, denoted <span class="inlinecode"><span class="id" title="var">s</span>(<span class="id" title="var">l</span>):<span class="id" title="var">G</span>(<span class="id" title="var">l</span>)</span> if there exists a <span class="inlinecode"><span class="id" title="var">T</span></span> such t
+<ul class="doclist">
+<li> if <span class="inlinecode"><span class="id" title="var">s</span>(<span class="id" title="var">x</span>)</span> is a function <span class="inlinecode"><span class="id" title="var">lambda</span>(<span class="id" title="var">y</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>)<span class="id" title="var">t</span></span> then <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">lambda</span>(<span class="id" title="var">y</span>∶</span> <span class="inlinecode"><span class="id" title="var">T</span>)<span class="id" title="var">t</span></span> <span class="inlinecode">∶</span> <span class="inlinecode"><span class="id" title="var">T</span></span>
+
+</li>
+<li> if <span class="inlinecode"><span class="id" title="var">s</span>(<span class="id" title="var">x</span>)</span> is an object <span class="inlinecode"><span class="id" title="var">nu</span>(<span class="id" title="var">y</span>:</span> <span class="inlinecode"><span class="id" title="var">U</span>)<span class="id" title="var">ds</span></span> for some <span class="inlinecode"><span class="id" title="var">U</span></span>, then <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">U</span>)</span> and
+      <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">ds</span>^<span class="id" title="var">x</span></span> <span class="inlinecode">::</span> <span class="inlinecode"><span class="id" title="var">U</span>^<span class="id" title="var">x</span></span> 
+</li>
+</ul>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Inductive</span> <a name="ty_item_s"><span class="id" title="inductive">ty_item_s</span></a> : <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#ctx"><span class="id" title="abbreviation">ctx</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.AbstractMachine.html#heap"><span class="id" title="abbreviation">heap</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="axiom">var</span> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="comment">(*&nbsp;Strongly&nbsp;bound&nbsp;for&nbsp;function&nbsp;and&nbsp;constructor&nbsp;literals&nbsp;basically&nbsp;just<br/>
+&nbsp;&nbsp;&nbsp;say&nbsp;that&nbsp;they&nbsp;are&nbsp;well-typed&nbsp;under&nbsp;Gamma&nbsp;*)</span><br/>
+| <a name="ty_item_lit_s"><span class="id" title="constructor">ty_item_lit_s</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">s</span> <span class="id" title="var">x</span> <span class="id" title="var">l</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#Gamma"><span class="id" title="variable">Gamma</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#item_lit"><span class="id" title="constructor">item_lit</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#l"><span class="id" title="variable">l</span></a>) <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#l"><span class="id" title="variable">l</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s"><span class="id" title="inductive">ty_item_s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a><br/>
+<span class="comment">(*&nbsp;This&nbsp;is&nbsp;basically&nbsp;inlining&nbsp;the&nbsp;rule&nbsp;for&nbsp;object&nbsp;typing&nbsp;*)</span><br/>
+| <a name="ty_item_obj_s"><span class="id" title="constructor">ty_item_obj_s</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">s</span> <span class="id" title="var">x</span> <span class="id" title="var">U</span> <span class="id" title="var">hds</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_bnd"><span class="id" title="constructor">typ_bnd</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#U"><span class="id" title="variable">U</span></a>) <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#U"><span class="id" title="variable">U</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#hds"><span class="id" title="variable">hds</span></a>) <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#hds"><span class="id" title="variable">hds</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#U"><span class="id" title="variable">U</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s"><span class="id" title="inductive">ty_item_s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a>.<br/>
+<span class="id" title="keyword">Hint Constructors</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s"><span class="id" title="inductive">ty_item_s</span></a> : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Implicit</span> <span class="id" title="keyword">Type</span> (<span class="id" title="var">hds</span> : <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs"><span class="id" title="abbreviation">heap_defs</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">Ltac</span> <span class="id" title="var">solve_ty_item_push</span> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <span class="id" title="keyword">goal</span> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| [<span class="id" title="var">H1</span>: <span class="id" title="definition">binds</span> ?<span class="id" title="var">y</span> ?<span class="id" title="var">T</span> ?<span class="id" title="var">G</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">H2</span>: <span class="id" title="definition">binds</span> ?<span class="id" title="var">y</span> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#item_lit"><span class="id" title="constructor">item_lit</span></a> ?<span class="id" title="var">l</span>) ?<span class="id" title="var">s</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">H3</span> : ?<span class="id" title="var">G</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> ?<span class="id" title="var">l</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> ?<span class="id" title="var">T</span> |- <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s"><span class="id" title="inductive">ty_item_s</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> ?<span class="id" title="var">y</span>] =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eapply</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_lit_s"><span class="id" title="constructor">ty_item_lit_s</span></a>; <span class="id" title="tactic">eauto</span> 2;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span>; <span class="id" title="tactic">eapply</span> <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#weaken"><span class="id" title="lemma">weaken</span></a>; <span class="id" title="tactic">eauto</span><br/>
+&nbsp;&nbsp;| [<span class="id" title="var">H1</span>: <span class="id" title="definition">binds</span> <span class="id" title="var">_</span> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>) <span class="id" title="var">_</span> |- <span class="id" title="var">_</span>] =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eapply</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_obj_s"><span class="id" title="constructor">ty_item_obj_s</span></a>; <span class="id" title="tactic">eauto</span> 2;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eapply</span> <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#weaken"><span class="id" title="lemma">weaken</span></a>; <span class="id" title="tactic">eauto</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A strongly bound location stays strongly bound in extended heaps and contexts 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="ty_item_s_push"><span class="id" title="lemma">ty_item_s_push</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">s</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">T</span> <span class="id" title="var">v</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s"><span class="id" title="inductive">ty_item_s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">#</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s"><span class="id" title="inductive">ty_item_s</span></a> (<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a>) (<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#v"><span class="id" title="variable">v</span></a>) <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">assert</span> (<span class="id" title="var">x</span> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <span class="id" title="notation">\{</span> <span class="id" title="var">y</span> <span class="id" title="notation">}</span>).<br/>
+&nbsp;&nbsp;{ <span class="id" title="tactic">apply</span> <span class="id" title="lemma">notin_singleton</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> ?<span class="id" title="var">H</span>. <span class="id" title="tactic">subst</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">inversions</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <span class="id" title="lemma">binds_fresh_inv</span>. }<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">H</span>; <span class="id" title="var">solve_ty_item_push</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab149"></a><h2 class="section">Heap Correspondence</h2>
+
+<div class="paragraph"> </div>
+
+ <span class="inlinecode"><span class="id" title="var">s</span>:<span class="id" title="var">G</span></span> if <span class="inlinecode"><span class="id" title="var">s</span></span> and <span class="inlinecode"><span class="id" title="var">G</span></span> have the same domain and every location in <span class="inlinecode"><span class="id" title="var">s</span></span> is
+    strongly bound 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="heap_correspond"><span class="id" title="definition">heap_correspond</span></a> (<span class="id" title="var">G</span> : <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#ctx"><span class="id" title="abbreviation">ctx</span></a>) (<span class="id" title="var">s</span> : <a class="idref" href="DOT.Definitions.Syntax.AbstractMachine.html#heap"><span class="id" title="abbreviation">heap</span></a>) : <span class="id" title="keyword">Prop</span> :=<br/>
+&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="axiom">dom</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">=</span> <span class="id" title="axiom">dom</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="keyword">forall</span> <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <span class="id" title="axiom">dom</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s"><span class="id" title="inductive">ty_item_s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a><span class="id" title="notation">)</span>.<br/>
+<span class="id" title="keyword">Hint Unfold</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab150"></a><h2 class="section">Simple lemmas for Heap Correspondence</h2>
+
+<div class="paragraph"> </div>
+
+ <span class="inlinecode"><span class="id" title="var">s</span>:</span> <span class="inlinecode"><span class="id" title="var">G</span></span>       <br>
+    <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">∉</span> <span class="inlinecode"><span class="id" title="var">dom</span>(<span class="id" title="var">s</span>)</span> <br>
+    <span class="inlinecode">――――――――――</span> <br>
+    <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">∉</span> <span class="inlinecode"><span class="id" title="var">dom</span>(<span class="id" title="var">G</span>)</span> 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="heap_correspond_notin_dom"><span class="id" title="lemma">heap_correspond_notin_dom</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">s</span> <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">#</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">#</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">Hwt</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">Hwt</span> <span class="id" title="keyword">as</span> [?<span class="id" title="var">Hdom</span> ?].<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="var">Hdom</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab151"></a><h2 class="section">Inductive lemmas for Heap Correspondence</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="heap_correspond_empty"><span class="id" title="lemma">heap_correspond_empty</span></a>:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> <span class="id" title="axiom">empty</span> <span class="id" title="axiom">empty</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">repeat</span> <span class="id" title="tactic">split</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">simpl_dom</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">introv</span> <span class="id" title="var">B</span>. <span class="id" title="var">simpl_dom</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_empty</span> <span class="id" title="tactic">in</span> <span class="id" title="var">B</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">B</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">Hint Resolve</span> <span class="id" title="var">heap_correspond_empty</span> : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="heap_correspond_push"><span class="id" title="lemma">heap_correspond_push</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">s</span> <span class="id" title="var">y</span> <span class="id" title="var">T</span> <span class="id" title="var">v</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">#</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s"><span class="id" title="inductive">ty_item_s</span></a> (<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a>) (<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#v"><span class="id" title="variable">v</span></a>) <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> (<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a>) (<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#y"><span class="id" title="variable">y</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#v"><span class="id" title="variable">v</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> <span class="id" title="tactic">in</span> *.<br/>
+&nbsp;&nbsp;<span class="id" title="var">destruct_all</span>; <span class="id" title="var">repeat_split_right</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> ? <span class="id" title="lemma">dom_push</span>; <span class="id" title="tactic">congruence</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">intros</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">dom_push</span>, <span class="id" title="axiom">in_union</span>, <span class="id" title="axiom">in_singleton</span> <span class="id" title="tactic">in</span> *.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">destruct_all</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s_push"><span class="id" title="lemma">ty_item_s_push</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="heap_correspond_push_obj"><span class="id" title="lemma">heap_correspond_push_obj</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">L</span> <span class="id" title="var">G</span> <span class="id" title="var">s</span> <span class="id" title="var">x</span> <span class="id" title="var">T</span> <span class="id" title="var">ds</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">#</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="keyword">forall</span> <span class="id" title="var">x</span> : <span class="id" title="axiom">var</span>, <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#L"><span class="id" title="variable">L</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ds"><span class="id" title="variable">ds</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ds"><span class="id" title="variable">ds</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> (<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_bnd"><span class="id" title="constructor">typ_bnd</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a>) (<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ds"><span class="id" title="variable">ds</span></a>)).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> <span class="id" title="tactic">in</span> *.<br/>
+&nbsp;&nbsp;<span class="id" title="var">destruct_all</span>; <span class="id" title="var">repeat_split_right</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;+ <span class="id" title="var">simpl_dom</span>. <span class="id" title="var">fequal</span>. <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;+ <span class="id" title="tactic">intros</span> <span class="id" title="var">x0</span> <span class="id" title="var">Hd</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.Lib.LibExtraEnv.html#dom_to_binds"><span class="id" title="lemma">dom_to_binds</span></a> <span class="id" title="var">Hd</span>) <span class="id" title="keyword">as</span> [?<span class="id" title="var">T</span> ?]; <span class="id" title="tactic">clear</span> <span class="id" title="var">Hd</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">assert</span> (<span class="id" title="definition">binds</span> <span class="id" title="var">x</span> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <span class="id" title="var">T</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <span class="id" title="var">x</span> <span class="id" title="var">ds</span>)) (<span class="id" title="var">s</span> <span class="id" title="notation">&amp;</span> <span class="id" title="var">x</span> <span class="id" title="notation">~</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <span class="id" title="var">T</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <span class="id" title="var">x</span> <span class="id" title="var">ds</span>)<span class="id" title="notation">)</span>)) <span class="id" title="tactic">by</span> <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> (<span class="id" title="lemma">binds_push_inv</span> <span class="id" title="var">H4</span>) <span class="id" title="keyword">as</span> [[? ?] | [? ?]]; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;* <span class="id" title="tactic">apply</span> (<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_obj_s"><span class="id" title="constructor">ty_item_obj_s</span></a> <span class="id" title="var">H4</span> <span class="id" title="var">H5</span>); <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#bnd_intro"><span class="id" title="lemma">bnd_intro</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<a class="idref" href="DOT.Definitions.TypingClasses.SubstitutionClass.html#renaming_open_push"><span class="id" title="lemma">renaming_open_push</span></a> (<span class="id" title="var">L</span>:=<span class="id" title="var">L</span>)); <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;* <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s_push"><span class="id" title="lemma">ty_item_s_push</span></a>; <span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.Lib.LibExtraEnv.html#binds_to_dom"><span class="id" title="lemma">binds_to_dom</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab152"></a><h2 class="section">Inversion lemmas for <span class="inlinecode"><span class="id" title="var">s</span>:<span class="id" title="var">G</span></span></h2>
+
+<div class="paragraph"> </div>
+
+ <span class="inlinecode"><span class="id" title="var">s</span>:<span class="id" title="var">G</span></span> implies every location is strongly typed 
+<div class="paragraph"> </div>
+
+ <span class="inlinecode"><span class="id" title="var">s</span>:</span> <span class="inlinecode"><span class="id" title="var">G</span></span>              <br>
+    <span class="inlinecode"><span class="id" title="var">G</span>(<span class="id" title="var">l</span>)</span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">T</span></span>          <br>
+    <span class="inlinecode">―――――――――――――</span>     <br>
+    <span class="inlinecode"><span class="id" title="var">s</span>(<span class="id" title="var">l</span>):<span class="id" title="var">G</span>(<span class="id" title="var">l</span>)</span>         
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="corresponding_types"><span class="id" title="lemma">corresponding_types</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">s</span> <span class="id" title="var">x</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s"><span class="id" title="inductive">ty_item_s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">destruct_all</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.Lib.LibExtraEnv.html#binds_to_dom"><span class="id" title="lemma">binds_to_dom</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">s</span>:</span> <span class="inlinecode"><span class="id" title="var">G</span></span>              <br>
+    <span class="inlinecode"><span class="id" title="var">s</span>(<span class="id" title="var">l</span>)</span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">v</span></span>          <br>
+    <span class="inlinecode">―――――――――――――</span>     <br>
+    <span class="inlinecode"><span class="id" title="var">s</span>(<span class="id" title="var">l</span>):<span class="id" title="var">G</span>(<span class="id" title="var">l</span>)</span>         
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="corresponding_types_s"><span class="id" title="lemma">corresponding_types_s</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">s</span> <span class="id" title="var">x</span> <span class="id" title="var">v</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#v"><span class="id" title="variable">v</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ty_item_s"><span class="id" title="inductive">ty_item_s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#s"><span class="id" title="variable">s</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond"><span class="id" title="definition">heap_correspond</span></a> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">destruct_all</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">H1</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.Lib.LibExtraEnv.html#binds_to_dom"><span class="id" title="lemma">binds_to_dom</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="heap_defs_same_typ"><span class="id" title="lemma">heap_defs_same_typ</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">ds</span> <span class="id" title="var">G</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ds"><span class="id" title="variable">ds</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">(</span></a><a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs_of_defs"><span class="id" title="definition">heap_defs_of_defs</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ds"><span class="id" title="variable">ds</span></a><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">)</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Proof</span> <span class="id" title="keyword">with</span> <span class="id" title="tactic">eauto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">ds</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">inversion</span> 1.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">introv</span> <span class="id" title="var">ds_typ</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">inversions</span> <span class="id" title="var">ds_typ</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">constructor</span>. <span class="id" title="var">inversions</span> <span class="id" title="var">H3</span>; <span class="id" title="tactic">simpl</span>...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ty_defs_cons"><span class="id" title="constructor">ty_defs_cons</span></a>...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* <span class="id" title="var">inversions</span> <span class="id" title="var">H3</span>; <span class="id" title="tactic">simpl</span>...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* <span class="id" title="var">inversions</span> <span class="id" title="var">H3</span>; <span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> *;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#ds_labels_hasnt_hds_labels_hasnt"><span class="id" title="lemma">ds_labels_hasnt_hds_labels_hasnt</span></a>...<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="not_free_in_ds_hds"><span class="id" title="lemma">not_free_in_ds_hds</span></a> : <span class="id" title="keyword">forall</span> (<span class="id" title="var">ds</span> : <a class="idref" href="DOT.Definitions.Syntax.Terms.html#defs"><span class="id" title="abbreviation">defs</span></a>) (<span class="id" title="var">x</span> : <span class="id" title="axiom">var</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ds"><span class="id" title="variable">ds</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs_of_defs"><span class="id" title="definition">heap_defs_of_defs</span></a> <a class="idref" href="DOT.CanonicalForms.HeapCorrespondence.html#ds"><span class="id" title="variable">ds</span></a>).<br/>
+<span class="id" title="keyword">Proof</span> <span class="id" title="keyword">with</span> <span class="id" title="tactic">eauto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">ds</span>; <span class="id" title="tactic">intros</span>...<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> *. <span class="id" title="tactic">repeat</span>(<span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">notin_union</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>); <span class="id" title="var">destruct_all</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">notin_union</span>. <span class="id" title="tactic">split</span>...<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">a</span>...<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

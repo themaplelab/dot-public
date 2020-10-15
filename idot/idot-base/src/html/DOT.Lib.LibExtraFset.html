@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.Lib.LibExtraFset</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">TLC</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">LibFset</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="is_in_union_singleton_l"><span class="id" title="lemma">is_in_union_singleton_l</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} <span class="id" title="var">v</span> (<span class="id" title="var">E</span> : <span class="id" title="axiom">fset</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraFset.html#v"><span class="id" title="variable">v</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <span class="id" title="notation">\{</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#v"><span class="id" title="variable">v</span></a><span class="id" title="notation">}</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_union</span>, <span class="id" title="axiom">in_singleton</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="is_in_union_singleton_r"><span class="id" title="lemma">is_in_union_singleton_r</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} <span class="id" title="var">v</span> (<span class="id" title="var">E</span> : <span class="id" title="axiom">fset</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraFset.html#v"><span class="id" title="variable">v</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <span class="id" title="notation">\{</span><a class="idref" href="DOT.Lib.LibExtraFset.html#v"><span class="id" title="variable">v</span></a><span class="id" title="notation">}</span> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_union</span>, <span class="id" title="axiom">in_singleton</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="in_union_singleton_l"><span class="id" title="lemma">in_union_singleton_l</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} <span class="id" title="var">v1</span> <span class="id" title="var">v2</span> (<span class="id" title="var">E</span> : <span class="id" title="axiom">fset</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraFset.html#v1"><span class="id" title="variable">v1</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <span class="id" title="notation">\{</span><a class="idref" href="DOT.Lib.LibExtraFset.html#v2"><span class="id" title="variable">v2</span></a><span class="id" title="notation">}</span> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a> <span class="id" title="notation">&lt;-&gt;</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#v1"><span class="id" title="variable">v1</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#v2"><span class="id" title="variable">v2</span></a> <span class="id" title="notation">\/</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#v1"><span class="id" title="variable">v1</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_union</span>, <span class="id" title="axiom">in_singleton</span>; <span class="id" title="tactic">split</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="in_union_singleton_r"><span class="id" title="lemma">in_union_singleton_r</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} <span class="id" title="var">v1</span> <span class="id" title="var">v2</span> (<span class="id" title="var">E</span> : <span class="id" title="axiom">fset</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraFset.html#v1"><span class="id" title="variable">v1</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <span class="id" title="notation">\{</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#v2"><span class="id" title="variable">v2</span></a><span class="id" title="notation">}</span> <span class="id" title="notation">&lt;-&gt;</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#v1"><span class="id" title="variable">v1</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a> <span class="id" title="notation">\/</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#v1"><span class="id" title="variable">v1</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#v2"><span class="id" title="variable">v2</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_union</span>, <span class="id" title="axiom">in_singleton</span>; <span class="id" title="tactic">split</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="member_union_same"><span class="id" title="lemma">member_union_same</span></a> : <span class="id" title="keyword">forall</span> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Type</span>) (<span class="id" title="var">s</span> : <span class="id" title="axiom">fset</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">a</span> : <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraFset.html#a"><span class="id" title="variable">a</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#s"><span class="id" title="variable">s</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <span class="id" title="notation">\{</span><a class="idref" href="DOT.Lib.LibExtraFset.html#a"><span class="id" title="variable">a</span></a><span class="id" title="notation">}</span> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#s"><span class="id" title="variable">s</span></a>.<br/>
+<span class="id" title="keyword">Proof</span> <span class="id" title="keyword">with</span> <span class="id" title="tactic">eauto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> * <span class="id" title="var">a_in_s</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="axiom">fset_extens</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">unfold</span> <span class="id" title="definition">subset</span>. <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_union</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">H</span>...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_singleton</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">subst</span>...<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="lemma">subset_union_weak_l</span>...<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fset_cases"><span class="id" title="lemma">fset_cases</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} (<span class="id" title="var">E</span> : <span class="id" title="axiom">fset</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a> <span class="id" title="notation">=</span> <span class="id" title="notation">\{}</span> <span class="id" title="notation">\/</span> <span class="id" title="notation">exists</span> <span class="id" title="var">x</span><span class="id" title="notation">,</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<span class="id" title="axiom">fset_finite</span> <span class="id" title="var">E</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">L</span> <span class="id" title="var">Heq</span>].<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">L</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">rewrite</span> ? <span class="id" title="lemma">from_list_nil</span>, ? <span class="id" title="lemma">from_list_cons</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">right</span>; <span class="id" title="tactic">exists</span> <span class="id" title="var">a</span>. <span class="id" title="tactic">rewrite</span> ? <span class="id" title="axiom">in_union</span>, ? <span class="id" title="axiom">in_singleton</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fset_empty_remove"><span class="id" title="lemma">fset_empty_remove</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} (<span class="id" title="var">E</span> : <span class="id" title="axiom">fset</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">\{}</span> <span class="id" title="notation">\-</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a> <span class="id" title="notation">=</span> <span class="id" title="notation">\{}</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.Lib.LibExtraFset.html#fset_cases"><span class="id" title="lemma">fset_cases</span></a> (<span class="id" title="notation">\{}</span> <span class="id" title="notation">\-</span> <span class="id" title="var">E</span>)) <span class="id" title="keyword">as</span> [<span class="id" title="var">Heq</span> | [<span class="id" title="var">eff'</span> <span class="id" title="var">Contra</span>]];<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">try</span> <span class="id" title="tactic">congruence</span>; <span class="id" title="var">exfalso</span>; <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_remove</span> <span class="id" title="tactic">in</span> <span class="id" title="var">Contra</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">Contra</span>; <span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <span class="id" title="lemma">in_empty_inv</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fset_single_neq_remove"><span class="id" title="lemma">fset_single_neq_remove</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} (<span class="id" title="var">v1</span> <span class="id" title="var">v2</span> : <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraFset.html#v1"><span class="id" title="variable">v1</span></a> <span class="id" title="notation">&lt;&gt;</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#v2"><span class="id" title="variable">v2</span></a> <span class="id" title="notation">&lt;-&gt;</span> <span class="id" title="notation">\{</span><a class="idref" href="DOT.Lib.LibExtraFset.html#v1"><span class="id" title="variable">v1</span></a><span class="id" title="notation">}</span> <span class="id" title="notation">\-</span> <span class="id" title="notation">\{</span><a class="idref" href="DOT.Lib.LibExtraFset.html#v2"><span class="id" title="variable">v2</span></a><span class="id" title="notation">}</span> <span class="id" title="notation">=</span> <span class="id" title="notation">\{</span><a class="idref" href="DOT.Lib.LibExtraFset.html#v1"><span class="id" title="variable">v1</span></a><span class="id" title="notation">}</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>; <span class="id" title="tactic">split</span>; <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="axiom">fset_extens</span>; <span class="id" title="tactic">unfold</span> "\c"; <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">Hin</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_remove</span> <span class="id" title="tactic">in</span> <span class="id" title="var">Hin</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">Hin</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_singleton</span> <span class="id" title="tactic">in</span> <span class="id" title="var">Hin</span>; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_remove</span>, <span class="id" title="axiom">in_singleton</span>, <span class="id" title="lemma">notin_singleton</span>; <span class="id" title="tactic">split</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<span class="id" title="lemma">in_singleton_self</span> <span class="id" title="var">v1</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">Hin</span>. <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="var">H</span> <span class="id" title="tactic">in</span> <span class="id" title="var">Hin</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_remove</span>, <span class="id" title="lemma">notin_singleton</span> <span class="id" title="tactic">in</span> <span class="id" title="var">Hin</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">Hin</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fset_remove_same_empty"><span class="id" title="lemma">fset_remove_same_empty</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} (<span class="id" title="var">E</span> : <span class="id" title="axiom">fset</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a> <span class="id" title="notation">\-</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a> <span class="id" title="notation">=</span> <span class="id" title="notation">\{}</span>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.Lib.LibExtraFset.html#fset_cases"><span class="id" title="lemma">fset_cases</span></a> (<span class="id" title="var">E</span> <span class="id" title="notation">\-</span> <span class="id" title="var">E</span>)) <span class="id" title="keyword">as</span> [<span class="id" title="var">Heq</span> | [<span class="id" title="var">eff'</span> <span class="id" title="var">Contra</span>]];<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">try</span> <span class="id" title="tactic">congruence</span>; <span class="id" title="var">exfalso</span>; <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_remove</span> <span class="id" title="tactic">in</span> <span class="id" title="var">Contra</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">Contra</span>; <span class="id" title="tactic">eauto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="fset_notin_remove"><span class="id" title="lemma">fset_notin_remove</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} (<span class="id" title="var">E</span> : <span class="id" title="axiom">fset</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>) <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraFset.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a> <span class="id" title="notation">\-</span> <span class="id" title="notation">\{</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#x"><span class="id" title="variable">x</span></a><span class="id" title="notation">}</span> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E"><span class="id" title="variable">E</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="axiom">fset_extens</span>; <span class="id" title="tactic">unfold</span> "\c";<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">y</span>; <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_remove</span>.<br/>
+&nbsp;&nbsp;+ <span class="id" title="tactic">intros</span> [?<span class="id" title="var">H</span> ?<span class="id" title="var">H</span>]; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;+ <span class="id" title="tactic">intros</span> ?<span class="id" title="var">H</span>; <span class="id" title="tactic">split</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">notin_singleton</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">Contra</span>; <span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="union_comm_comm_assoc_assoc"><span class="id" title="lemma">union_comm_comm_assoc_assoc</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} (<span class="id" title="var">E1</span> <span class="id" title="var">E2</span> <span class="id" title="var">E3</span> : <span class="id" title="axiom">fset</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">(</span><a class="idref" href="DOT.Lib.LibExtraFset.html#E1"><span class="id" title="variable">E1</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E2"><span class="id" title="variable">E2</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E3"><span class="id" title="variable">E3</span></a> <span class="id" title="notation">=</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Lib.LibExtraFset.html#E1"><span class="id" title="variable">E1</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E3"><span class="id" title="variable">E3</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#E2"><span class="id" title="variable">E2</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">union_comm</span>, <span class="id" title="lemma">union_comm_assoc</span>, <span class="id" title="lemma">union_assoc</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="from_list_concat"><span class="id" title="lemma">from_list_concat</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} (<span class="id" title="var">L1</span> <span class="id" title="var">L2</span> : <span class="id" title="inductive">list</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">from_list</span> (<a class="idref" href="DOT.Lib.LibExtraFset.html#L1"><span class="id" title="variable">L1</span></a> <span class="id" title="notation">++</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#L2"><span class="id" title="variable">L2</span></a>) <span class="id" title="notation">=</span> <span class="id" title="definition">from_list</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#L1"><span class="id" title="variable">L1</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <span class="id" title="definition">from_list</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#L2"><span class="id" title="variable">L2</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">L1</span>; <span class="id" title="tactic">simpl</span>; <span class="id" title="tactic">intros</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> ? <span class="id" title="lemma">from_list_nil</span>, ? <span class="id" title="lemma">from_list_cons</span>, ? <span class="id" title="lemma">union_empty_l</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="lemma">union_assoc</span>, &lt;- <span class="id" title="var">IHL1</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="from_list_rev"><span class="id" title="lemma">from_list_rev</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} (<span class="id" title="var">L</span> : <span class="id" title="inductive">list</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">from_list</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#L"><span class="id" title="variable">L</span></a> <span class="id" title="notation">=</span> <span class="id" title="definition">from_list</span> (<span class="id" title="definition">List.rev</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#L"><span class="id" title="variable">L</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">L</span>; <span class="id" title="tactic">simpl</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#from_list_concat"><span class="id" title="lemma">from_list_concat</span></a>, ? <span class="id" title="lemma">from_list_cons</span>, <span class="id" title="lemma">from_list_nil</span>, <span class="id" title="var">IHL</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> ? <span class="id" title="lemma">union_empty_l</span>, ? <span class="id" title="lemma">union_empty_r</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">union_comm</span> <span class="id" title="tactic">at</span> 1; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="from_list_in"><span class="id" title="lemma">from_list_in</span></a> : <span class="id" title="keyword">forall</span> {<span class="id" title="var">A</span>} (<span class="id" title="var">L</span> : <span class="id" title="inductive">list</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#A"><span class="id" title="variable">A</span></a>) <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.LibExtraFset.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <span class="id" title="definition">from_list</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#L"><span class="id" title="variable">L</span></a> <span class="id" title="notation">&lt;-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">List.In</span> <a class="idref" href="DOT.Lib.LibExtraFset.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.Lib.LibExtraFset.html#L"><span class="id" title="variable">L</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">L</span>; <span class="id" title="tactic">rewrite</span> ? <span class="id" title="lemma">from_list_nil</span>, ? <span class="id" title="lemma">from_list_cons</span>; <span class="id" title="tactic">simpl</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_empty</span>; <span class="id" title="tactic">split</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_union</span>, <span class="id" title="axiom">in_singleton</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="var">IHL</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">split</span>; <span class="id" title="tactic">intros</span> [? | ?]; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

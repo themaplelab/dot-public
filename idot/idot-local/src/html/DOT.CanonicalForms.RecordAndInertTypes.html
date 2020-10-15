@@ -1,0 +1,626 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.CanonicalForms.RecordAndInertTypes</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a> <a class="idref" href="DOT.Lib.DotTactics.html#"><span class="id" title="library">DotTactics</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">Coq.Program.Equality</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#"><span class="id" title="library">AbstractSyntax</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#"><span class="id" title="library">Typing</span></a> <a class="idref" href="DOT.Definitions.Typing.GeneralTyping.html#"><span class="id" title="library">GeneralTyping</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Implicit</span> <span class="id" title="keyword">Types</span> (<span class="id" title="var">ds</span> : <a class="idref" href="DOT.Definitions.Syntax.Terms.html#defs"><span class="id" title="abbreviation">defs</span></a>) (<span class="id" title="var">hds</span> : <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs"><span class="id" title="abbreviation">heap_defs</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab158"></a><h1 class="section">Record Types</h1>
+
+<div class="paragraph"> </div>
+
+ A record declaration is either a type declaration with equal bounds,
+    or a field declaration.
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="record_dec"><span class="id" title="inductive">record_dec</span></a> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#dec"><span class="id" title="inductive">dec</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+| <a name="rd_typ"><span class="id" title="constructor">rd_typ</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">A</span> <span class="id" title="var">T</span>, <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec"><span class="id" title="inductive">record_dec</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_typ"><span class="id" title="constructor">dec_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>)<br/>
+| <a name="rd_trm"><span class="id" title="constructor">rd_trm</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">a</span> <span class="id" title="var">T</span>, <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec"><span class="id" title="inductive">record_dec</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_trm"><span class="id" title="constructor">dec_trm</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Given a record declaration, a <span class="inlinecode"><span class="id" title="var">record_typ</span></span> keeps track of the declaration's
+    field member labels (i.e. names of fields) and type member labels
+    (i.e. names of abstract type members). <span class="inlinecode"><span class="id" title="var">record_typ</span></span> also requires that the
+    labels are distinct.  
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="record_typ"><span class="id" title="inductive">record_typ</span></a> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ"><span class="id" title="inductive">typ</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="axiom">fset</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#label"><span class="id" title="inductive">label</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+| <a name="rt_one"><span class="id" title="constructor">rt_one</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">D</span> <span class="id" title="var">l</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec"><span class="id" title="inductive">record_dec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#l"><span class="id" title="variable">l</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_rcd"><span class="id" title="constructor">typ_rcd</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>) <span class="id" title="notation">\{</span><a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#l"><span class="id" title="variable">l</span></a><span class="id" title="notation">}</span><br/>
+| <a name="rt_cons"><span class="id" title="constructor">rt_cons</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">T</span> <span class="id" title="var">ls</span> <span class="id" title="var">D</span> <span class="id" title="var">l</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec"><span class="id" title="inductive">record_dec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#l"><span class="id" title="variable">l</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#l"><span class="id" title="variable">l</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_and"><span class="id" title="constructor">typ_and</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_rcd"><span class="id" title="constructor">typ_rcd</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>)) (<span class="id" title="axiom">union</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a> <span class="id" title="notation">\{</span><a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#l"><span class="id" title="variable">l</span></a><span class="id" title="notation">}</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A <span class="inlinecode"><span class="id" title="var">record_type</span></span> is a <span class="inlinecode"><span class="id" title="var">record_typ</span></span> with an unspecified set of labels. The meaning
+    of <span class="inlinecode"><span class="id" title="var">record_type</span></span> is an intersection of type/field declarations with distinct labels. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a name="record_type"><span class="id" title="definition">record_type</span></a> <span class="id" title="var">T</span> := <span class="id" title="notation">exists</span> <span class="id" title="var">ls</span><span class="id" title="notation">,</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Given a type <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">D1</span></span> <span class="inlinecode">/\</span> <span class="inlinecode"><span class="id" title="var">D2</span></span> <span class="inlinecode">/\</span> <span class="inlinecode">...</span> <span class="inlinecode">/\</span> <span class="inlinecode"><span class="id" title="var">Dn</span></span> and member declaration <span class="inlinecode"><span class="id" title="var">D</span></span>, <span class="inlinecode"><span class="id" title="var">record_has</span></span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode"><span class="id" title="var">D</span></span> tells whether
+    <span class="inlinecode"><span class="id" title="var">D</span></span> is contained in the intersection of <span class="inlinecode"><span class="id" title="var">Di</span></span>'s. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="record_has"><span class="id" title="inductive">record_has</span></a>: <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ"><span class="id" title="inductive">typ</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#dec"><span class="id" title="inductive">dec</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+| <a name="rh_one"><span class="id" title="constructor">rh_one</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">D</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_rcd"><span class="id" title="constructor">typ_rcd</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a><br/>
+| <a name="rh_andl"><span class="id" title="constructor">rh_andl</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">T</span> <span class="id" title="var">U</span> <span class="id" title="var">D</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_and"><span class="id" title="constructor">typ_and</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#U"><span class="id" title="variable">U</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a><br/>
+| <a name="rh_andr"><span class="id" title="constructor">rh_andr</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">T</span> <span class="id" title="var">U</span> <span class="id" title="var">D</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#U"><span class="id" title="variable">U</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_and"><span class="id" title="constructor">typ_and</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#U"><span class="id" title="variable">U</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Hint Constructors</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Correspondence between definition typing and record types 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a name="DecTypingRecord"><span class="id" title="section">DecTypingRecord</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Class</span> <a name="DecTypingRecord"><span class="id" title="record">DecTypingRecord</span></a> `(<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTyping"><span class="id" title="class">DecTyping</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#DecTypingRecord.A"><span class="id" title="variable">A</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a name="ty_def_record_dec"><span class="id" title="projection">ty_def_record_dec</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">d</span> <span class="id" title="var">D</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#d"><span class="id" title="variable">d</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">∶</span></a><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">d</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec"><span class="id" title="inductive">record_dec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#DecTypingRecord"><span class="id" title="section">DecTypingRecord</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="TyDefDecTypingRecord"><span class="id" title="instance">TyDefDecTypingRecord</span></a> : <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#DecTypingRecord"><span class="id" title="class">DecTypingRecord</span></a> <a class="idref" href="DOT.Definitions.Typing.GeneralTyping.html#ty_def"><span class="id" title="inductive">ty_def</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>; <span class="id" title="tactic">induction</span> 1; <span class="id" title="tactic">constructor</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab159"></a><h2 class="section">Lemmas About Records and Record Types</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Section</span> <a name="HasntNotIn"><span class="id" title="section">HasntNotIn</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} `{<span class="id" title="var">LA</span> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#LabelOf"><span class="id" title="class">LabelOf</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#A"><span class="id" title="variable">A</span></a>} `{<span class="id" title="var">DTA</span> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTyping"><span class="id" title="class">DecTyping</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#A"><span class="id" title="variable">A</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">DTL</span> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTypingLabels"><span class="id" title="class">DecTypingLabels</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#HasntNotIn.DTA"><span class="id" title="variable">DTA</span></a>}.<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">ds</span></span> <span class="inlinecode">::</span> <span class="inlinecode"><span class="id" title="var">U</span></span>                          <br>
+    <span class="inlinecode"><span class="id" title="var">U</span></span> is a record type with labels <span class="inlinecode"><span class="id" title="var">ls</span></span>  <br>
+    <span class="inlinecode"><span class="id" title="var">ds</span></span> are definitions with label <span class="inlinecode"><span class="id" title="var">ls'</span></span>  <br>
+    <span class="inlinecode"><span class="id" title="var">l</span></span> <span class="inlinecode">\<span class="id" title="var">notin</span></span> <span class="inlinecode"><span class="id" title="var">ls'</span></span>                          <br>
+    <span class="inlinecode">―――――――――――――――――――――――――――――――――――</span>  <br>
+    <span class="inlinecode"><span class="id" title="var">l</span></span> <span class="inlinecode">\<span class="id" title="var">notin</span></span> <span class="inlinecode"><span class="id" title="var">ls</span></span> 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Lemma</span> <a name="hasnt_notin"><span class="id" title="lemma">hasnt_notin</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> (<span class="id" title="var">ds</span> : <span class="id" title="inductive">list</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#HasntNotIn.A"><span class="id" title="variable">A</span></a>) <span class="id" title="var">ls</span> <span class="id" title="var">l</span> <span class="id" title="var">U</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ds"><span class="id" title="variable">ds</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#U"><span class="id" title="variable">U</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#U"><span class="id" title="variable">U</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ds"><span class="id" title="variable">ds</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#l"><span class="id" title="variable">l</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#l"><span class="id" title="variable">l</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> * <span class="id" title="var">H</span>. <span class="id" title="var">gen</span> <span class="id" title="var">H</span> <span class="id" title="var">ls</span> <span class="id" title="var">l</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> 1.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">inversion</span> 1; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">Hhnt</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt_cons_inv"><span class="id" title="lemma">labels_hasnt_cons_inv</span></a> <span class="id" title="var">Hhnt</span>) <span class="id" title="keyword">as</span> [? <span class="id" title="var">Hnil</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">erewrite</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ty_def_label_eq"><span class="id" title="definition">ty_def_label_eq</span></a>; <span class="id" title="tactic">eauto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">notin_singleton</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> * <span class="id" title="var">Hrt</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">inversion</span> <span class="id" title="var">Hrt</span> <span class="id" title="keyword">as</span> [| ?<span class="id" title="var">T</span> ?<span class="id" title="var">ls</span> ?<span class="id" title="var">D</span> ?<span class="id" title="var">l</span> <span class="id" title="var">Hrt'</span> <span class="id" title="var">Hrd</span> <span class="id" title="var">Heq</span> <span class="id" title="var">Hni</span>]; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">Hhnt</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt_cons_inv"><span class="id" title="lemma">labels_hasnt_cons_inv</span></a> <span class="id" title="var">Hhnt</span>) <span class="id" title="keyword">as</span> [? <span class="id" title="var">Hhnt'</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">notin_union</span>, <span class="id" title="lemma">notin_singleton</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">erewrite</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ty_def_label_eq"><span class="id" title="definition">ty_def_label_eq</span></a>; <span class="id" title="tactic">eauto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#HasntNotIn"><span class="id" title="section">HasntNotIn</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Section</span> <a name="RecordHasTyDefs"><span class="id" title="section">RecordHasTyDefs</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} `{<span class="id" title="var">LA</span> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#LabelOf"><span class="id" title="class">LabelOf</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#A"><span class="id" title="variable">A</span></a>} `{<span class="id" title="var">DTA</span> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTyping"><span class="id" title="class">DecTyping</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#A"><span class="id" title="variable">A</span></a>}.<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">ds</span></span> <span class="inlinecode">::</span> <span class="inlinecode">...</span> <span class="inlinecode">/\</span> <span class="inlinecode"><span class="id" title="var">D</span></span> <span class="inlinecode">/\</span> <span class="inlinecode">...</span>       <br>
+    <span class="inlinecode">―――――――――――――――――――――――</span>       <br>
+    <span class="inlinecode"><span class="id" title="tactic">exists</span></span> <span class="inlinecode"><span class="id" title="var">d</span>,</span> <span class="inlinecode"><span class="id" title="var">ds</span></span> <span class="inlinecode">=</span> <span class="inlinecode">...</span> <span class="inlinecode">/\</span> <span class="inlinecode"><span class="id" title="var">d</span></span> <span class="inlinecode">/\</span> <span class="inlinecode">...</span>       <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">d</span>:</span> <span class="inlinecode"><span class="id" title="var">D</span></span>                      
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Lemma</span> <a name="record_has_ty_defs"><span class="id" title="lemma">record_has_ty_defs</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">T</span> (<span class="id" title="var">ds</span> : <span class="id" title="inductive">list</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#RecordHasTyDefs.A"><span class="id" title="variable">A</span></a>) <span class="id" title="var">D</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ds"><span class="id" title="variable">ds</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">exists</span> <span class="id" title="var">d</span><span class="id" title="notation">,</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_has"><span class="id" title="definition">labels_has</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ds"><span class="id" title="variable">ds</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#d"><span class="id" title="variable">d</span></a> <span class="id" title="notation">/\</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#G"><span class="id" title="variable">G</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#d"><span class="id" title="variable">d</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">∶</span></a><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">d</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">Hdefs</span> <span class="id" title="var">Hhas</span>. <span class="id" title="tactic">induction</span> <span class="id" title="var">Hdefs</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">inversion</span> <span class="id" title="var">Hhas</span>; <span class="id" title="tactic">subst</span>. <span class="id" title="tactic">exists</span> <span class="id" title="var">d</span>. <span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_has"><span class="id" title="definition">labels_has</span></a>. <span class="id" title="tactic">simpl</span>. <span class="id" title="var">cases_if</span>; <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">assumption</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">inversion</span> <span class="id" title="var">Hhas</span>; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">destruct</span> (<span class="id" title="var">IHHdefs</span> <span class="id" title="var">H5</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">d'</span> [<span class="id" title="var">H3</span> <span class="id" title="var">H4</span>]].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exists</span> <span class="id" title="var">d'</span>. <span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_has"><span class="id" title="definition">labels_has</span></a>. <span class="id" title="tactic">simpl</span>. <span class="id" title="var">cases_if</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">H3</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* <span class="id" title="tactic">assumption</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exists</span> <span class="id" title="var">d</span>. <span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* <span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_has"><span class="id" title="definition">labels_has</span></a>. <span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="lemma">If_l</span>; <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* <span class="id" title="var">inversions</span>* <span class="id" title="var">H5</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#RecordHasTyDefs"><span class="id" title="section">RecordHasTyDefs</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">labels</span>(<span class="id" title="var">D</span>)</span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">labels</span>(<span class="id" title="var">D</span>^<span class="id" title="var">x</span>)</span> 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="open_dec_preserves_label"><span class="id" title="lemma">open_dec_preserves_label</span></a>: <span class="id" title="keyword">forall</span> (<span class="id" title="var">D</span> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#dec"><span class="id" title="inductive">dec</span></a>) <span class="id" title="var">x</span> <span class="id" title="var">i</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#i"><span class="id" title="variable">i</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>) <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">induction</span> <span class="id" title="var">D</span>; <span class="id" title="tactic">reflexivity</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="open_rec_record_dec"><span class="id" title="lemma">open_rec_record_dec</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">D</span> <span class="id" title="var">n</span> <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec"><span class="id" title="inductive">record_dec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec"><span class="id" title="inductive">record_dec</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">inversion</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">constructor</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">record_dec</span></span> <span class="inlinecode"><span class="id" title="var">D</span></span>   <br>
+    <span class="inlinecode">――――――――――――――</span> <br>
+    <span class="inlinecode"><span class="id" title="var">record_dec</span></span> <span class="inlinecode"><span class="id" title="var">D</span>^<span class="id" title="var">x</span></span> 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="open_record_dec"><span class="id" title="lemma">open_record_dec</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">D</span> <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec"><span class="id" title="inductive">record_dec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec"><span class="id" title="inductive">record_dec</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">auto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#open_rec_record_dec"><span class="id" title="lemma">open_rec_record_dec</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="open_rec_record_typ"><span class="id" title="lemma">open_rec_record_typ</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">T</span> <span class="id" title="var">ls</span> <span class="id" title="var">n</span> <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">simpl</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;[<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#rt_one"><span class="id" title="constructor">rt_one</span></a> | <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#rt_cons"><span class="id" title="constructor">rt_cons</span></a>];<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">try</span> <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#open_rec_record_dec"><span class="id" title="lemma">open_rec_record_dec</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">try</span> <span class="id" title="tactic">rewrite</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#open_dec_preserves_label"><span class="id" title="lemma">open_dec_preserves_label</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">record_typ</span></span> <span class="inlinecode"><span class="id" title="var">T</span></span>   <br>
+    <span class="inlinecode">――――――――――――――</span> <br>
+    <span class="inlinecode"><span class="id" title="var">record_typ</span></span> <span class="inlinecode"><span class="id" title="var">T</span>^<span class="id" title="var">x</span></span> 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="open_record_typ"><span class="id" title="lemma">open_record_typ</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">T</span> <span class="id" title="var">x</span> <span class="id" title="var">ls</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">auto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#open_rec_record_typ"><span class="id" title="lemma">open_rec_record_typ</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="open_rec_vars_record_typ"><span class="id" title="lemma">open_rec_vars_record_typ</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">ys</span> <span class="id" title="var">n</span> <span class="id" title="var">T</span> <span class="id" title="var">ls</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec_vars"><span class="id" title="definition">open_rec_vars</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">ys</span>; <span class="id" title="var">simpls</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span>; <span class="id" title="tactic">auto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#open_rec_record_typ"><span class="id" title="lemma">open_rec_record_typ</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">record_typ</span></span> <span class="inlinecode"><span class="id" title="var">T</span></span>   <br>
+    <span class="inlinecode">――――――――――――――</span> <br>
+    <span class="inlinecode"><span class="id" title="var">record_typ</span></span> <span class="inlinecode"><span class="id" title="var">T</span>^<span class="id" title="var">x</span></span> 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="open_record_type"><span class="id" title="lemma">open_record_type</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">T</span> <span class="id" title="var">x</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> [<span class="id" title="var">ls</span> <span class="id" title="var">H</span>]. <span class="id" title="tactic">exists</span> <span class="id" title="var">ls</span>. <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#open_record_typ"><span class="id" title="lemma">open_record_typ</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">assumption</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="open_vars_record_type"><span class="id" title="lemma">open_vars_record_type</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">ys</span> <span class="id" title="var">n</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec_vars"><span class="id" title="definition">open_rec_vars</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> [<span class="id" title="var">ls</span> <span class="id" title="var">H</span>]. <span class="id" title="tactic">exists</span> <span class="id" title="var">ls</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#open_rec_vars_record_typ"><span class="id" title="lemma">open_rec_vars_record_typ</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Section</span> <a name="TyDefsRecordType"><span class="id" title="section">TyDefsRecordType</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} `{<span class="id" title="var">LA</span> : <a class="idref" href="DOT.Lib.SyntaxClasses.html#LabelOf"><span class="id" title="class">LabelOf</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#A"><span class="id" title="variable">A</span></a>} `{<span class="id" title="var">DTA</span> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTyping"><span class="id" title="class">DecTyping</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#A"><span class="id" title="variable">A</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">DTL</span> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTypingLabels"><span class="id" title="class">DecTypingLabels</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#TyDefsRecordType.DTA"><span class="id" title="variable">DTA</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">DTR</span> : <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#DecTypingRecord"><span class="id" title="class">DecTypingRecord</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#TyDefsRecordType.DTA"><span class="id" title="variable">DTA</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The type of definitions is a record type. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Lemma</span> <a name="ty_defs_record_type"><span class="id" title="lemma">ty_defs_record_type</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> (<span class="id" title="var">ds</span> : <span class="id" title="inductive">list</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#TyDefsRecordType.A"><span class="id" title="variable">A</span></a>) <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ds"><span class="id" title="variable">ds</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">ds</span> <span class="id" title="var">T</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">H</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">Gamma</span> <span class="id" title="var">d</span> <span class="id" title="var">D</span> <span class="id" title="var">Htyd</span> | <span class="id" title="var">Gamma</span> <span class="id" title="var">ds</span> <span class="id" title="var">d</span> <span class="id" title="var">T</span> <span class="id" title="var">D</span> <span class="id" title="var">Htyds</span> <span class="id" title="var">IH</span> <span class="id" title="var">Htyd</span> <span class="id" title="var">Hlab</span>];<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <span class="id" title="tactic">in</span> *.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exists</span> <span class="id" title="notation">\{</span><a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> <span class="id" title="var">D</span><span class="id" title="notation">}</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ty_def_record_dec"><span class="id" title="definition">ty_def_record_dec</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">destruct</span> <span class="id" title="var">IH</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">ls'</span> <span class="id" title="var">H</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eexists</span>; <span class="id" title="tactic">econstructor</span>; <span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ty_def_record_dec"><span class="id" title="definition">ty_def_record_dec</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">erewrite</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ty_def_label_eq"><span class="id" title="definition">ty_def_label_eq</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#hasnt_notin"><span class="id" title="lemma">hasnt_notin</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#TyDefsRecordType"><span class="id" title="section">TyDefsRecordType</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Opening does not affect the labels of a <span class="inlinecode"><span class="id" title="var">record_typ</span></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="opening_preserves_labels"><span class="id" title="lemma">opening_preserves_labels</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">z</span> <span class="id" title="var">n</span> <span class="id" title="var">T</span> <span class="id" title="var">ls</span> <span class="id" title="var">ls'</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls'"><span class="id" title="variable">ls'</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls'"><span class="id" title="variable">ls'</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">Ht</span> <span class="id" title="var">Hopen</span>. <span class="id" title="var">gen</span> <span class="id" title="var">ls'</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">dependent</span> <span class="id" title="tactic">induction</span> <span class="id" title="var">Ht</span>; <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">inversions</span> <span class="id" title="var">Hopen</span>. <span class="id" title="tactic">rewrite</span>* <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#open_dec_preserves_label"><span class="id" title="lemma">open_dec_preserves_label</span></a>.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">inversions</span> <span class="id" title="var">Hopen</span>. <span class="id" title="tactic">rewrite</span>* <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#open_dec_preserves_label"><span class="id" title="lemma">open_dec_preserves_label</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">specialize</span> (<span class="id" title="var">IHHt</span> <span class="id" title="var">ls0</span> <span class="id" title="var">H4</span>). <span class="id" title="tactic">rewrite</span>* <span class="id" title="var">IHHt</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Opening does not affect the labels of a <span class="inlinecode"><span class="id" title="var">record_type</span></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="record_dec_open_rec"><span class="id" title="lemma">record_dec_open_rec</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">D</span> <span class="id" title="var">n</span> <span class="id" title="var">z</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#z"><span class="id" title="variable">z</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec"><span class="id" title="inductive">record_dec</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec"><span class="id" title="inductive">record_dec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">D</span> <span class="id" title="var">n</span> <span class="id" title="var">z</span> <span class="id" title="var">Hz</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">inversions</span> <span class="id" title="var">H</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">D</span>; <span class="id" title="var">sympls</span>; <span class="id" title="var">destruct_notin</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <span class="id" title="keyword">goal</span> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [ <span class="id" title="var">H</span> : <span class="id" title="var">_</span> <span class="id" title="notation">=</span> <span class="id" title="var">_</span> |- <span class="id" title="var">_</span> ] =&gt; <span class="id" title="var">inversions</span> <span class="id" title="var">H</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <span class="id" title="keyword">goal</span> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [ <span class="id" title="var">H1</span>: <span class="id" title="var">_</span> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> ?<span class="id" title="var">f</span> ?<span class="id" title="var">T1</span>, <span class="id" title="var">H2</span>: <span class="id" title="var">_</span> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> ?<span class="id" title="var">f</span> ?<span class="id" title="var">T2</span>, <span class="id" title="var">H3</span> : <span class="id" title="var">_</span> <span class="id" title="notation">=</span> <span class="id" title="var">_</span> |- <span class="id" title="var">_</span> ] =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">let</span> <span class="id" title="var">H</span> := <span class="id" title="tactic">fresh</span> <span class="id" title="tactic">in</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_fresh_injective"><span class="id" title="definition">open_fresh_injective</span></a> <span class="id" title="var">T1</span> <span class="id" title="var">T2</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">apply</span> <span class="id" title="var">H</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H3</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">eauto</span>; <span class="id" title="tactic">constructor</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="record_type_open_rec"><span class="id" title="lemma">record_type_open_rec</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">n</span> <span class="id" title="var">z</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#z"><span class="id" title="variable">z</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">notin</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#z"><span class="id" title="variable">z</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">Hz</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">H</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">ls</span> <span class="id" title="var">H</span>].<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">exists</span> <span class="id" title="var">ls</span>. <span class="id" title="var">remember</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec"><span class="id" title="definition">open_rec</span></a> <span class="id" title="var">n</span> <span class="id" title="var">z</span> <span class="id" title="var">T</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">T'</span> <span class="id" title="var">eqn</span>:<span class="id" title="var">Heq</span>. <span class="id" title="var">gen</span> <span class="id" title="var">T</span>. <span class="id" title="tactic">induction</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">destruct</span> <span class="id" title="var">T</span>; <span class="id" title="tactic">inversion</span> <span class="id" title="var">Heq</span>; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#open_dec_preserves_label"><span class="id" title="lemma">open_dec_preserves_label</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">constructor</span>; <span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec_open_rec"><span class="id" title="lemma">record_dec_open_rec</span></a>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">destruct</span> <span class="id" title="var">T0</span>; <span class="id" title="tactic">inversion</span> <span class="id" title="var">Heq</span>; <span class="id" title="tactic">subst</span>. <span class="id" title="tactic">rename</span> <span class="id" title="var">T0_1</span> <span class="id" title="var">into</span> <span class="id" title="var">T1</span>. <span class="id" title="tactic">rename</span> <span class="id" title="var">T0_2</span> <span class="id" title="var">into</span> <span class="id" title="var">T2</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">T2</span>; <span class="id" title="tactic">inversion</span> <span class="id" title="var">Heq</span>; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#open_dec_preserves_label"><span class="id" title="lemma">open_dec_preserves_label</span></a> <span class="id" title="tactic">in</span> *; <span class="id" title="var">sympls</span>; <span class="id" title="var">destruct_notin</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#rt_cons"><span class="id" title="constructor">rt_cons</span></a>; <span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_dec_open_rec"><span class="id" title="lemma">record_dec_open_rec</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="record_type_open_rec_vars"><span class="id" title="lemma">record_type_open_rec_vars</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">ys</span> <span class="id" title="var">n</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>) (<span class="id" title="definition">length</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec_vars"><span class="id" title="definition">open_rec_vars</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">ys</span>; <span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type_open_rec"><span class="id" title="lemma">record_type_open_rec</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">destruct</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H0</span>. <span class="id" title="tactic">apply</span> (<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type_open_rec"><span class="id" title="lemma">record_type_open_rec</span></a> <span class="id" title="var">n</span> <span class="id" title="var">T</span> <span class="id" title="var">H</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">eapply</span> <span class="id" title="var">IHys</span>; <span class="id" title="tactic">eauto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#fv_open_cases"><span class="id" title="definition">fv_open_cases</span></a> <span class="id" title="var">a</span> <span class="id" title="var">T</span> <span class="id" title="var">n</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">H'</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">H'</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">H'</span> | <span class="id" title="var">H'</span>]; <span class="id" title="tactic">rewrite</span> <span class="id" title="var">H'</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="record_type_open_vars_S"><span class="id" title="lemma">record_type_open_vars_S</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">x</span> <span class="id" title="var">ys</span> <span class="id" title="var">n</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>) (<span class="id" title="constructor">S</span> (<span class="id" title="definition">length</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a>)) (<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#open_rec_vars"><span class="id" title="definition">open_rec_vars</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#n"><span class="id" title="variable">n</span></a> (<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type_open_rec_vars"><span class="id" title="lemma">record_type_open_rec_vars</span></a> (<span class="id" title="var">x</span> <span class="id" title="notation">::</span> <span class="id" title="var">ys</span>) <span class="id" title="var">n</span> <span class="id" title="var">T</span>); <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If <span class="inlinecode"><span class="id" title="var">T</span></span> is a record type with labels <span class="inlinecode"><span class="id" title="var">ls</span></span>, and <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">=</span> <span class="inlinecode">...</span> <span class="inlinecode">/\</span> <span class="inlinecode"><span class="id" title="var">D</span></span> <span class="inlinecode">/\</span> <span class="inlinecode">...</span>,
+    then <span class="inlinecode"><span class="id" title="var">label</span>(<span class="id" title="var">D</span>)</span> <span class="inlinecode"><span class="id" title="var">isin</span></span> <span class="inlinecode"><span class="id" title="var">ls</span></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="record_typ_has_label_in"><span class="id" title="lemma">record_typ_has_label_in</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">T</span> <span class="id" title="var">D</span> <span class="id" title="var">ls</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ"><span class="id" title="inductive">record_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ls"><span class="id" title="variable">ls</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">Htyp</span> <span class="id" title="var">Has</span>. <span class="id" title="tactic">generalize</span> <span class="id" title="tactic">dependent</span> <span class="id" title="var">D</span>. <span class="id" title="tactic">induction</span> <span class="id" title="var">Htyp</span>; <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">inversion</span> <span class="id" title="var">Has</span>. <span class="id" title="tactic">subst</span>. <span class="id" title="tactic">apply</span> <span class="id" title="lemma">in_singleton_self</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">inversion</span> <span class="id" title="var">Has</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">rewrite</span> <span class="id" title="axiom">in_union</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">left</span>. <span class="id" title="tactic">apply</span>* <span class="id" title="var">IHHtyp</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">right</span>. <span class="id" title="var">inversions</span> <span class="id" title="var">H5</span>. <span class="id" title="tactic">apply</span> <span class="id" title="lemma">in_singleton_self</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">=</span> <span class="inlinecode">...</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">T1</span>..<span class="id" title="var">T1</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">...</span> <br>
+    <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">=</span> <span class="inlinecode">...</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">T2</span>..<span class="id" title="var">T2</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">...</span> <br>
+    <span class="inlinecode">―――――――――――――――――――――――――――</span> <br>
+    <span class="inlinecode"><span class="id" title="var">T1</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">T2</span></span> 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="unique_rcd_typ"><span class="id" title="lemma">unique_rcd_typ</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">T</span> <span class="id" title="var">A</span> <span class="id" title="var">T1</span> <span class="id" title="var">T2</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_typ"><span class="id" title="constructor">dec_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T1"><span class="id" title="variable">T1</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T1"><span class="id" title="variable">T1</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_typ"><span class="id" title="constructor">dec_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T2"><span class="id" title="variable">T2</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T2"><span class="id" title="variable">T2</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T1"><span class="id" title="variable">T1</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T2"><span class="id" title="variable">T2</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">Htype</span> <span class="id" title="var">Has1</span> <span class="id" title="var">Has2</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">generalize</span> <span class="id" title="tactic">dependent</span> <span class="id" title="var">T2</span>. <span class="id" title="tactic">generalize</span> <span class="id" title="tactic">dependent</span> <span class="id" title="var">T1</span>. <span class="id" title="tactic">generalize</span> <span class="id" title="tactic">dependent</span> <span class="id" title="var">A</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">Htype</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">ls</span> <span class="id" title="var">Htyp</span>]. <span class="id" title="tactic">induction</span> <span class="id" title="var">Htyp</span>; <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">inversion</span> <span class="id" title="var">Has1</span>; <span class="id" title="tactic">inversion</span> <span class="id" title="var">Has2</span>; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">inversion</span>* <span class="id" title="var">H3</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">inversion</span>* <span class="id" title="var">H5</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ_has_label_in"><span class="id" title="lemma">record_typ_has_label_in</span></a> <span class="id" title="keyword">with</span> (<span class="id" title="var">D</span>:=<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_typ"><span class="id" title="constructor">dec_typ</span></a> <span class="id" title="var">A</span> <span class="id" title="var">T1</span> <span class="id" title="var">T1</span>) <span class="id" title="tactic">in</span> <span class="id" title="var">Htyp</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="var">inversions</span> <span class="id" title="var">H9</span>. <span class="id" title="var">false</span>* <span class="id" title="var">H1</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">assumption</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ_has_label_in"><span class="id" title="lemma">record_typ_has_label_in</span></a> <span class="id" title="keyword">with</span> (<span class="id" title="var">D</span>:=<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_typ"><span class="id" title="constructor">dec_typ</span></a> <span class="id" title="var">A</span> <span class="id" title="var">T2</span> <span class="id" title="var">T2</span>) <span class="id" title="tactic">in</span> <span class="id" title="var">Htyp</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="var">inversions</span> <span class="id" title="var">H5</span>. <span class="id" title="var">false</span>* <span class="id" title="var">H1</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">assumption</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">inversions</span> <span class="id" title="var">H5</span>. <span class="id" title="var">inversions</span>* <span class="id" title="var">H9</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="unique_rcd_trm"><span class="id" title="lemma">unique_rcd_trm</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">T</span> <span class="id" title="var">a</span> <span class="id" title="var">T1</span> <span class="id" title="var">T2</span>,<br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_trm"><span class="id" title="constructor">dec_trm</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T1"><span class="id" title="variable">T1</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T1"><span class="id" title="variable">T1</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_has"><span class="id" title="inductive">record_has</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_trm"><span class="id" title="constructor">dec_trm</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T2"><span class="id" title="variable">T2</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T2"><span class="id" title="variable">T2</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T1"><span class="id" title="variable">T1</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T2"><span class="id" title="variable">T2</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> [<span class="id" title="var">ls</span> <span class="id" title="var">Htyp</span>] <span class="id" title="var">Has1</span> <span class="id" title="var">Has2</span>. <span class="id" title="var">gen</span> <span class="id" title="var">T1</span> <span class="id" title="var">T2</span> <span class="id" title="var">a</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">Htyp</span>; <span class="id" title="tactic">intros</span>; <span class="id" title="tactic">inversion</span> <span class="id" title="var">Has1</span>; <span class="id" title="tactic">inversion</span> <span class="id" title="var">Has2</span>; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">inversion</span>* <span class="id" title="var">H3</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">inversion</span>* <span class="id" title="var">H5</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ_has_label_in"><span class="id" title="lemma">record_typ_has_label_in</span></a> <span class="id" title="keyword">with</span> (<span class="id" title="var">D</span>:=<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_trm"><span class="id" title="constructor">dec_trm</span></a> <span class="id" title="var">a</span> <span class="id" title="var">T1</span> <span class="id" title="var">T1</span>) <span class="id" title="tactic">in</span> <span class="id" title="var">Htyp</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="var">inversions</span> <span class="id" title="var">H9</span>. <span class="id" title="var">false</span>* <span class="id" title="var">H1</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">assumption</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_typ_has_label_in"><span class="id" title="lemma">record_typ_has_label_in</span></a> <span class="id" title="keyword">with</span> (<span class="id" title="var">D</span>:=<a class="idref" href="DOT.Definitions.Syntax.Types.html#dec_trm"><span class="id" title="constructor">dec_trm</span></a> <span class="id" title="var">a</span> <span class="id" title="var">T2</span> <span class="id" title="var">T2</span>) <span class="id" title="tactic">in</span> <span class="id" title="var">Htyp</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="var">inversions</span> <span class="id" title="var">H5</span>. <span class="id" title="var">false</span>* <span class="id" title="var">H1</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">assumption</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="var">inversions</span> <span class="id" title="var">H5</span>. <span class="id" title="var">inversions</span>* <span class="id" title="var">H9</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">ds</span></span> <span class="inlinecode">=</span> <span class="inlinecode">...</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">a</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">t</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">...</span>  <br>
+    <span class="inlinecode"><span class="id" title="var">ds</span></span> <span class="inlinecode">=</span> <span class="inlinecode">...</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">a</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">t'</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">...</span> <br>
+    <span class="inlinecode">―――――――――――――――――――――――――</span> <br>
+    <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">t'</span></span> 
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="heap_defs_has_inv"><span class="id" title="lemma">heap_defs_has_inv</span></a>: <span class="id" title="keyword">forall</span> <span class="id" title="var">hds</span> <span class="id" title="var">a</span> <span class="id" title="var">t</span> <span class="id" title="var">t'</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_has"><span class="id" title="definition">labels_has</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#hds"><span class="id" title="variable">hds</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#t"><span class="id" title="variable">t</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_has"><span class="id" title="definition">labels_has</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#hds"><span class="id" title="variable">hds</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_def_trm"><span class="id" title="constructor">heap_def_trm</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#t'"><span class="id" title="variable">t'</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#t"><span class="id" title="variable">t</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#t'"><span class="id" title="variable">t'</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="comment">(*&nbsp;unfold&nbsp;labels_has,&nbsp;label_of&nbsp;in&nbsp;*.&nbsp;*)</span><br/>
+&nbsp;&nbsp;<span class="id" title="var">inversions</span> <span class="id" title="var">H</span>. <span class="id" title="var">inversions</span> <span class="id" title="var">H0</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="var">H1</span> <span class="id" title="tactic">in</span> <span class="id" title="var">H2</span>. <span class="id" title="var">inversions</span> <span class="id" title="var">H2</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab160"></a><h1 class="section">Inert types</h1>
+
+       A type is inert if it is either a dependent function type, or a recursive type
+       whose type declarations have equal bounds (enforced through <span class="inlinecode"><span class="id" title="var">record_type</span></span>). <br>
+       For example, the following types are inert:
+<ul class="doclist">
+<li> <span class="inlinecode"><span class="id" title="var">lambda</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>)<span class="id" title="var">T</span></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span> <span class="inlinecode">/\</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">U</span>..<span class="id" title="var">U</span>})</span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">C</span>:</span> <span class="inlinecode">{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>..<span class="id" title="var">U</span>}..{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>..<span class="id" title="var">U</span>}})</span>
+
+</li>
+</ul>
+       And the following types are not inert:
+<ul class="doclist">
+<li> <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span>
+
+</li>
+<li> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">U</span>..<span class="id" title="var">U</span>}</span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">top</span></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">x.A</span></span>
+
+</li>
+<li> <span class="inlinecode"><span class="id" title="var">mu</span>(<span class="id" title="var">x</span>:</span> <span class="inlinecode">{<span class="id" title="var">B</span>:</span> <span class="inlinecode"><span class="id" title="var">S</span>..<span class="id" title="var">T</span>})</span>, where <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode">&lt;&gt;</span> <span class="inlinecode"><span class="id" title="var">T</span></span>. 
+</li>
+</ul>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="inert_typ"><span class="id" title="inductive">inert_typ</span></a> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ"><span class="id" title="inductive">typ</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+&nbsp;&nbsp;| <a name="inert_typ_all"><span class="id" title="constructor">inert_typ_all</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">S</span> <span class="id" title="var">T</span>, <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert_typ"><span class="id" title="inductive">inert_typ</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_all"><span class="id" title="constructor">typ_all</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#S"><span class="id" title="variable">S</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>)<br/>
+&nbsp;&nbsp;| <a name="inert_typ_con"><span class="id" title="constructor">inert_typ_con</span></a> :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">forall</span> <span class="id" title="var">Ts</span> <span class="id" title="var">is'</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert_typ"><span class="id" title="inductive">inert_typ</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_con"><span class="id" title="constructor">typ_con</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#Ts"><span class="id" title="variable">Ts</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#is'"><span class="id" title="variable">is'</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>)<br/>
+&nbsp;&nbsp;| <a name="inert_typ_bnd"><span class="id" title="constructor">inert_typ_bnd</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert_typ"><span class="id" title="inductive">inert_typ</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_bnd"><span class="id" title="constructor">typ_bnd</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="constructor_record_type"><span class="id" title="lemma">constructor_record_type</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">L</span> <span class="id" title="var">Ts</span> <span class="id" title="var">ds</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="keyword">forall</span> (<span class="id" title="var">x</span> : <span class="id" title="axiom">var</span>) (<span class="id" title="var">ys</span> : <span class="id" title="inductive">list</span> <span class="id" title="axiom">var</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">length</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#length_s"><span class="id" title="definition">length_s</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#Ts"><span class="id" title="variable">Ts</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">fresh</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#L"><span class="id" title="variable">L</span></a> (<span class="id" title="constructor">S</span> (<span class="id" title="definition">length</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a>)) (<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#Gamma"><span class="id" title="variable">Gamma</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a> <a class="idref" href="DOT.Lib.LibExtraEnv.html#d49bbae905db9a1ef2bacb57bfb3b51d"><span class="id" title="notation">~**</span></a> <a class="idref" href="DOT.Lib.SyntaxClasses.html#to_list"><span class="id" title="definition">to_list</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#Ts"><span class="id" title="variable">Ts</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open_vars"><span class="id" title="abbreviation">open_vars</span></a> (<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open_vars"><span class="id" title="abbreviation">open_vars</span></a> (<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ds"><span class="id" title="variable">ds</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open_vars"><span class="id" title="abbreviation">open_vars</span></a> (<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">::</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ys"><span class="id" title="variable">ys</span></a>) <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type"><span class="id" title="definition">record_type</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<span class="id" title="lemma">var_freshes</span> (<span class="id" title="var">L</span> <span class="id" title="notation">\</span><span class="id" title="notation">u</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#fv"><span class="id" title="definition">fv</span></a> <span class="id" title="var">T</span>) (<span class="id" title="constructor">S</span> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#length_s"><span class="id" title="definition">length_s</span></a> <span class="id" title="var">Ts</span>))) <span class="id" title="keyword">as</span> [<span class="id" title="var">zs</span> <span class="id" title="var">Hfr</span>].<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#fresh_S_split"><span class="id" title="lemma">fresh_S_split</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">Hfr</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">x</span> [<span class="id" title="var">ys</span> <span class="id" title="var">Heq</span>]]; <span class="id" title="tactic">subst</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<a class="idref" href="DOT.Lib.LibExtraVar.html#fresh_length"><span class="id" title="lemma">fresh_length</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">Hfr</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">Hlen'</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">simpl</span> <span class="id" title="tactic">in</span> <span class="id" title="var">Hlen'</span>; <span class="id" title="tactic">inversion</span> <span class="id" title="var">Hlen'</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">Hlen</span>]; <span class="id" title="tactic">clear</span> <span class="id" title="var">Hlen'</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="var">Hlen</span> <span class="id" title="tactic">in</span> <span class="id" title="var">Hfr</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">assert</span> (<span class="id" title="var">Hfr'</span> : <span class="id" title="definition">fresh</span> <span class="id" title="var">L</span> (<span class="id" title="constructor">S</span> (<span class="id" title="definition">length</span> <span class="id" title="var">ys</span>)) (<span class="id" title="var">x</span> <span class="id" title="notation">::</span> <span class="id" title="var">ys</span>)) <span class="id" title="tactic">by</span> <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">pose</span> <span class="id" title="var">proof</span> (<span class="id" title="var">H</span> <span class="id" title="var">x</span> <span class="id" title="var">ys</span> <span class="id" title="var">Hlen</span> <span class="id" title="var">Hfr'</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">Hty</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#ty_defs_record_type"><span class="id" title="lemma">ty_defs_record_type</span></a>) <span class="id" title="tactic">in</span> <span class="id" title="var">Hty</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#record_type_open_vars_S"><span class="id" title="lemma">record_type_open_vars_S</span></a>) <span class="id" title="tactic">in</span> <span class="id" title="var">Hty</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="ty_lit_inert_type"><span class="id" title="lemma">ty_lit_inert_type</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> (<span class="id" title="var">l</span> : <a class="idref" href="DOT.Definitions.Syntax.Terms.html#lit"><span class="id" title="inductive">lit</span></a>) <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#l"><span class="id" title="variable">l</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert_typ"><span class="id" title="inductive">inert_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">inversions</span> <span class="id" title="var">H</span>; <span class="id" title="tactic">constructor</span>; <span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#constructor_record_type"><span class="id" title="lemma">constructor_record_type</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+An inert context is a typing context whose range consists only of inert types. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="inert"><span class="id" title="inductive">inert</span></a> : <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#ctx"><span class="id" title="abbreviation">ctx</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+&nbsp;&nbsp;| <a name="inert_empty"><span class="id" title="constructor">inert_empty</span></a> : <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert"><span class="id" title="inductive">inert</span></a> <span class="id" title="axiom">empty</span><br/>
+&nbsp;&nbsp;| <a name="inert_all"><span class="id" title="constructor">inert_all</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">G</span> <span class="id" title="var">x</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert"><span class="id" title="inductive">inert</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert_typ"><span class="id" title="inductive">inert_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">#</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert"><span class="id" title="inductive">inert</span></a> (<a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#G"><span class="id" title="variable">G</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">~</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#T"><span class="id" title="variable">T</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In the proof, it is useful to be able to distinguish record types from
+    other types. A record type is a concatenation of type declarations with equal
+    bounds <span class="inlinecode">{<span class="id" title="var">A</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>..<span class="id" title="var">T</span>}</span> and field declarations <span class="inlinecode">{<span class="id" title="var">a</span>:</span> <span class="inlinecode"><span class="id" title="var">T</span>}</span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Hint Constructors</span> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert_typ"><span class="id" title="inductive">inert_typ</span></a> <a class="idref" href="DOT.CanonicalForms.RecordAndInertTypes.html#inert"><span class="id" title="inductive">inert</span></a> : <span class="id" title="var">core</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

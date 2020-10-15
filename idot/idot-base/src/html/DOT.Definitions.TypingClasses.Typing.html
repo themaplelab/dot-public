@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.Definitions.TypingClasses.Typing</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a> <a class="idref" href="DOT.Lib.DotTactics.html#"><span class="id" title="library">DotTactics</span></a> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#"><span class="id" title="library">AbstractSyntax</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#"><span class="id" title="library">PreTyping</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab209"></a><h1 class="section">Typeclasses for Typing</h1>
+
+<div class="paragraph"> </div>
+
+ In this module we list out the type classes for general DOT typing and
+    subtyping.
+
+<div class="paragraph"> </div>
+
+    We directly use typing contexts, declarations, and types to define the
+    typeclasses rather than using abstract environments and terms because we
+    found that it gives better error messages when typeclass resolution fails.
+
+<div class="paragraph"> </div>
+
+    We use <span class="inlinecode"><span class="id" title="var">Gamma</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">d</span></span> <span class="inlinecode">∶<span class="id" title="var">d</span></span> <span class="inlinecode"><span class="id" title="var">D</span></span> (∶d is "\mathratio d") for typing definitions <span class="inlinecode"><span class="id" title="var">d</span></span> with a declaration <span class="inlinecode"><span class="id" title="var">D</span></span>.
+    We use <span class="inlinecode"><span class="id" title="var">Gamma</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode">∶</span> <span class="inlinecode"><span class="id" title="var">T</span></span> (∶ is "\mathratio") for typing terms <span class="inlinecode"><span class="id" title="var">t</span></span> with a type <span class="inlinecode"><span class="id" title="var">T</span></span>.
+    We use <span class="inlinecode"><span class="id" title="var">Gamma</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode">::</span> <span class="inlinecode"><span class="id" title="var">T</span></span> for typing list-like terms <span class="inlinecode"><span class="id" title="var">t</span></span> with a list-like type <span class="inlinecode"><span class="id" title="var">Ts</span></span>.
+    We use <span class="inlinecode"><span class="id" title="var">Gamma</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">&lt;:</span> <span class="inlinecode"><span class="id" title="var">U</span></span> for for subtyping.
+
+<div class="paragraph"> </div>
+
+    We use <span class="inlinecode"><span class="id" title="var">Gamma</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">ds</span></span> <span class="inlinecode">∶<span class="id" title="var">d</span></span> <span class="inlinecode"><span class="id" title="var">D</span></span> (∶d is "\mathratio d") for typing a list of definitions
+    <span class="inlinecode"><span class="id" title="var">ds</span></span> with a declaration <span class="inlinecode"><span class="id" title="var">D</span></span>. This typing will be automatically lifted from
+    definition typing, so this does not need to be manually implemented.
+
+<div class="paragraph"> </div>
+
+   Implementations of <span class="inlinecode"><span class="id" title="var">DecTyping</span></span>, <span class="inlinecode"><span class="id" title="var">Typing</span></span>, <span class="inlinecode"><span class="id" title="var">Tyings</span></span>, and <span class="inlinecode"><span class="id" title="var">Subtyping</span></span> are
+   expected to provide implementations of <span class="inlinecode"><span class="id" title="var">PreTypingWeakenMiddle</span></span> and
+   <span class="inlinecode"><span class="id" title="var">PreTypingBndIntroMiddle</span></span>.
+
+<div class="paragraph"> </div>
+
+   Implementations of <span class="inlinecode"><span class="id" title="var">DecTyping</span></span> is expected to provide an inpmeletation of
+   <span class="inlinecode"><span class="id" title="var">DecTypingLabels</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Class</span> <a name="DecTyping"><span class="id" title="record">DecTyping</span></a> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>) := <a name="dec_typing"><span class="id" title="projection">dec_typing</span></a> : <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#ctx"><span class="id" title="abbreviation">ctx</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#dec"><span class="id" title="inductive">dec</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a name="071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">&quot;</span></a>Gamma ⊢ d '∶d' D" := (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#dec_typing"><span class="id" title="definition">dec_typing</span></a> <span class="id" title="var">Gamma</span> <span class="id" title="var">d</span> <span class="id" title="var">D</span>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40, <span class="id" title="var">d</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 59).<br/>
+<span class="id" title="keyword">Class</span> <a name="Typing"><span class="id" title="record">Typing</span></a> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>) := <a name="typing"><span class="id" title="projection">typing</span></a> : <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#ctx"><span class="id" title="abbreviation">ctx</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ"><span class="id" title="inductive">typ</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a name="3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">&quot;</span></a>Gamma ⊢ t '∶' T" := (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#typing"><span class="id" title="definition">typing</span></a> <span class="id" title="var">Gamma</span> <span class="id" title="var">t</span> <span class="id" title="var">T</span>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40, <span class="id" title="var">t</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 59).<br/>
+<span class="id" title="keyword">Class</span> <a name="Typings"><span class="id" title="record">Typings</span></a> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>) := <a name="typings"><span class="id" title="projection">typings</span></a> : <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#ctx"><span class="id" title="abbreviation">ctx</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typs"><span class="id" title="inductive">typs</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a name="18e6d19815cc1c2f71d9cd6c6234b36b"><span class="id" title="notation">&quot;</span></a>Gamma ⊢ t '::' Ts" := (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#typings"><span class="id" title="definition">typings</span></a> <span class="id" title="var">Gamma</span> <span class="id" title="var">t</span> <span class="id" title="var">Ts</span>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40, <span class="id" title="var">t</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 59).<br/>
+<span class="id" title="keyword">Class</span> <a name="Subtyping"><span class="id" title="record">Subtyping</span></a> := <a name="subtyping"><span class="id" title="projection">subtyping</span></a> : <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#ctx"><span class="id" title="abbreviation">ctx</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ"><span class="id" title="inductive">typ</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ"><span class="id" title="inductive">typ</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a name="d77433d9a5f06bee50380b6ca9a3f271"><span class="id" title="notation">&quot;</span></a>Gamma ⊢ T '&lt;:' U" := (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#subtyping"><span class="id" title="definition">subtyping</span></a> <span class="id" title="var">Gamma</span> <span class="id" title="var">T</span> <span class="id" title="var">U</span>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40, <span class="id" title="var">T</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 59).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab210"></a><h2 class="section">Labels for Definition Typing</h2>
+ Definitions are typed with a declaration of the same type. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a name="DecTypingLabels"><span class="id" title="section">DecTypingLabels</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} `{<a class="idref" href="DOT.Lib.SyntaxClasses.html#LabelOf"><span class="id" title="class">LabelOf</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Class</span> <a name="DecTypingLabels"><span class="id" title="record">DecTypingLabels</span></a> `(<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTyping"><span class="id" title="class">DecTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTypingLabels.A"><span class="id" title="variable">A</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a name="ty_def_label_eq"><span class="id" title="projection">ty_def_label_eq</span></a> :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">d</span> <span class="id" title="var">D</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d"><span class="id" title="variable">d</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">∶</span></a><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">d</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">=</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d"><span class="id" title="variable">d</span></a>.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTypingLabels"><span class="id" title="section">DecTypingLabels</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab211"></a><h2 class="section">Typing and Subtyping imply Pretyping</h2>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a name="DecPreTyping"><span class="id" title="section">DecPreTyping</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} (<span class="id" title="var">TyA</span> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTyping"><span class="id" title="class">DecTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Instance</span> <a name="DecPreTyping"><span class="id" title="instance">DecPreTyping</span></a> : <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#PreTyping"><span class="id" title="class">PreTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#dec_typing"><span class="id" title="definition">dec_typing</span></a> := {}.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecPreTyping"><span class="id" title="section">DecPreTyping</span></a>.<br/>
+<span class="id" title="var">Existing</span> <span class="id" title="keyword">Instance</span> <span class="id" title="var">DecPreTyping</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Section</span> <a name="TyPreTyping"><span class="id" title="section">TyPreTyping</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} (<span class="id" title="var">TyA</span> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Typing"><span class="id" title="class">Typing</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Instance</span> <a name="TyPreTyping"><span class="id" title="instance">TyPreTyping</span></a> : <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#PreTyping"><span class="id" title="class">PreTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#typing"><span class="id" title="definition">typing</span></a> := {}.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#TyPreTyping"><span class="id" title="section">TyPreTyping</span></a>.<br/>
+<span class="id" title="var">Existing</span> <span class="id" title="keyword">Instance</span> <span class="id" title="var">TyPreTyping</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Section</span> <a name="TysPreTyping"><span class="id" title="section">TysPreTyping</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} (<span class="id" title="var">TysA</span> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Typings"><span class="id" title="class">Typings</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Instance</span> <a name="TysPreTyping"><span class="id" title="instance">TysPreTyping</span></a> : <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#PreTyping"><span class="id" title="class">PreTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#typings"><span class="id" title="definition">typings</span></a> := {}.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#TysPreTyping"><span class="id" title="section">TysPreTyping</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Section</span> <a name="SubPreTyping"><span class="id" title="section">SubPreTyping</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} {<span class="id" title="var">TysA</span> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Subtyping"><span class="id" title="class">Subtyping</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Instance</span> <a name="SubPreTyping"><span class="id" title="instance">SubPreTyping</span></a> : <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#PreTyping"><span class="id" title="class">PreTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#subtyping"><span class="id" title="definition">subtyping</span></a> := {}.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#SubPreTyping"><span class="id" title="section">SubPreTyping</span></a>.<br/>
+<span class="id" title="var">Existing</span> <span class="id" title="keyword">Instance</span> <span class="id" title="var">SubPreTyping</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab212"></a><h1 class="section">Lemmas about contexts</h1>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="union_assoc_fun_prop"><span class="id" title="lemma">union_assoc_fun_prop</span></a> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} :<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">forall</span> (<span class="id" title="var">P</span>: <span class="id" title="definition">env</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="definition">env</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span>) (<span class="id" title="var">G1</span> : <span class="id" title="definition">env</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;<span class="id" title="notation">(</span><span class="id" title="keyword">forall</span> (<span class="id" title="var">G2</span> : <span class="id" title="definition">env</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>), <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G1"><span class="id" title="variable">G1</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G2"><span class="id" title="variable">G2</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">forall</span> (<span class="id" title="var">G2</span> <span class="id" title="var">G3</span> : <span class="id" title="definition">env</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>), <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G1"><span class="id" title="variable">G1</span></a> (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G2"><span class="id" title="variable">G2</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G3"><span class="id" title="variable">G3</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="union_assoc_prop"><span class="id" title="lemma">union_assoc_prop</span></a> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} :<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">forall</span> (<span class="id" title="var">P</span>: <span class="id" title="definition">env</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">G1</span> <span class="id" title="var">G2</span> <span class="id" title="var">G3</span> : <span class="id" title="definition">env</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#P"><span class="id" title="variable">P</span></a> (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G1"><span class="id" title="variable">G1</span></a> <span class="id" title="notation">&amp;</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G2"><span class="id" title="variable">G2</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G3"><span class="id" title="variable">G3</span></a><span class="id" title="notation">)</span>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#P"><span class="id" title="variable">P</span></a> (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G1"><span class="id" title="variable">G1</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G2"><span class="id" title="variable">G2</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G3"><span class="id" title="variable">G3</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>; <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="lemma">concat_assoc</span>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab213"></a><h1 class="section">Lemmas about typing</h1>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Lemma</span> <a name="ty_ctx_assoc"><span class="id" title="lemma">ty_ctx_assoc</span></a> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} `{<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Typing"><span class="id" title="class">Typing</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>} : <span class="id" title="keyword">forall</span> <span class="id" title="var">G1</span> <span class="id" title="var">G2</span> <span class="id" title="var">G3</span> <span class="id" title="var">t</span> <span class="id" title="var">T</span>,<br/>
+&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G1"><span class="id" title="variable">G1</span></a> <span class="id" title="notation">&amp;</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G2"><span class="id" title="variable">G2</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G3"><span class="id" title="variable">G3</span></a><span class="id" title="notation">)</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#t"><span class="id" title="variable">t</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G1"><span class="id" title="variable">G1</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G2"><span class="id" title="variable">G2</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G3"><span class="id" title="variable">G3</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#t"><span class="id" title="variable">t</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#T"><span class="id" title="variable">T</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>; <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#union_assoc_prop"><span class="id" title="lemma">union_assoc_prop</span></a>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">Hint Resolve</span> <span class="id" title="var">ty_ctx_assoc</span> | 7 : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="tys_ctx_assoc"><span class="id" title="lemma">tys_ctx_assoc</span></a> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} `{<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Typings"><span class="id" title="class">Typings</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>} : <span class="id" title="keyword">forall</span> <span class="id" title="var">G1</span> <span class="id" title="var">G2</span> <span class="id" title="var">G3</span> <span class="id" title="var">ts</span> <span class="id" title="var">Ts</span>,<br/>
+&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G1"><span class="id" title="variable">G1</span></a> <span class="id" title="notation">&amp;</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G2"><span class="id" title="variable">G2</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G3"><span class="id" title="variable">G3</span></a><span class="id" title="notation">)</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#18e6d19815cc1c2f71d9cd6c6234b36b"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ts"><span class="id" title="variable">ts</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#18e6d19815cc1c2f71d9cd6c6234b36b"><span class="id" title="notation">::</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Ts"><span class="id" title="variable">Ts</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G1"><span class="id" title="variable">G1</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G2"><span class="id" title="variable">G2</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G3"><span class="id" title="variable">G3</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#18e6d19815cc1c2f71d9cd6c6234b36b"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ts"><span class="id" title="variable">ts</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#18e6d19815cc1c2f71d9cd6c6234b36b"><span class="id" title="notation">::</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Ts"><span class="id" title="variable">Ts</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>; <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#union_assoc_prop"><span class="id" title="lemma">union_assoc_prop</span></a>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">Hint Resolve</span> <span class="id" title="var">tys_ctx_assoc</span> | 7 : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="subtyp_ctx_assoc"><span class="id" title="lemma">subtyp_ctx_assoc</span></a> `{<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Subtyping"><span class="id" title="class">Subtyping</span></a>} : <span class="id" title="keyword">forall</span> <span class="id" title="var">G1</span> <span class="id" title="var">G2</span> <span class="id" title="var">G3</span> <span class="id" title="var">T</span> <span class="id" title="var">U</span>,<br/>
+&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G1"><span class="id" title="variable">G1</span></a> <span class="id" title="notation">&amp;</span> <span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G2"><span class="id" title="variable">G2</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G3"><span class="id" title="variable">G3</span></a><span class="id" title="notation">)</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d77433d9a5f06bee50380b6ca9a3f271"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d77433d9a5f06bee50380b6ca9a3f271"><span class="id" title="notation">&lt;:</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#U"><span class="id" title="variable">U</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G1"><span class="id" title="variable">G1</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G2"><span class="id" title="variable">G2</span></a> <span class="id" title="notation">&amp;</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#G3"><span class="id" title="variable">G3</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d77433d9a5f06bee50380b6ca9a3f271"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d77433d9a5f06bee50380b6ca9a3f271"><span class="id" title="notation">&lt;:</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#U"><span class="id" title="variable">U</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>; <span class="id" title="tactic">apply</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#union_assoc_prop"><span class="id" title="lemma">union_assoc_prop</span></a>; <span class="id" title="tactic">auto</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">Hint Resolve</span> <span class="id" title="var">subtyp_ctx_assoc</span> | 7 : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab214"></a><h1 class="section">DecTyping to Defs</h1>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="ty_defs"><span class="id" title="inductive">ty_defs</span></a> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} `{<a class="idref" href="DOT.Lib.SyntaxClasses.html#LabelOf"><span class="id" title="class">LabelOf</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>} `{<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTyping"><span class="id" title="class">DecTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>} : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Typing"><span class="id" title="class">Typing</span></a> (<span class="id" title="inductive">list</span> <span class="id" title="var">A</span>) :=<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">d</span>:</span> <span class="inlinecode"><span class="id" title="var">D</span></span>              <br>
+    <span class="inlinecode">―――――――――――――――――――――</span> <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">d</span></span> <span class="inlinecode">++</span> <span class="inlinecode"><span class="id" title="var">defs_nil</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">D</span></span> 
+</div>
+<div class="code">
+| <a name="ty_defs_one"><span class="id" title="constructor">ty_defs_one</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">d</span> <span class="id" title="var">D</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d"><span class="id" title="variable">d</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">∶</span></a><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">d</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <span class="id" title="constructor">cons</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d"><span class="id" title="variable">d</span></a> <span class="id" title="constructor">nil</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_rcd"><span class="id" title="constructor">typ_rcd</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#D"><span class="id" title="variable">D</span></a><br/>
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">ds</span></span> <span class="inlinecode">::</span> <span class="inlinecode"><span class="id" title="var">T</span></span>         <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">d</span>:</span> <span class="inlinecode"><span class="id" title="var">D</span></span>            <br>
+    <span class="inlinecode"><span class="id" title="var">d</span></span> <span class="inlinecode">\<span class="id" title="var">notin</span></span> <span class="inlinecode"><span class="id" title="var">ds</span></span>         <br>
+    <span class="inlinecode">―――――――――――――――――――</span> <br>
+    <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode">⊢</span> <span class="inlinecode"><span class="id" title="var">ds</span></span> <span class="inlinecode">++</span> <span class="inlinecode"><span class="id" title="var">d</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode">/\</span> <span class="inlinecode"><span class="id" title="var">D</span></span> 
+</div>
+<div class="code">
+| <a name="ty_defs_cons"><span class="id" title="constructor">ty_defs_cons</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Gamma</span> <span class="id" title="var">ds</span> <span class="id" title="var">d</span> <span class="id" title="var">T</span> <span class="id" title="var">D</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ds"><span class="id" title="variable">ds</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#T"><span class="id" title="variable">T</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">⊢</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d"><span class="id" title="variable">d</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">∶</span></a><a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#071d1416c7b1a8679a439583150e3cef"><span class="id" title="notation">d</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#D"><span class="id" title="variable">D</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Lib.SyntaxClasses.html#labels_hasnt"><span class="id" title="definition">labels_hasnt</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ds"><span class="id" title="variable">ds</span></a> (<a class="idref" href="DOT.Lib.SyntaxClasses.html#label_of"><span class="id" title="definition">label_of</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d"><span class="id" title="variable">d</span></a>) <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#Gamma"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">⊢</span></a> <span class="id" title="constructor">cons</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#d"><span class="id" title="variable">d</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ds"><span class="id" title="variable">ds</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#3db3136034a83ac4081977ececfc4888"><span class="id" title="notation">∶</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_and"><span class="id" title="constructor">typ_and</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#T"><span class="id" title="variable">T</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Types.html#typ_rcd"><span class="id" title="constructor">typ_rcd</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#D"><span class="id" title="variable">D</span></a>).<br/>
+<span class="id" title="var">Existing</span> <span class="id" title="keyword">Instance</span> <span class="id" title="var">ty_defs</span> | 1.<br/>
+<span class="id" title="keyword">Hint Constructors</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ty_defs"><span class="id" title="inductive">ty_defs</span></a> : <span class="id" title="var">core</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+PreTyping lemmas about single definitions imply pretyping lemmas of list of definitions 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a name="DefsWeaken"><span class="id" title="section">DefsWeaken</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} {<span class="id" title="var">TyA</span>: <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTyping"><span class="id" title="class">DecTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">TyWM</span>: <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#PreTypingWeakenMiddle"><span class="id" title="class">PreTypingWeakenMiddle</span></a> (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecPreTyping"><span class="id" title="instance">DecPreTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#TyA"><span class="id" title="variable">TyA</span></a>)).<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> `{<a class="idref" href="DOT.Lib.SyntaxClasses.html#LabelOf"><span class="id" title="class">LabelOf</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DefsWeaken.A"><span class="id" title="variable">A</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Instance</span> <a name="DefsWeakenMiddle"><span class="id" title="instance">DefsWeakenMiddle</span></a> : <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#PreTypingWeakenMiddle"><span class="id" title="class">PreTypingWeakenMiddle</span></a> (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#TyPreTyping"><span class="id" title="instance">TyPreTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ty_defs"><span class="id" title="inductive">ty_defs</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>; <span class="id" title="var">introv</span>. <span class="id" title="var">remember</span> (<span class="id" title="var">Gamma1</span> <span class="id" title="notation">&amp;</span> <span class="id" title="var">Gamma2</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">Gamma'</span> <span class="id" title="var">eqn</span>:<span class="id" title="var">Heq</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">H'</span>; <span class="id" title="tactic">induction</span> <span class="id" title="var">H'</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DefsWeaken"><span class="id" title="section">DefsWeaken</span></a>.<br/>
+<span class="id" title="var">Existing</span> <span class="id" title="var">Instances</span> <span class="id" title="var">DefsWeakenMiddle</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Section</span> <a name="DefsBndIntro"><span class="id" title="section">DefsBndIntro</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<span class="id" title="var">A</span> : <span class="id" title="keyword">Set</span>} `{<span class="id" title="var">TyA</span> : <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecTyping"><span class="id" title="class">DecTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#A"><span class="id" title="variable">A</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">TyBIM</span>: <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#PreTypingBndIntroMiddle"><span class="id" title="class">PreTypingBndIntroMiddle</span></a> (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DecPreTyping"><span class="id" title="instance">DecPreTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#TyA"><span class="id" title="variable">TyA</span></a>)).<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> `{<a class="idref" href="DOT.Lib.SyntaxClasses.html#LabelOf"><span class="id" title="class">LabelOf</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DefsBndIntro.A"><span class="id" title="variable">A</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Instance</span> <a name="DefsBndIntroMiddle"><span class="id" title="instance">DefsBndIntroMiddle</span></a> : <a class="idref" href="DOT.Definitions.TypingClasses.PreTyping.html#PreTypingBndIntroMiddle"><span class="id" title="class">PreTypingBndIntroMiddle</span></a> (<a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#TyPreTyping"><span class="id" title="instance">TyPreTyping</span></a> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#ty_defs"><span class="id" title="inductive">ty_defs</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">hnf</span>; <span class="id" title="var">introv</span>. <span class="id" title="var">remember</span> (<span class="id" title="var">Gamma1</span> <span class="id" title="notation">&amp;</span> <span class="id" title="var">y</span> <span class="id" title="notation">~</span> <a class="idref" href="DOT.Lib.SyntaxClasses.html#open"><span class="id" title="abbreviation">open</span></a> <span class="id" title="var">y</span> <span class="id" title="var">T1</span> <span class="id" title="notation">&amp;</span> <span class="id" title="var">Gamma2</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">Gamma'</span> <span class="id" title="var">eqn</span>:<span class="id" title="var">Heq</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">introv</span> <span class="id" title="var">H'</span>; <span class="id" title="tactic">induction</span> <span class="id" title="var">H'</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="DOT.Definitions.TypingClasses.Typing.html#DefsBndIntro"><span class="id" title="section">DefsBndIntro</span></a>.<br/>
+<span class="id" title="var">Existing</span> <span class="id" title="var">Instances</span> <span class="id" title="var">DefsBndIntroMiddle</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

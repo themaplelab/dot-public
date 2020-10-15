@@ -1,0 +1,798 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="html/assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="html/assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<style>
+  .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;width:100%;}
+  .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;border-top-width:1px;border-bottom-width:1px;}
+  .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;border-top-width:1px;border-bottom-width:1px;}
+  .tg .tg-bq60{font-weight:bold;font-size:100%;font-family:Arial, Helvetica, sans-serif !important;;vertical-align:top}
+  .tg .tg-rkwu{font-family:"Courier New", Courier, monospace !important;;vertical-align:top}
+  .tg .tg-8fc1{font-weight:bold;font-family:Arial, Helvetica, sans-serif !important;;vertical-align:top}
+  .tg .tg-yw4l{vertical-align:top}
+</style>
+<script type="text/javascript" src="html/assets/resources/config.js"></script>
+<script type="text/javascript" src="html/assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="README.html">README</a>
+      <a href="html/indexpage.html"> Index </a>
+      <a href="html/toc.html"> Table of Contents </a>
+    </span>
+</div>
+<div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+        <h1>&#x03B9;DOT: A DOT Calculus with Safe Object Initialization</h1>
+        <p>
+          Our paper presents &#x03B9;DOT calculus, which extends the
+          &#x03BA;DOT calculus of Kabir and Lhot&aacute;k with a type and effect
+          system object to ensure null-safety and makes fields non-lazy.
+          &#x03BA;DOT is itself an extension of the WadlerFest DOT calculus of
+          Amin el al. (2016).
+          This repository contains a formalization of the type-safety proof of
+          the calculus in Coq.
+        </p>
+
+        <p>
+          The type-safety proof for the &#x03B9;DOT caluclus extends the
+          Rapoport el al. (2017) type safety proof for WadlerFest DOT.
+        </p>
+
+        <h2>Documentation</h2>
+        <p>
+          The documentation for the repository can be accessed form
+          the <a href="html/toc.html">table of contents</a>, which lists links
+          to pretty printed Coq files, but the raw ".v" source files are also
+          available in this directory.
+          In the pretty-printed versions, the proof scripts are hidden by
+          default, but you may click on "Show Proofs" at the top of the page to
+          display all the proofs, or click under the Lemma, Corollary, or
+          Theorem statements to display their proofs.
+        </p>
+
+        <h1>Paper Correspondence</h1>
+        <h2>Differences from the Paper Version</h2>
+        <p>
+          The base calculus presented in our paper is simpler than the one we
+          proved sound in this repository.
+          The Coq version in this repository allows for an additional
+          initialization type "unspecified" and allows subtyping between
+          the other initialization types and "unspecified".
+          Since there is no subtyping, in the paper version can get away without
+          using
+          the <a href="html/DOT.Initialization.InitVarSubtyping.html#init_binds_sub">init_binds_sub</a>
+          condition for the Substution lemma for the initialization
+          system
+          (<a href="html/DOT.Initialization.InitSubstitution.html#well_init_subst_term">well_init_subst_term</a>).
+          Additionally, <a href="html/DOT.Definitions.Safety.ConfigTyping.html#ty_config">configuration
+          typing</a> in the paper version does not use the
+          <a href="html/DOT.Definitions.Initialization.InertInitContexts.html#inert_inits">inert_inits</a>
+          condition since initialization contexts for the paper version are
+          always inert.
+        </p>
+
+        <h2>Correspondence of Definitions</h2>
+        <p>
+          The following table lists the definitions in our paper and their
+          corresponding formalizations in the Coq proof.
+        </p>
+
+        <table class="tg">
+          <tr>
+            <th class="tg-bq60">Definition</th>
+            <th class="tg-bq60">In Paper</th>
+            <th class="tg-bq60">File or Directory</th>
+            <th class="tg-bq60">Paper Notation</th>
+            <th class="tg-bq60">Name in Proof</th>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Abstract Syntax</td>
+            <td>Fig. 6</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>- Term Labels</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Lib.SyntaxClasses.html#trm_label">Lib/SyntaxClasses.v</a></td>
+            <td>a, b, c</td>
+            <td><a href="html/DOT.Lib.SyntaxClasses.html#trm_label">trm_label</a></td>
+          </tr>
+          <tr>
+            <td>- Type Labels</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Lib.SyntaxClasses.html#typ_label">Lib/SyntaxClasses.v</a></td>
+            <td>A, B, C</td>
+            <td><a href="html/DOT.Lib.SyntaxClasses.html#typ_label">typ_label</a></td>
+          </tr>
+          <tr>
+            <td>- Locations</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.Vars.html#avar_f">Definitions/Syntax/Vars.v</a></td>
+            <td>y</td>
+            <td><a href="html/DOT.Definitions.Syntax.Vars.html#avar_f">avar_f</a></td>
+          </tr>
+          <tr>
+            <td>- Abstract Variables</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.Vars.html#avar_b">Definitions/Syntax/Vars.v</a></td>
+            <td>z</td>
+            <td><a href="html/DOT.Definitions.Syntax.Vars.html#avar_b">avar_b</a></td>
+          </tr>
+          <tr>
+            <td>- Variables</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.Vars.html#avar">Definitions/Syntax/Vars.v</a></td>
+            <td>x</td>
+            <td><a href="html/DOT.Definitions.Syntax.Vars.html#avar">avar</a></td>
+          </tr>
+          <tr>
+            <td>- Initialization Qualifiers</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.Types.html#init_typ">Definitions/Syntax/Types.v</a></td>
+            <td>i</td>
+            <td><a href="html/DOT.Definitions.Syntax.Types.html#init_typ">init_typ</a></td>
+          </tr>
+          <tr>
+            <td>- Types</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.Types.html#typ">Definitions/Syntax/Types.v</a></td>
+            <td>S, T, U</td>
+            <td><a href="html/DOT.Definitions.Syntax.Types.html#typ">typ</a></td>
+          </tr>
+          <tr>
+            <td>- Constructor Definitions</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.Terms.html#def">Definitions/Syntax/Terms.v</a></td>
+            <td>d</td>
+            <td><a href="html/DOT.Definitions.Syntax.Terms.html#def">def</a></td>
+          </tr>
+          <tr>
+            <td>- Literals</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.Terms.html#lit">Definitions/Syntax/Terms.v</a></td>
+            <td>l</td>
+            <td><a href="html/DOT.Definitions.Syntax.Terms.html#lit">lit</a></td>
+          </tr>
+          <tr>
+            <td>- Terms</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.Terms.html#trm">Definitions/Syntax/Terms.v</a></td>
+            <td>t, u</td>
+            <td><a href="html/DOT.Definitions.Syntax.Terms.html#trm">trm</a></td>
+          </tr>
+          <tr>
+            <td>- Heap Definitions</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.Items.html#heap_def">Definitions/Syntax/Items.v</a></td>
+            <td>hd</td>
+            <td><a href="html/DOT.Definitions.Syntax.Items.html#heap_def">heap_def</a></td>
+          </tr>
+          <tr>
+            <td>- Heap Items</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.Items.html#item">Definitions/Syntax/Items.v</a></td>
+            <td>h</td>
+            <td><a href="html/DOT.Definitions.Syntax.Items.html#item">item</a></td>
+          </tr>
+          <tr>
+            <td>- Effects</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Effects.Effects.html#effects">Definitions/Effects/Effects.v</a></td>
+            <td>E</td>
+            <td><a href="html/DOT.Definitions.Effects.Effects.html#effects">effects</a></td>
+          </tr>
+          <tr>
+            <td>- Effects of Heap Definitions</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Effects.HeapEffects.html#heap_defs_effs">Definitions/Effects/HeapEffects.v</a> or <a href="html/DOT.Definitions.Effects.Effects.html#def_eff">Definitions/Effects/Effects.v</a></td>
+            <td>eff</td>
+            <td><a href="html/DOT.Definitions.Effects.HeapEffects.html#heap_defs_effs">heap_defs_effs or def_eff</a></td>
+          </tr>
+          <tr>
+            <td>- Typing Context</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.AbstractSyntax.html#ctx">Definitions/Syntax/AbstractSyntax.v</a></td>
+            <td>Γ</td>
+            <td><a href="html/DOT.Definitions.Syntax.AbstractSyntax.html#ctx">ctx</a></td>
+          </tr>
+          <tr>
+            <td>- Initialization Context</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.Types.html#init_ctx">Definitions/Syntax/Types.v</a></td>
+            <td>Δ</td>
+            <td><a href="html/DOT.Definitions.Syntax.Types.html#init_ctx">init_ctx</a></td>
+          </tr>
+          <tr>
+            <td>- Effect Contexts</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Effects.Effects.html#eff_ctx">Definitions/Effects/Effects.v</a></td>
+            <td>ℰ</td>
+            <td><a href="html/DOT.Definitions.Effects.Effects.html#eff_ctx">eff_ctx</a></td>
+          </tr>
+          <tr>
+            <td>- Frame</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.AbstractMachine.html#frame">Definitions/Syntax/AbstractMachine.v</a></td>
+            <td>F</td>
+            <td><a href="html/DOT.Definitions.Syntax.AbstractMachine.html#frame">frame</a></td>
+          </tr>
+          <tr>
+            <td>- Frame Stacks</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.AbstractMachine.html#stack">Definitions/Syntax/AbstractMachine.v</a></td>
+            <td>Fs</td>
+            <td><a href="html/DOT.Definitions.Syntax.AbstractMachine.html#stack">stack</a></td>
+          </tr>
+          <tr>
+            <td>- Effect Stacks</td>
+            <td>Fig. 6</td>
+            <td></td>
+            <td>Es</td>
+            <td>list effects</td>
+          </tr>
+          <tr>
+            <td>- Effect Context Stacks</td>
+            <td>Fig. 6</td>
+            <td></td>
+            <td>ℰs</td>
+            <td>list eff_ctx</td>
+          </tr>
+          <tr>
+            <td>- Heap</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.AbstractMachine.html#heap">Definitions/Syntax/AbstractMachine.v</a></td>
+            <td>Σ</td>
+            <td><a href="html/DOT.Definitions.Syntax.AbstractMachine.html#heap">heap</a></td>
+          </tr>
+          <tr>
+            <td>- Configuration</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.Syntax.AbstractMachine.html#config">Definitions/Syntax/AbstractMachine.v</a></td>
+            <td>c</td>
+            <td><a href="html/DOT.Definitions.Syntax.AbstractMachine.html#config">config</a></td>
+          </tr>
+          <tr>
+            <td>- Answer</td>
+            <td>Fig. 6</td>
+            <td><a href="html/DOT.Definitions.OperationalSemantics.OperationalSemantics.html#answer">Definitions/OperationalSemantics/OperationalSemantics.v</a></td>
+            <td>n</td>
+            <td><a href="html/DOT.Definitions.OperationalSemantics.OperationalSemantics.html#answer">answer</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Operational Semantics</td>
+            <td>Fig. 7</td>
+            <td><a href="html/DOT.Definitions.OperationalSemantics.OperationalSemantics.html#red">Definitions/OperationalSemantics/OperationalSemantics.v</a></td>
+            <td>c ⟼ c'</td>
+            <td><a href="html/DOT.Definitions.OperationalSemantics.OperationalSemantics.html#red">red</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Definite Assignment</td>
+            <td>Fig. 9</td>
+            <td><a href="html/DOT.Definitions.Effects.Effects.html#eff_trm">Definitions/Effects/Effects.v</a></td>
+            <td>⊢e t : E</td>
+            <td><a href="html/DOT.Definitions.Effects.Effects.html#eff_trm">eff_trm</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Committed Terms and Literals</td>
+            <td>Fig. 10</td>
+            <td><a href="html/DOT.Definitions.Initialization.InitTyping.html">Definitions/Initialization/InitTyping.v</a></td>
+            <td>Γ;Δ ⊢c t<br>Γ;Δ ⊢c l</td>
+            <td><a href="html/DOT.Definitions.Initialization.InitTyping.html#well_committed">well_committed</a><br><a href="html/DOT.Definitions.Initialization.InitTyping.html#well_committed_lit">well_committed_lit</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Initialization for Terms</td>
+            <td>Fig. 11</td>
+            <td><a href="html/DOT.Definitions.Initialization.InitTyping.html#well_init">Definitions/Initialization/InitTyping.v</a></td>
+            <td>Γ;Δ|<sub>vs</sub><sup>free</sup> ⊢<sub>i</sub> t&nbsp;:&nbsp;i</td>
+            <td><a href="html/DOT.Definitions.Initialization.InitTyping.html#well_init">well_init</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Heap Correspondence</td>
+            <td>Def. 4.1</td>
+            <td><a href="html/DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond">CanonicalForms/HeapCorrespondence.v</a></td>
+            <td>Γ ∼ Δ</td>
+            <td><a href="html/DOT.CanonicalForms.HeapCorrespondence.html#heap_correspond">heap_correspond</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Committed Heap Object</td>
+            <td>Def. 4.2</td>
+            <td><a href="html/DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_defs">Definitions/SubHeaps/CommittedSubHeap.v</a></td>
+            <td></td>
+            <td><a href="html/DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_defs">committed_heap_defs</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Committed Heap Items</td>
+            <td>Def. 4.3</td>
+            <td><a href="html/DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_item">Definitions/SubHeaps/CommittedSubHeap.v</a></td>
+            <td></td>
+            <td><a href="html/DOT.Definitions.SubHeaps.CommittedSubHeap.html#committed_heap_item">committed_heap_item</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Well-committed Heap</td>
+            <td>Def. 4.4</td>
+            <td><a href="html/DOT.Definitions.SubHeaps.CommittedSubHeap.html#well_committed_heap">Definitions/SubHeaps/CommittedSubHeap.v</a></td>
+            <td></td>
+            <td><a href="html/DOT.Definitions.SubHeaps.CommittedSubHeap.html#well_committed_heap">well_committed_heap</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Free Heap Object</td>
+            <td>Def. 4.5</td>
+            <td><a href="html/DOT.Definitions.SubHeaps.FreeItems.html#free_heap_defs">Definitions/SubHeaps/FreeItems.v</a></td>
+            <td></td>
+            <td><a href="html/DOT.Definitions.SubHeaps.FreeItems.html#free_heap_defs">free_heap_defs</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Free Subheap</td>
+            <td>Def. 4.6</td>
+            <td><a href="html/DOT.Definitions.SubHeaps.FreeSubHeapSingle.html#free_sub_heap">Definitions/SubHeaps/FreeSubHeapSingle.v</a></td>
+            <td></td>
+            <td><a href="html/DOT.Definitions.SubHeaps.FreeSubHeapSingle.html#free_sub_heap">free_sub_heap</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Free Heap Stack</td>
+            <td>Def. 4.7</td>
+            <td><a href="html/DOT.Definitions.SubHeaps.FreeSubHeapStack.html#free_sub_heaps">Definitions/SubHeaps/FreeSubHeapStack.v</a></td>
+            <td></td>
+            <td><a href="html/DOT.Definitions.SubHeaps.FreeSubHeapStack.html#free_sub_heaps">free_sub_heaps</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Stack Typing</td>
+            <td>Fig. 12</td>
+            <td><a href="html/DOT.Definitions.Safety.StackTyping.html#ty_stack">Definitions/Safety/StackTyping.v</a></td>
+            <td>Γ;Δ;ℰs ⊢ Fs&nbsp;:&nbsp;(T,i)⇒(Es,U)</td>
+            <td><a href="html/DOT.Definitions.Safety.StackTyping.html#ty_stack">ty_stack</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Effect Correspondence</td>
+            <td>Def. 4.8</td>
+            <td><a href="html/DOT.Definitions.Effects.EffectCorrespondence.html#eff_ctx_corr">Definitions/Effects/EffectCorrespondence.v</a></td>
+            <td></td>
+            <td><a href="html/DOT.Definitions.Effects.EffectCorrespondence.html#eff_ctx_corr">eff_ctx_corr</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Configuration Typing</td>
+            <td>Def. 4.9</td>
+            <td><a href="html/DOT.Definitions.Safety.ConfigTyping.html#ty_config">Definitions/Safety/ConfigTyping.v</a></td>
+            <td>Γ;Δ;ℰs ⊢ c&nbsp;:&nbsp;(Es,U)</td>
+            <td><a href="html/DOT.Definitions.Safety.ConfigTyping.html#ty_config">ty_config</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Heap Definition Typing</td>
+            <td>Fig. 14</td>
+            <td><a href="html/DOT.CanonicalForms.HeapCorrespondence.html##ty_heap_def">CanonicalForms/HeapCorrespondence.v</a></td>
+            <td>Γ ⊢ hds : T</td>
+            <td><a href="html/DOT.CanonicalForms.HeapCorrespondence.html##ty_heap_def">ty_heap_def</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Term Typing</td>
+            <td>Fig. 15</td>
+            <td><a href="html/DOT.Definitions.Typing.GeneralTyping.html#ty_trm">Definitions/Typing/GeneralTyping.v</a></td>
+            <td>Γ ⊢ t : T</td>
+            <td><a href="html/DOT.Definitions.Typing.GeneralTyping.html#ty_trm">ty_trm</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Literal Typing</td>
+            <td>Fig. 16</td>
+            <td><a href="html/DOT.Definitions.Typing.GeneralTyping.html#ty_lit">Definitions/Typing/GeneralTyping.v</a></td>
+            <td>Γ ⊢ l : T</td>
+            <td><a href="html/DOT.Definitions.Typing.GeneralTyping.html#ty_lit">ty_lit</a></td>
+          </tr>
+          <tr>
+            <td class="tg-bq60">Subtyping</td>
+            <td>Fig. 17</td>
+            <td><a href="html/DOT.Definitions.Typing.GeneralTyping.html#subtyp">Definitions/Typing/GeneralTyping.v</a></td>
+            <td>Γ ⊢ T <: U</td>
+            <td><a href="html/DOT.Definitions.Typing.GeneralTyping.html#subtyp">subtyp</a></td>
+          </tr>
+        </table>
+
+        <h2>Correspondence of Lemmas and Theorems</h2>
+        <p>
+          The following table lists the important lemmas listed in our paper and
+          the corresponding Coq proof.
+        </p>
+
+        <table class="tg">
+          <tr>
+            <th class="tg-bq60">Theorem or Lemma</th>
+            <th class="tg-bq60">File</th>
+            <th class="tg-bq60">Name in Proof</th>
+          </tr>
+          <tr>
+            <td>Lemma 5.2 (Progress)</td>
+            <td><a href="html/DOT.Safety.Safety.html#progress">Safety/Safety.v</a></td>
+            <td><a href="html/DOT.Safety.Safety.html#progress">progress</a></td>
+          </tr>
+          <tr>
+            <td>Lemma 5.3 (Progress)</td>
+            <td><a href="html/DOT.Safety.Safety.html#preservation">Safety/Safety.v</a></td>
+            <td><a href="html/DOT.Safety.Safety.html#preservation">preservation</a></td>
+          </tr>
+          <tr>
+            <td>Lemma 5.4 (Initial Configuration Well-typed)</td>
+            <td><a href="html/DOT.Safety.Safety.html#initial_config_typed">Safety/Safety.v</a></td>
+            <td><a href="html/DOT.Safety.Safety.html#initial_config_typed">initial_config_typed</a></td>
+          </tr>
+          <tr>
+            <td>Lemma 5.5 (Allocating Literals)</td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_committed_push">SubHeaps/FreeSubHeapStackLemmas.v</a></td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_committed_push">free_sub_heaps_committed_push</a></td>
+          </tr>
+          <tr>
+            <td>Lemma 5.6 (Assigning To Committed Objects)</td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_write_committed_other">SubHeaps/FreeSubHeapStackLemmas.v</a></td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_write_committed_other">free_sub_heaps_write_committed_other</a></td>
+          </tr>
+          <tr>
+            <td>Lemma 5.7 (Assigning To Free Objects)</td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_write_top">SubHeaps/FreeSubHeapStackLemmas.v</a></td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_write_top">free_sub_heaps_write_top</a></td>
+          </tr>
+          <tr>
+            <td>Lemma 5.8 (Allocating Free Objects)</td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_obj_push">SubHeaps/FreeSubHeapStackLemmas.v</a></td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_obj_push">free_sub_heaps_obj_push</a></td>
+          </tr>
+          <tr>
+            <td>Lemma 5.9 (Allocating a New Free Subheap)</td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_new_obj_push">SubHeaps/FreeSubHeapStackLemmas.v</a></td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_new_obj_push">free_sub_heaps_new_obj_push</a></td>
+          </tr>
+          <tr>
+            <td>Lemma 5.10 (Promoting a Free Subheap)</td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_promote">SubHeaps/FreeSubHeapStackLemmas.v</a></td>
+            <td><a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html#free_sub_heaps_promote">free_sub_heaps_promote</a></td>
+          </tr>
+          <tr>
+            <td>Lemma A.1 (Substitution for Effects)</td>
+            <td><a href="html/DOT.Effects.EffectSubstitution.html#effs_subst_in_effs_and_trm">Effects/EffectSubstitution.v</a></td>
+            <td><a href="html/DOT.Effects.EffectSubstitution.html#effs_subst_in_effs_and_trm">effs_subst_in_effs_and_trm</a></td>
+          </tr>
+          <tr>
+            <td>Lemma A.2 (Substitution for Typing)</td>
+            <td><a href="html/DOT.GeneralTyping.Substitution.html#TrmTySubstMiddle">GeneralTyping/Substitution</a></td>
+            <td><a href="html/DOT.GeneralTyping.Substitution.html#TrmTySubstMiddle">TrmTySubstMiddle</a></td>
+          </tr>
+          <tr>
+            <td>Lemma A.2 (Substitution for Initialization)</td>
+            <td><a href="html/DOT.Initialization.InitSubstitution.html#well_init_subst_term">Initialization/InitSubstitution.v</a></td>
+            <td><a href="html/DOT.Initialization.InitSubstitution.html#well_init_subst_term">well_init_subst_term</a></td>
+          </tr>
+        </table>
+
+        <h2>Proof Organization</h2>
+        <p>
+          The <a href="html/DOT.Safety.Safety.html">Safety</a> modules collects
+          together the Progress and Preservation Lemmas together with a proof
+          that an initial configuration of the abstract machine is well-typed.
+        </p>
+
+        <h3>Proof</h3>
+        <p>
+          The proof is organized into several directories, each containing
+          modules related to a spefic area of the proof.
+          The table below describes the directories.
+        </p>
+        <table class="tg">
+          <tr>
+            <th class="tg-bq60">Directory</th>
+            <th class="tg-bq60">Subdirectories or Modules</th>
+            <th class="tg-bq60">Description</th>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Definitions</td>
+            <td class="tg-rkwu">
+              Syntax <br >
+              OperationalSemantics <br >
+              TypingClasses <br >
+              Typing <br >
+              Effects <br >
+              InitializationClasses <br >
+              Initialization <br >
+              PointsTo <br >
+              SubHeaps <br >
+              Safety
+            </td>
+            <td>
+              This directory contains all the definitions used in the proof.
+              Details of all the subdirectories are shown <a href="#definitions">below</a>.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">GeneralTyping</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.GeneralTyping.BndIntro.html">BndIntro.v</a> <br >
+              <a href="html/DOT.GeneralTyping.Narrowing.html">Narrowing.v</a> <br >
+              <a href="html/DOT.GeneralTyping.RenameConstructors.html">RenameConstructors.v</a> <br >
+              <a href="html/DOT.GeneralTyping.Substitution.html">Substitution.v</a> <br >
+              <a href="html/DOT.GeneralTyping.Weakening.html">Weakening.v</a>
+            </td>
+            <td>
+              The modules in this directory contain lemmas related to the
+              Type System.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">CanonicalForms</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.CanonicalForms.HeapCorrespondence.html">HeapCorrespondence.v</a> <br >
+              <a href="html/DOT.CanonicalForms.HeapUpdateCorrespondence.html">HeapUpdateCorrespondence.v</a> <br >
+              <a href="html/DOT.CanonicalForms.DefRecordInertTyping.html">DefRecordInertTyping.v</a> <br >
+              <a href="html/DOT.CanonicalForms.SelReplacement.html">SelReplacement.v</a> <br >
+              <a href="html/DOT.CanonicalForms.InertGeneralTyping.html">InertGeneralTyping.v</a> <br >
+              <a href="html/DOT.CanonicalForms.InertTightSubtyping.html">InertTightSubtyping.v</a> <br >
+              <a href="html/DOT.CanonicalForms.InvertibleToPrecise.html">InvertibleToPrecise.v</a> <br >
+              <a href="html/DOT.CanonicalForms.PreciseTypingLemmas.html">PreciseTypingLemmas.v</a> <br >
+              <a href="html/DOT.CanonicalForms.TypingToGeneral.html">TypingToGeneral.v</a> <br >
+              <a href="html/DOT.CanonicalForms.GeneralToTight.html">GeneralToTight.v</a> <br >
+              <a href="html/DOT.CanonicalForms.TightToInvertible.html">TightToInvertible.v</a> <br >
+              <a href="html/DOT.CanonicalForms.CanonicalForms.html">CanonicalForms.v</a>
+            </td>
+            <td>
+              The modules in this directory contain the Rapoport et al. style
+              infrastructure for showing DOT type safety.
+              Notice that this infrastructure does not use the effect or
+              initialization systems, so the canonical forms lemma for objects
+              does not show that objects are null-free when field reads are
+              taking place.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Effects</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.Effects.EffectSubstitution.html">EffectSubstitution.v</a>
+            </td>
+            <td>
+              The modules in this directory contain lemmas related to the Effect
+              System.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Initialization</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.Initialization.VarsSubst.html">VarsSubst.v</a>
+              <a href="html/DOT.Initialization.InitLookupBinds.html">InitLookupBinds.v</a> <br >
+              <a href="html/DOT.Initialization.InitLookupNarrowing.html">InitLookupNarrowing.v</a> <br >
+              <a href="html/DOT.Initialization.InitLookupRestrict.html">InitLookupRestrict.v</a> <br >
+              <a href="html/DOT.Initialization.InitLookupStrengthen.html">InitLookupStrengthen.v</a> <br >
+              <a href="html/DOT.Initialization.InitLookupSubst.html">InitLookupSubst.v</a> <br >
+              <a href="html/DOT.Initialization.InitLookupWeaken.html">InitLookupWeaken.v</a> <br >
+              <a href="html/DOT.Initialization.InitLookupLemmas.html">InitLookupLemmas.v</a> <br >
+              <a href="html/DOT.Initialization.InitWeakening.html">InitWeakening.v</a> <br >
+              <a href="html/DOT.Initialization.InitNarrowing.html">InitNarrowing.v</a> <br >
+              <a href="html/DOT.Initialization.InitVarSubtyping.html">InitVarSubtyping.v</a> <br >
+              <a href="html/DOT.Initialization.InitSubstitution.html">InitSubstitution.v</a> <br >
+              <a href="html/DOT.Initialization.InitRenaming.html">InitRenaming.v</a> <br >
+              <a href="html/DOT.Initialization.InitTypingLemmas.html">InitTypingLemmas.v</a>
+            </td>
+            <td>
+              The modules in this directory contain lemmas related to the
+              Initialization System.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">SubHeaps</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.SubHeaps.HeapItemUpdateLemmas.html">HeapItemUpdateLemmas.v</a> <br >
+              <a href="html/DOT.SubHeaps.CommittedSubHeapLemmas.html">CommittedSubHeapLemmas</a> <br >
+              <a href="html/DOT.SubHeaps.FreeItemLemmas.html">FreeItemLemmas.v</a> <br >
+              <a href="html/DOT.SubHeaps.FreeSubHeapSingleLemmas.html">FreeSubHeapSingleLemmas.v</a> <br >
+              <a href="html/DOT.SubHeaps.FreeSubHeapStackLemmas.html">FreeSubHeapStackLemmas.v</a>
+            </td>
+            <td>
+              The modules in this directory contain the lemmas related to
+              subheaps.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Safety</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.Safety.StackTypingLemmas.html">StackTypingLemmas.v</a> <br >
+              <a href="html/DOT.Safety.Progress.html">Progress.v</a> <br >
+              <a href="html/DOT.Safety.Preservation.html">Preservation.v</a> <br >
+              <a href="html/DOT.Safety.Deterministic.html">Deterministic.v</a> <br >
+              <a href="html/DOT.Safety.Safety.html">Safety.v</a>
+            </td>
+            <td>
+              The modules in this directory contain the lemmas which show that
+              &#x03B9;DOT is type safe.
+              The <a href="html/DOT.Safety.Safety.html">Safety</a>
+              module collects together all the type safety lemmas, so a
+              successful compilation of this module proves &#x03B9;DOT is type
+              safe.
+              The <a href="html/DOT.Safety.StackTyping.html">Deterministic</a>
+              module shows that heap updates are deterministic.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Lib</td>
+            <td class="tg-rkwu">...</td>
+            <td>This directory contains miscellaneous lemmas built on top of the TLC library definitions and lemmas.</td>
+          </tr>
+        </table>
+
+        <p>
+          The subdirectories of the <span>Definitions</span> are described below.
+        </p>
+
+        <table class="tg" id="definitions">
+          <tr>
+            <th class="tg-bq60">Directory</th>
+            <th class="tg-bq60">Subdirectories or Modules</th>
+            <th class="tg-bq60">Description</th>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Definitions/Syntax</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.Definitions.Syntax.Vars.html">Vars.v</a> <br >
+              <a href="html/DOT.Definitions.Syntax.Types.html">Types.v</a> <br >
+              <a href="html/DOT.Definitions.Syntax.Terms.html">Terms.v</a> <br >
+              <a href="html/DOT.Definitions.Syntax.Items.html">Items.v</a> <br >
+              <a href="html/DOT.Definitions.Syntax.AbstractMachine.html">AbstractMachine.v</a> <br >
+              <a href="html/DOT.Definitions.Syntax.AbstractSyntax.html">AbstractSyntax.v</a>
+            </td>
+            <td>
+              This directory contains the definitions for the abstract syntax
+              of &#x03B9;DOT, namely types, terms, heap items, and the abstract
+              machine.
+              The <a href="html/DOT.Definitions.Syntax.Vars.html">Vars</a>
+              module defines variables using the locally nameless
+              representation.
+              The <a href="html/DOT.Definitions.Syntax.AbstractSyntax.html">AbstractSyntax</a>
+              collects the syntax definitions together so that they can be imported altogether.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Definitions/OperationalSemantics</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.Definitions.OperationalSemantics.HeapUpdate.html">HeapUpdate.v</a> <br >
+              <a href="html/DOT.Definitions.OperationalSemantics.OperationalSemantics.html">OperationalSemantics.v</a>
+            </td>
+            <td>
+              The modules in this directory defines the operational semantics of
+              of &#x03B9;DOT.
+              The <a href="html/DOT.Definitions.OperationalSemantics.HeapUpdate.html">HeapUpdate</a>
+              module defines how heap items are updated by field writes
+              and <a href="html/DOT.Definitions.OperationalSemantics.OperationalSemantics.html">OperationalSemantics</a>
+              defines how the abstract machine takes steps.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Definitions/Typing</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.Definitions.Typing.GeneralTyping.html">GeneralTyping.v</a> <br >
+              <a href="html/DOT.Definitions.Typing.InertTypes.html">InertTypes.v</a> <br >
+              <a href="html/DOT.Definitions.Typing.RecordTypes.html">RecordTypes.v</a> <br >
+              <a href="html/DOT.Definitions.Typing.PreciseTyping.html">PreciseTyping.v</a> <br >
+              <a href="html/DOT.Definitions.Typing.InvertibleTyping.html">InvertibleTyping.v</a> <br >
+              <a href="html/DOT.Definitions.Typing.TightTyping.html">TightTyping.v</a> <br >
+              <a href="html/DOT.Definitions.Typing.Subenvironments.html">Subenvironments.v</a>
+            </td>
+            <td>
+              The modules in this directory defines typing rules for &#x03B9;DOT
+              and the various additional typing relations that are useful for
+              proving type safety.
+              The <a href="html/DOT.Definitions.Typing.GeneralTyping.html">GeneralTyping</a>
+              module defines the main &#x03B9;DOT type system.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Definitions/Effects</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.Definitions.Effects.Effects.html">Effects.v</a> <br >
+              <a href="html/DOT.Definitions.Effects.HeapEffects.html">HeapEffects.v</a> <br >
+              <a href="html/DOT.Definitions.Effects.EffectUpdate.html">EffectUpdate.v</a> <br >
+              <a href="html/DOT.Definitions.Effects.EffectCorrespondence.html">EffectCorrespondence.v</a>
+            </td>
+            <td>
+              The modules in this directory defines the effect system and the
+              effect related invariants required for type safety.
+              The <a href="html/DOT.Definitions.Effects.Effects.html">Effects</a>
+              module defines the main &#x03B9;DOT effect system.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Definitions/Initialization</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.Definitions.Initialization.InitLookup.html">InitLookup.v</a> <br >
+              <a href="html/DOT.Definitions.Initialization.InitTyping.html">InitTyping.v</a> <br >
+              <a href="html/DOT.Definitions.Initialization.InertInitContexts.html">InertInitContexts.v</a>
+            </td>
+            <td>
+              The modules in this directory defines the initialization system
+              and the initialization related invariants required for type
+              safety.
+              The <a href="html/DOT.Definitions.Initialization.InitTyping.html">InitTyping</a>
+              module defines the main &#x03B9;DOT initialization system.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Definitions/PointsTo</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.Definitions.PointsTo.HeapDefsPointsTo.html">HeapDefsPointsTo.v</a> <br >
+              <a href="html/DOT.Definitions.PointsTo.WellPointed.html">WellPointed.v</a>
+            </td>
+            <td>
+              The modules in this directory defines the pointer invariants
+              required for type safety.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Definitions/SubHeaps</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.Definitions.SubHeaps.CommittedSubHeap.html">CommittedSubHeap.v</a> <br >
+              <a href="html/DOT.Definitions.SubHeaps.FreeItems.html">FreeItems.v</a> <br >
+              <a href="html/DOT.Definitions.SubHeaps.FreeSubHeapSingle.html">FreeSubHeapSingle.v</a> <br >
+              <a href="html/DOT.Definitions.SubHeaps.FreeSubHeapStack.html">FreeSubHeapStack.v</a>
+            </td>
+            <td>
+              The modules in this directory defines the "conceptual" subheaps
+              required for showing type safety for Freedom Before Commitment
+              style initialization systems.
+              The <a href="html/DOT.Definitions.SubHeaps.CommittedSubHeap.html">CommittedSubHeap</a>
+              module contains definitions for committed items and committed subheaps, and
+              the rest of the modules contain definitions for free items and free subheaps.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Definitions/Safety</td>
+            <td class="tg-rkwu">
+              <a href="html/DOT.Definitions.Safety.StackTyping.html">StackTyping.v</a> <br >
+              <a href="html/DOT.Definitions.Safety.ConfigTyping.html">ConfigTyping.v</a>
+            </td>
+            <td>
+              The modules in this directory extends the type, effect, and
+              initialization systems to the abstract machine.
+              The <a href="html/DOT.Definitions.Safety.ConfigTyping.html">ConfigTyping</a>
+              module collects together all the runtime invariants required for
+              type safety.
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Definitions/TypingClasses</td>
+            <td class="tg-rkwu">...</td>
+            <td>This directory defines the type classes for Typing. The instances of the type classes are defined elsewhere.</td>
+          </tr>
+          <tr>
+            <td class="tg-rkwu">Definitions/InitializationClasses</td>
+            <td class="tg-rkwu">...</td>
+            <td>This directory defines the type classes for Typing. The instances of the type classes are defined elsewhere.</td>
+          </tr>
+        </table>
+
+        <h3>Proof Dependency</h3>
+        <p>
+        <p>
+          You may find a dependency diagram of all the modules below.
+          Click on the image get a larger view.
+        </p>
+
+        <p>
+          <center>
+            <a href="graph.png">
+              <img src="graph.png" style="width: 100%;" alt="Please run 'make graph' in the proof directory to generate this graph.">
+            </a>
+          </center>
+        </p>
+    </div>
+    <div id="footer">
+    Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+    </div>
+</div>
+</body>
+
+</html>

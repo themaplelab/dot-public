@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="assets/resources/coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="assets/resources/coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="assets/resources/config.js"></script>
+<script type="text/javascript" src="assets/resources/coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../README.html">README</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<h1 class="libtitle">DOT.Definitions.SubHeaps.FreeItems</h1>
+
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Set Implicit Arguments</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Lib.LibExtra.html#"><span class="id" title="library">LibExtra</span></a> <a class="idref" href="DOT.Lib.DotTactics.html#"><span class="id" title="library">DotTactics</span></a> <a class="idref" href="DOT.Definitions.Syntax.AbstractSyntax.html#"><span class="id" title="library">AbstractSyntax</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.Effects.Effects.html#"><span class="id" title="library">Effects</span></a> <a class="idref" href="DOT.Definitions.Effects.HeapEffects.html#"><span class="id" title="library">HeapEffects</span></a>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="DOT.Definitions.PointsTo.HeapDefsPointsTo.html#"><span class="id" title="library">HeapDefsPointsTo</span></a> <a class="idref" href="DOT.Definitions.PointsTo.WellPointed.html#"><span class="id" title="library">WellPointed</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab95"></a><h1 class="section">Free Subheap items</h1>
+<a name="lab96"></a><h2 class="section">Heap Definitions in Free Subheaps</h2>
+
+</div>
+<div class="code">
+<span class="comment">(*&nbsp;If&nbsp;the&nbsp;object&nbsp;with&nbsp;reference&nbsp;<span class="inlinecode"><span class="id" title="var">y</span></span>&nbsp;has&nbsp;the&nbsp;definitions&nbsp;<span class="inlinecode"><span class="id" title="var">hds</span></span>&nbsp;and&nbsp;belongs&nbsp;to&nbsp;a<br/>
+&nbsp;&nbsp;&nbsp;free&nbsp;subheap&nbsp;represented&nbsp;by&nbsp;<span class="inlinecode"><span class="id" title="var">Delta</span></span>&nbsp;and&nbsp;<span class="inlinecode"><span class="id" title="var">ℰ</span></span>,&nbsp;the&nbsp;references&nbsp;in&nbsp;<span class="inlinecode"><span class="id" title="var">hds</span></span>&nbsp;must&nbsp;be<br/>
+&nbsp;&nbsp;&nbsp;well-pointed&nbsp;with&nbsp;respect&nbsp;to&nbsp;<span class="inlinecode"><span class="id" title="var">Delta</span></span>&nbsp;and&nbsp;<span class="inlinecode"><span class="id" title="var">ℰ</span></span>.&nbsp;*)</span><br/>
+<span class="id" title="keyword">Definition</span> <a name="free_heap_defs"><span class="id" title="definition">free_heap_defs</span></a> (<span class="id" title="var">Delta</span> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#init_ctx"><span class="id" title="abbreviation">init_ctx</span></a>) (<span class="id" title="var">ℰ</span> : <a class="idref" href="DOT.Definitions.Effects.Effects.html#eff_ctx"><span class="id" title="abbreviation">eff_ctx</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">y</span> : <span class="id" title="axiom">var</span>) (<span class="id" title="var">hds</span> : <a class="idref" href="DOT.Definitions.Syntax.Items.html#heap_defs"><span class="id" title="abbreviation">heap_defs</span></a>) :=<br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;y&nbsp;is&nbsp;free&nbsp;in&nbsp;Delta&nbsp;*)</span><br/>
+&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="DOT.Definitions.Syntax.Types.html#free"><span class="id" title="constructor">free</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#Delta"><span class="id" title="variable">Delta</span></a> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;ℰ&nbsp;&nbsp;tracks&nbsp;the&nbsp;null&nbsp;fields&nbsp;of&nbsp;y&nbsp;*)</span><br/>
+&nbsp;&nbsp;<span class="id" title="definition">binds</span> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#y"><span class="id" title="variable">y</span></a> (<a class="idref" href="DOT.Definitions.Effects.HeapEffects.html#heap_defs_effs"><span class="id" title="definition">heap_defs_effs</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#hds"><span class="id" title="variable">hds</span></a>)  <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <span class="id" title="notation">/\</span><br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;For&nbsp;all&nbsp;fields&nbsp;of&nbsp;y&nbsp;of&nbsp;the&nbsp;form&nbsp;a&nbsp;=&nbsp;x&nbsp;(a&nbsp;field&nbsp;name),&nbsp;x&nbsp;is<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;well&nbsp;pointed:&nbsp;x&nbsp;is&nbsp;either&nbsp;committed&nbsp;according&nbsp;to&nbsp;Delta&nbsp;or<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;is&nbsp;some&nbsp;item&nbsp;in&nbsp;the&nbsp;effects&nbsp;context&nbsp;ℰ&nbsp;that's&nbsp;free&nbsp;*)</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">forall</span> <span class="id" title="var">x</span>, <span class="id" title="notation">(</span><a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#x"><span class="id" title="variable">x</span></a> <span class="id" title="notation">\</span><span class="id" title="notation">in</span> <a class="idref" href="DOT.Definitions.PointsTo.HeapDefsPointsTo.html#heap_defs_points_to"><span class="id" title="definition">heap_defs_points_to</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#hds"><span class="id" title="variable">hds</span></a><span class="id" title="notation">)</span> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.PointsTo.WellPointed.html#well_pointed"><span class="id" title="abbreviation">well_pointed</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#x"><span class="id" title="variable">x</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab97"></a><h2 class="section">Heap Items in Free Subheaps</h2>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Inductive</span> <a name="free_heap_item"><span class="id" title="inductive">free_heap_item</span></a> : <a class="idref" href="DOT.Definitions.Syntax.Types.html#init_ctx"><span class="id" title="abbreviation">init_ctx</span></a> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Effects.Effects.html#eff_ctx"><span class="id" title="abbreviation">eff_ctx</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="axiom">var</span> <span class="id" title="notation">-&gt;</span> <a class="idref" href="DOT.Definitions.Syntax.Items.html#item"><span class="id" title="inductive">item</span></a> <span class="id" title="notation">-&gt;</span> <span class="id" title="keyword">Prop</span> :=<br/>
+</div>
+
+<div class="doc">
+A item <span class="inlinecode"><span class="id" title="var">y</span></span> that bounds to an object with type <span class="inlinecode"><span class="id" title="var">T</span></span> and heap definitions <span class="inlinecode"><span class="id" title="var">hds</span></span>
+    is free if the <span class="inlinecode"><span class="id" title="var">hds</span></span> are free. 
+</div>
+<div class="code">
+| <a name="free_heap_obj"><span class="id" title="constructor">free_heap_obj</span></a> : <span class="id" title="keyword">forall</span> <span class="id" title="var">Delta</span> <span class="id" title="var">ℰ</span> <span class="id" title="var">y</span> <span class="id" title="var">T</span> <span class="id" title="var">hds</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#free_heap_defs"><span class="id" title="definition">free_heap_defs</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#y"><span class="id" title="variable">y</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#hds"><span class="id" title="variable">hds</span></a> <span class="id" title="notation">-&gt;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#free_heap_item"><span class="id" title="inductive">free_heap_item</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#Delta"><span class="id" title="variable">Delta</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#dc1b905d8ef0ab32d16a033ee43ce82f"><span class="id" title="variable">ℰ</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#y"><span class="id" title="variable">y</span></a> (<a class="idref" href="DOT.Definitions.Syntax.Items.html#item_obj"><span class="id" title="constructor">item_obj</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#hds"><span class="id" title="variable">hds</span></a>).<br/>
+<span class="id" title="keyword">Hint Constructors</span> <a class="idref" href="DOT.Definitions.SubHeaps.FreeItems.html#free_heap_item"><span class="id" title="inductive">free_heap_item</span></a> : <span class="id" title="var">core</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

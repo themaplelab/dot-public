@@ -6,7 +6,7 @@ on path-dependent types.
 
 This repo collects a bunch of type safety proofs of the DOT calculus.
 
-## Simpler DOT Calculi
+## Simpler Type Safety for DOT Calculi
 
 Some simplifications of the [Rapoport et
 al.](https://github.com/amaurremi/dot-calculus/tree/master/src/simple-proof)
